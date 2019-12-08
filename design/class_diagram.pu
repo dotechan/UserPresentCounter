@@ -1,0 +1,74 @@
+@startuml
+
+title [クラス図]
+
+' === 定義 ===
+package android {
+    class SharedPreferences
+    class Notification
+}
+
+class BootBroadcastReceiver <<BroadcastReceiver>> {
+    + onReceive()
+}
+class BootService <<Service>> {
+    + onStartCommand()
+    - registerReceiver()
+}
+
+package user.present.count {
+    class CountReceiver <<BroadcastReceiver>> {
+        + onReceive()
+    }
+
+    class CountService <<Service>> {
+        + onStartCommand()
+    }
+
+    class MainActivity <<Activity>> {
+        + showCounter()
+        + showResetCountScreen()
+    }
+
+    class DisplayCountFragment <<Fragment>> {
+        + showCounter()
+    }
+
+    class DisplayCountViewModel <<ViewModel>> {
+    }
+
+    class ResetTotalCountFragment <<Fragment>> {
+        + resetTotalCount()
+        - saveTotalCount()
+    }
+
+    class ResetTotalCountViewModel <<ViewModel>> {
+
+    }
+}
+
+package data {
+    class UserPresentCountRepository
+    class UserPresentCountLocalDataSource
+    class UserPresentCount
+}
+
+' === 関係 ===
+BootBroadcastReceiver "1" -- "1" BootService : start >
+BootService "1" -- "1" CountReceiver : register >
+BootService "1" --> "1" Notification
+
+CountReceiver "1" -- "1" CountService : use >
+CountService "1" o--> "1" UserPresentCountRepository
+UserPresentCountRepository "1" o--> "1" UserPresentCountLocalDataSource
+UserPresentCountLocalDataSource "1" ..> "1" UserPresentCount
+UserPresentCountLocalDataSource "1" --> "1" SharedPreferences
+
+MainActivity -- DisplayCountFragment : create >
+MainActivity -- ResetTotalCountFragment : create >
+DisplayCountFragment -- DisplayCountViewModel
+ResetTotalCountFragment -- ResetTotalCountViewModel
+DisplayCountViewModel -- UserPresentCountRepository
+ResetTotalCountViewModel -- UserPresentCountRepository
+
+@enduml
