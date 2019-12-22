@@ -35,7 +35,7 @@
             android:exported="false"></service>
 
         <receiver
-            android:name=".count.CountReceiver"
+            android:name=".count.UserPresentReceiver"
             android:enabled="true"></receiver>
     </application>
 

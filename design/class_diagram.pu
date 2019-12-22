@@ -17,7 +17,7 @@ class BootService <<Service>> {
 }
 
 package user.present.count {
-    class CountReceiver <<BroadcastReceiver>> {
+    class UserPresentReceiver <<BroadcastReceiver>> {
         + onReceive()
     }
 
@@ -55,10 +55,10 @@ package data {
 
 ' === 関係 ===
 BootBroadcastReceiver "1" -- "1" BootService : start >
-BootService "1" -- "1" CountReceiver : register >
+BootService "1" -- "1" UserPresentReceiver : register >
 BootService "1" --> "1" Notification
 
-CountReceiver "1" -- "1" CountService : use >
+UserPresentReceiver "1" -- "1" CountService : use >
 CountService "1" o--> "1" UserPresentCountRepository
 UserPresentCountRepository "1" o--> "1" UserPresentCountLocalDataSource
 UserPresentCountLocalDataSource "1" ..> "1" UserPresentCount
