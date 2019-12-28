@@ -1,13 +1,19 @@
 package com.example.user.present.counter;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
 import com.example.user.present.counter.count.UserPresentReceiver;
 
@@ -34,7 +40,14 @@ public class BootService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: ");
-        // TODO: Notificationを作成してフォアグラウンドサービスとして実行する
+        // TODO: Notificationののデザインガイド
+        // https://material.io/design/platform-guidance/android-notifications.html#
+
+        createNotificationChannel();
+        startForeground(1, createNotification());
+
+        // TODO: 通知のタップ アクションを設定する
+//        https://developer.android.com/training/notify-user/build-notification?hl=ja#click
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -65,5 +78,33 @@ public class BootService extends Service {
 
     private void unregisterUserPresentReceiver() {
         unregisterReceiver(mUserPresentReceiver);
+    }
+
+    private Notification createNotification() {
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+        Notification notification = new NotificationCompat.Builder(this, "temp_id")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("temp title")
+                .setContentText("temp text")
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .build();
+
+        return notification;
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            NotificationChannel channel =
+                    new NotificationChannel("temp_id", name, NotificationManager.IMPORTANCE_LOW);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
