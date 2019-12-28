@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">UserPresentCounter</string>
+    <string name="channel_name">channel_name</string>
+    <string name="channel_description">channel_description</string>
+    <string name="preference_file_key">key</string>
+    <string name="saved_unlock_count_key">key_unlock_count</string>
 </resources>
