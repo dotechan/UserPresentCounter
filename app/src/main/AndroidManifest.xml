@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user.present.counter">
 
+    <!-- Permissionの記述忘れていてLOCKED_BOOT_COMPLETEDが受け取れず時間溶かした -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,7 +40,13 @@
 
         <receiver
             android:name=".count.UserPresentReceiver"
+            android:directBootAware="true"
             android:enabled="true"></receiver>
+
+        <service
+            android:name=".count.UserPresentService"
+            android:directBootAware="true"
+            android:exported="false"></service>
     </application>
 
 </manifest>
