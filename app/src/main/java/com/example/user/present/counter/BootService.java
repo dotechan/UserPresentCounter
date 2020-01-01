@@ -49,7 +49,7 @@ public class BootService extends Service {
         // TODO: 通知のタップ アクションを設定する
 //        https://developer.android.com/training/notify-user/build-notification?hl=ja#click
 
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     @Nullable

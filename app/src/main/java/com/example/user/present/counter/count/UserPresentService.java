@@ -19,8 +19,6 @@ public class UserPresentService extends Service {
 
     private static final String TAG = "UserPresentService";
 
-    private static final int INITIAL_UNLOCK_COUNT = 0;
-
     @Override
     public void onCreate() {
         Log.d(TAG, "onCreate: ");
@@ -33,7 +31,8 @@ public class UserPresentService extends Service {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         final int originalUnlockCount =
-                sharedPreferences.getInt(getString(R.string.saved_unlock_count_key), INITIAL_UNLOCK_COUNT);
+                sharedPreferences.getInt(getString(R.string.saved_unlock_count_key),
+                        getResources().getInteger(R.integer.initial_unlock_count));
         final int currentUnlockCount = originalUnlockCount + 1;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(getString(R.string.saved_unlock_count_key), currentUnlockCount);

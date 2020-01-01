@@ -12,7 +12,6 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "onReceive: ");
         boolean bootCompleted;
         String action = intent.getAction();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -23,6 +22,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
         if (!bootCompleted) {
             return;
         }
+        Log.d(TAG, "onReceive: action = " + intent.getAction());
 
         Intent bootServiceIntent = new Intent(context.getApplicationContext(), BootService.class);
         // Android8.0よりバックグラウンドからバックグラウンドサービスを起動することはできない
