@@ -64,6 +64,7 @@ public class BootService extends Service {
         Log.d(TAG, "onDestroy: ");
         super.onDestroy();
 
+        // TODO: ForegroundServiceにしているんだけどすぐにonDestroyがコールされてしまうなあ
         unregisterUserPresentReceiver();
     }
 

@@ -1,15 +1,22 @@
 package com.example.user.present.counter.count;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 
+import com.example.user.present.counter.MainActivity;
 import com.example.user.present.counter.R;
 
 import java.io.FileDescriptor;
@@ -38,6 +45,9 @@ public class UserPresentService extends Service {
         editor.putInt(getString(R.string.saved_unlock_count_key), currentUnlockCount);
         editor.commit();
 
+        createNotificationChannel();
+        startForeground(1, createNotification());
+
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -62,5 +72,33 @@ public class UserPresentService extends Service {
     @Override
     protected void dump(FileDescriptor fd, PrintWriter writer, String[] args) {
         super.dump(fd, writer, args);
+    }
+
+    private Notification createNotification() {
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+        Notification notification = new NotificationCompat.Builder(this, "temp_id")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("temp title")
+                .setContentText("temp text")
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .build();
+
+        return notification;
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            NotificationChannel channel =
+                    new NotificationChannel("temp_id", name, NotificationManager.IMPORTANCE_LOW);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
