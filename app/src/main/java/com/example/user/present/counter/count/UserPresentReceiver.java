@@ -14,14 +14,15 @@ public class UserPresentReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO: 起動回数をカウントする
         Log.d(TAG, "onReceive: " + intent.getAction());
 
         Intent serviceIntent = new Intent(context.getApplicationContext(), UserPresentService.class);
         // Android8.0よりバックグラウンドからバックグラウンドサービスを起動することはできない
         // startForegroundService()を利用することで新しいサービスを実行することができる
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(serviceIntent);
+//            context.startForegroundService(serviceIntent);
+            // TODO: フォアグラウンドサービスからバックグラウンドサービスを起動することはできたのでUserPresentServiceはバックグラウンドサービスに修正する
+            context.startService(serviceIntent);
         } else {
             context.startService(serviceIntent);
         }

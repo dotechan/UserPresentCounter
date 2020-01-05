@@ -88,8 +88,8 @@ public class BootService extends Service {
 
         Notification notification = new NotificationCompat.Builder(this, "temp_id")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("temp title")
-                .setContentText("temp text")
+                .setContentTitle("boot service title")
+                .setContentText("boot service content text")
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .build();
 

@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO: SharedPreferencesへのアクセスを行うクラスに切り出した方がいい
                 // TODO: SharedPreferencesの更新後に画面表示の更新処理も行う必要あり
-                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
+                Context directBootContext = getApplicationContext().createDeviceProtectedStorageContext();
+                SharedPreferences sharedPreferences = directBootContext.getSharedPreferences(
                         getString(R.string.preference_file_key), Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putInt(getString(R.string.saved_unlock_count_key),
@@ -47,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onResume: ");
         super.onResume();
 
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(
+        Context directBootContext = getApplicationContext().createDeviceProtectedStorageContext();
+        SharedPreferences sharedPreferences = directBootContext.getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         final int originalUnlockCount =
                 sharedPreferences.getInt(getString(R.string.saved_unlock_count_key),
