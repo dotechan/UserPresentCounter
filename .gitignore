@@ -83,3 +83,9 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+# ito add start
+design/*
+!*.pu
+# ito add end
+
