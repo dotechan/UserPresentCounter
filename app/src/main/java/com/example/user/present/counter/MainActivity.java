@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                         getResources().getInteger(R.integer.initial_unlock_count));
 
         TextView countTextView = findViewById(R.id.user_present_count);
-        countTextView.setText("count : " + originalUnlockCount);
+        countTextView.setText("count = " + originalUnlockCount);
     }
 
     @Override
