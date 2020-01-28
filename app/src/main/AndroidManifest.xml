@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.user.present.counter">
 
-    <!-- Permissionの記述忘れていてLOCKED_BOOT_COMPLETEDが受け取れず時間溶かした -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
@@ -22,30 +20,11 @@
         </activity>
 
         <receiver
-            android:name=".BootBroadcastReceiver"
-            android:directBootAware="true"
-            android:exported="false">
-
-            <!-- Listening the BOOT_COMPLETED action for legacy pre-N devices -->
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".BootService"
-            android:directBootAware="true"
-            android:exported="false"></service>
-
-        <receiver
             android:name=".count.UserPresentReceiver"
-            android:directBootAware="true"
             android:enabled="true"></receiver>
 
         <service
             android:name=".count.UserPresentService"
-            android:directBootAware="true"
             android:exported="false"></service>
     </application>
 

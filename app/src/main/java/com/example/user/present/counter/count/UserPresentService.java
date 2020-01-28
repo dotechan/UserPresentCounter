@@ -36,11 +36,7 @@ public class UserPresentService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand: ");
 
-        // 認証情報暗号化ストレージではなくデバイス暗号化ストレージに保存する
-        // これは認証情報暗号化ストレージにアクセスできない状態でExceptionが発生し
-        // フォアグラウンドサービスが停止されてしまうのを防ぐためでもある
-        Context directBootContext = getApplicationContext().createDeviceProtectedStorageContext();
-        SharedPreferences sharedPreferences = directBootContext.getSharedPreferences(
+        SharedPreferences sharedPreferences = getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         final int originalUnlockCount =
                 sharedPreferences.getInt(getString(R.string.saved_unlock_count_key),

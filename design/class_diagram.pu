@@ -8,14 +8,6 @@ package android {
     class Notification
 }
 
-class BootBroadcastReceiver <<BroadcastReceiver>> {
-    + onReceive()
-}
-class BootService <<Service>> {
-    + onStartCommand()
-    - registerReceiver()
-}
-
 package user.present.count {
     class UserPresentReceiver <<BroadcastReceiver>> {
         + onReceive()
@@ -54,10 +46,6 @@ package data {
 }
 
 ' === 関係 ===
-BootBroadcastReceiver "1" -- "1" BootService : start >
-BootService "1" -- "1" UserPresentReceiver : register >
-BootService "1" --> "1" Notification
-
 UserPresentReceiver "1" -- "1" CountService : use >
 CountService "1" o--> "1" UserPresentCountRepository
 UserPresentCountRepository "1" o--> "1" UserPresentCountLocalDataSource
