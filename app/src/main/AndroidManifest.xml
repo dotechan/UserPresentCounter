@@ -19,6 +19,10 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".BootService"
+            android:exported="false"></service>
+
         <receiver
             android:name=".count.UserPresentReceiver"
             android:enabled="true"></receiver>

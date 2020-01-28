@@ -1,8 +1,8 @@
 package com.example.user.present.counter;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,10 +20,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button startButton = findViewById(R.id.start_button);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: start");
+                Intent bootServiceIntent = new Intent(getApplicationContext(), BootService.class);
+                startService(bootServiceIntent);
+            }
+        });
+
+        Button stopButton = findViewById(R.id.stop_button);
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: stop");
+                Intent bootServiceIntent = new Intent(getApplicationContext(), BootService.class);
+                stopService(bootServiceIntent);
+            }
+        });
+
         Button resetButton = findViewById(R.id.reset_button);
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: reset");
                 // TODO: SharedPreferencesへのアクセスを行うクラスに切り出した方がいい
                 // TODO: SharedPreferencesの更新後に画面表示の更新処理も行う必要あり
                 SharedPreferences sharedPreferences = getSharedPreferences(
