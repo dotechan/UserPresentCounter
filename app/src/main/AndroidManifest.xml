@@ -20,7 +20,7 @@
         </activity>
 
         <service
-            android:name=".BootService"
+            android:name=".MeasurementService"
             android:exported="false"></service>
 
         <receiver
@@ -28,7 +28,7 @@
             android:enabled="true"></receiver>
 
         <service
-            android:name=".count.UserPresentService"
+            android:name=".count.RecordService"
             android:exported="false"></service>
     </application>
 

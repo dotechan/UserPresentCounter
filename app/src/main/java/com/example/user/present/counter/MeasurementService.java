@@ -17,15 +17,15 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.user.present.counter.count.UserPresentReceiver;
 
-public class BootService extends Service {
+public class MeasurementService extends Service {
 
-    private static final String TAG = "BootService";
+    private static final String TAG = "MeasurementService";
 
     private UserPresentReceiver mUserPresentReceiver = null;
 
     @Override
     public void onCreate() {
-        Log.d(TAG, "onCreate: ");
+        Log.d(TAG, "onCreate");
         super.onCreate();
 
         registerUserPresentReceiver();
@@ -33,13 +33,13 @@ public class BootService extends Service {
 
     @Override
     public ComponentName startForegroundService(Intent service) {
-        Log.d(TAG, "startForegroundService: ");
+        Log.d(TAG, "startForegroundService");
         return super.startForegroundService(service);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand: ");
+        Log.d(TAG, "onStartCommand");
         // TODO: Notificationののデザインガイド
         // https://material.io/design/platform-guidance/android-notifications.html#
 
@@ -55,13 +55,13 @@ public class BootService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d(TAG, "onBind: ");
+        Log.d(TAG, "onBind");
         throw  new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "onDestroy: ");
+        Log.d(TAG, "onDestroy");
         super.onDestroy();
 
         // TODO: ForegroundServiceにしているんだけどすぐにonDestroyがコールされてしまうなあ
@@ -69,7 +69,7 @@ public class BootService extends Service {
     }
 
     private void registerUserPresentReceiver() {
-        Log.d(TAG, "registerUserPresentReceiver: ");
+        Log.d(TAG, "registerUserPresentReceiver");
 
         mUserPresentReceiver = new UserPresentReceiver();
         IntentFilter intentFilter = new IntentFilter();

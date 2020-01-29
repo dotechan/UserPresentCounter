@@ -8,6 +8,15 @@ package android {
     class Notification
 }
 
+class MainActivity <<Activity>> {
+    + showCounter()
+    + showResetCountScreen()
+}
+
+class MeasurementService <<Service>> {
+
+}
+
 package user.present.count {
     class UserPresentReceiver <<BroadcastReceiver>> {
         + onReceive()
@@ -15,11 +24,6 @@ package user.present.count {
 
     class CountService <<Service>> {
         + onStartCommand()
-    }
-
-    class MainActivity <<Activity>> {
-        + showCounter()
-        + showResetCountScreen()
     }
 
     class DisplayCountFragment <<Fragment>> {
@@ -46,6 +50,8 @@ package data {
 }
 
 ' === 関係 ===
+MainActivity -- MeasurementService : create >
+MeasurementService "1" o-- "1" UserPresentReceiver
 UserPresentReceiver "1" -- "1" CountService : use >
 CountService "1" o--> "1" UserPresentCountRepository
 UserPresentCountRepository "1" o--> "1" UserPresentCountLocalDataSource
