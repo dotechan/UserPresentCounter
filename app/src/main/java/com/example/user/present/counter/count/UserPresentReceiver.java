@@ -15,7 +15,7 @@ public class UserPresentReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive: " + intent.getAction());
 
-        Intent serviceIntent = new Intent(context.getApplicationContext(), UserPresentService.class);
+        Intent serviceIntent = new Intent(context.getApplicationContext(), RecordService.class);
         // フォアグラウンドサービスを起動中であればバックグラウンドサービスを起動することができる
         context.startService(serviceIntent);
     }
