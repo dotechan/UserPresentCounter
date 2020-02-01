@@ -46,9 +46,6 @@ public class MeasurementService extends Service {
         createNotificationChannel();
         startForeground(1, createNotification());
 
-        // TODO: 通知のタップ アクションを設定する
-//        https://developer.android.com/training/notify-user/build-notification?hl=ja#click
-
         return START_STICKY;
     }
 
@@ -82,15 +79,20 @@ public class MeasurementService extends Service {
     }
 
     private Notification createNotification() {
-        Intent notificationIntent = new Intent(this, MainActivity.class);
+        // 標準のアクティビティのPendingIntentを設定する
+        // https://developer.android.com/training/notify-user/navigation.html?hl=ja#DirectEntry
+        Intent intent = new Intent(this, MainActivity.class);
+        // TODO: MainActivityを開いているときにNotificationをクリックするとMainActivityが二重起動するので修正する
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 0, notificationIntent, 0);
+                PendingIntent.getActivity(this, 0, intent, 0);
 
         Notification notification = new NotificationCompat.Builder(this, "temp_id")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("boot service title")
                 .setContentText("boot service content text")
                 .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(false)
                 .build();
 
         return notification;
