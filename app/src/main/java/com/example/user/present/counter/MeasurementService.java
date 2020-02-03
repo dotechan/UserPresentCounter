@@ -82,7 +82,6 @@ public class MeasurementService extends Service {
         // 標準のアクティビティのPendingIntentを設定する
         // https://developer.android.com/training/notify-user/navigation.html?hl=ja#DirectEntry
         Intent intent = new Intent(this, MainActivity.class);
-        // TODO: MainActivityを開いているときにNotificationをクリックするとMainActivityが二重起動するので修正する
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, intent, 0);
 
