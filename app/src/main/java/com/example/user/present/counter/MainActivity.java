@@ -56,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        Log.d(TAG, "onNewIntent");
+        super.onNewIntent(intent);
+    }
+
+    @Override
     protected void onResume() {
         Log.d(TAG, "onResume");
         super.onResume();
