@@ -13,6 +13,10 @@ class MainActivity <<Activity>> {
     + showResetCountScreen()
 }
 
+class MeasurementReceiver <<BroadcastReceiver>> {
+    + onREceive()
+}
+
 class MeasurementService <<Service>> {
 
 }
@@ -22,7 +26,7 @@ package user.present.count {
         + onReceive()
     }
 
-    class CountService <<Service>> {
+    class RecordService <<Service>> {
         + onStartCommand()
     }
 
@@ -50,10 +54,12 @@ package data {
 }
 
 ' === 関係 ===
-MainActivity -- MeasurementService : create >
+MainActivity "1" o-- "1" MeasurementReceiver
+MeasurementReceiver --> MeasurementService : start / stop >
 MeasurementService "1" o-- "1" UserPresentReceiver
-UserPresentReceiver "1" -- "1" CountService : use >
-CountService "1" o--> "1" UserPresentCountRepository
+MeasurementService "1" -- "1" Notification : create >
+UserPresentReceiver "1" -- "1" RecordService : use >
+RecordService "1" o--> "1" UserPresentCountRepository
 UserPresentCountRepository "1" o--> "1" UserPresentCountLocalDataSource
 UserPresentCountLocalDataSource "1" ..> "1" UserPresentCount
 UserPresentCountLocalDataSource "1" --> "1" SharedPreferences

@@ -21,6 +21,8 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".MeasurementReceiver" />
+
         <service
             android:name=".MeasurementService"
             android:exported="false"></service>
