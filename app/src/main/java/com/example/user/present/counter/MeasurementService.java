@@ -85,6 +85,17 @@ public class MeasurementService extends Service {
         PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, intent, 0);
 
+        Intent stopIntent = new Intent(this, MeasurementReceiver.class);
+        stopIntent.setAction(MeasurementReceiver.ACTION_STOP_MEASUREMENT);
+        PendingIntent stopPendingIntent =
+                PendingIntent.getBroadcast(this, 0, stopIntent, 0);
+
+        NotificationCompat.Action action = new NotificationCompat.Action.Builder(
+                R.drawable.ic_launcher_foreground,
+                getString(R.string.stop_measurement_from_notification),
+                stopPendingIntent)
+                .build();
+
         Notification notification = new NotificationCompat.Builder(this, "temp_id")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("boot service title")
@@ -92,6 +103,7 @@ public class MeasurementService extends Service {
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(false)
+                .addAction(action)
                 .build();
 
         return notification;
