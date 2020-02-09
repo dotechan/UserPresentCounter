@@ -1,8 +1,10 @@
 package com.example.user.present.counter;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+
+    MeasurementReceiver mMeasurementReceiver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
                 updateUnlockCountView();
             }
         });
+
+        registerMeasurementReceiver();
     }
 
     @Override
@@ -84,17 +90,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Log.d(TAG, "onDestroy");
+
+        unregisterMeasurementReceiver();
+
         super.onDestroy();
     }
 
+    private void registerMeasurementReceiver() {
+        mMeasurementReceiver = new MeasurementReceiver();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(MeasurementReceiver.ACTION_START_MEASUREMENT);
+        intentFilter.addAction(MeasurementReceiver.ACTION_STOP_MEASUREMENT);
+        registerReceiver(mMeasurementReceiver, intentFilter);
+    }
+
+    private void unregisterMeasurementReceiver() {
+        unregisterReceiver(mMeasurementReceiver);
+    }
+
     private void startMeasurement() {
-        Intent bootServiceIntent = new Intent(getApplicationContext(), MeasurementService.class);
-        startService(bootServiceIntent);
+        Intent intent = new Intent(getApplicationContext(), MeasurementReceiver.class);
+        intent.setAction(MeasurementReceiver.ACTION_START_MEASUREMENT);
+        sendBroadcast(intent);
     }
 
     private void stopMeasurement() {
-        Intent bootServiceIntent = new Intent(getApplicationContext(), MeasurementService.class);
-        stopService(bootServiceIntent);
+        Intent intent = new Intent(getApplicationContext(), MeasurementReceiver.class);
+        intent.setAction(MeasurementReceiver.ACTION_STOP_MEASUREMENT);
+        sendBroadcast(intent);
     }
 
     private void resetUnlockCount() {
