@@ -3,9 +3,10 @@ package com.example.user.present.counter.count;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
+
+import timber.log.Timber;
 
 public class UserPresentReceiver extends BroadcastReceiver {
 
@@ -13,7 +14,7 @@ public class UserPresentReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "onReceive: " + intent.getAction());
+        Timber.d("onReceive: " + intent.getAction());
 
         Intent serviceIntent = new Intent(context.getApplicationContext(), RecordService.class);
         // フォアグラウンドサービスを起動中であればバックグラウンドサービスを起動することができる

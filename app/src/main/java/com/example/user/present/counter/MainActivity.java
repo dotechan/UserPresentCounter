@@ -7,10 +7,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(TAG, "onCreate");
+        Timber.d("onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: start");
+                Timber.d("onClick: start");
                 startMeasurement();
             }
         });
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         stopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: stop");
+                Timber.d("onClick: stop");
                 stopMeasurement();
             }
         });
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         resetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: reset");
+                Timber.d("onClick: reset");
                 resetUnlockCount();
                 updateUnlockCountView();
             }
@@ -57,19 +58,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        Log.d(TAG, "onStart");
+        Timber.d("onStart");
         super.onStart();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
-        Log.d(TAG, "onNewIntent");
+        Timber.d("onNewIntent");
         super.onNewIntent(intent);
     }
 
     @Override
     protected void onResume() {
-        Log.d(TAG, "onResume");
+        Timber.d("onResume");
         super.onResume();
 
         updateUnlockCountView();
@@ -77,19 +78,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        Log.d(TAG, "onPause");
+        Timber.d("onPause");
         super.onPause();
     }
 
     @Override
     protected void onStop() {
-        Log.d(TAG, "onStop");
+        Timber.d("onStop");
         super.onStop();
     }
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroy");
+        Timber.d("onDestroy");
 
         unregisterMeasurementReceiver();
 

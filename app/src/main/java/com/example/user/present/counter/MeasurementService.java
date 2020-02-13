@@ -10,12 +10,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.example.user.present.counter.count.UserPresentReceiver;
+
+import timber.log.Timber;
 
 public class MeasurementService extends Service {
 
@@ -25,7 +26,7 @@ public class MeasurementService extends Service {
 
     @Override
     public void onCreate() {
-        Log.d(TAG, "onCreate");
+        Timber.d("onCreate");
         super.onCreate();
 
         registerUserPresentReceiver();
@@ -33,13 +34,13 @@ public class MeasurementService extends Service {
 
     @Override
     public ComponentName startForegroundService(Intent service) {
-        Log.d(TAG, "startForegroundService");
+        Timber.d("startForegroundService");
         return super.startForegroundService(service);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand");
+        Timber.d("onStartCommand");
         // TODO: Notificationののデザインガイド
         // https://material.io/design/platform-guidance/android-notifications.html#
 
@@ -52,13 +53,13 @@ public class MeasurementService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d(TAG, "onBind");
+        Timber.d("onBind");
         throw  new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "onDestroy");
+        Timber.d("onDestroy");
         super.onDestroy();
 
         // TODO: ForegroundServiceにしているんだけどすぐにonDestroyがコールされてしまうなあ
@@ -66,7 +67,7 @@ public class MeasurementService extends Service {
     }
 
     private void registerUserPresentReceiver() {
-        Log.d(TAG, "registerUserPresentReceiver");
+        Timber.d("registerUserPresentReceiver");
 
         mUserPresentReceiver = new UserPresentReceiver();
         IntentFilter intentFilter = new IntentFilter();
