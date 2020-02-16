@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import com.example.user.present.counter.R;
@@ -13,19 +12,21 @@ import com.example.user.present.counter.R;
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
 
+import timber.log.Timber;
+
 public class RecordService extends Service {
 
     private static final String TAG = "RecordService";
 
     @Override
     public void onCreate() {
-        Log.d(TAG, "onCreate");
+        Timber.d("onCreate");
         super.onCreate();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand");
+        Timber.d("onStartCommand");
 
         SharedPreferences sharedPreferences = getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
@@ -48,7 +49,7 @@ public class RecordService extends Service {
 
     @Override
     public void onDestroy() {
-        Log.d(TAG, "onDestroy");
+        Timber.d("onDestroy");
         super.onDestroy();
     }
 
