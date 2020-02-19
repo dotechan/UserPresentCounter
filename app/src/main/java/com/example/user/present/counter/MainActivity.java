@@ -19,27 +19,34 @@ public class MainActivity extends AppCompatActivity {
 
     MeasurementReceiver mMeasurementReceiver = null;
 
+    private View mStartButton = null;
+    private View mStopButton = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Timber.d("onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button startButton = findViewById(R.id.start_button);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        mStartButton = findViewById(R.id.start_button);
+        mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Timber.d("onClick: start");
                 startMeasurement();
+                hideStartButton();
+                showStopButton();
             }
         });
 
-        Button stopButton = findViewById(R.id.stop_button);
-        stopButton.setOnClickListener(new View.OnClickListener() {
+        mStopButton = findViewById(R.id.stop_button);
+        mStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Timber.d("onClick: stop");
                 stopMeasurement();
+                hideStopButton();
+                showStartButton();
             }
         });
 
@@ -140,6 +147,22 @@ public class MainActivity extends AppCompatActivity {
                         getResources().getInteger(R.integer.initial_unlock_count));
 
         TextView countTextView = findViewById(R.id.user_present_count);
-        countTextView.setText("count = " + originalUnlockCount);
+        countTextView.setText(String.valueOf(originalUnlockCount));
+    }
+
+    private void showStartButton() {
+        mStartButton.setVisibility(View.VISIBLE);
+    }
+
+    private void hideStartButton() {
+        mStartButton.setVisibility(View.GONE);
+    }
+
+    private void showStopButton() {
+        mStopButton.setVisibility(View.VISIBLE);
+    }
+
+    private void hideStopButton() {
+        mStopButton.setVisibility(View.GONE);
     }
 }
