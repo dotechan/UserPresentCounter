@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -19,27 +22,34 @@ public class MainActivity extends AppCompatActivity {
 
     MeasurementReceiver mMeasurementReceiver = null;
 
+    private View mStartButton = null;
+    private View mStopButton = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Timber.d("onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button startButton = findViewById(R.id.start_button);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        mStartButton = findViewById(R.id.start_button);
+        mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Timber.d("onClick: start");
                 startMeasurement();
+                hideStartButton();
+                showStopButton();
             }
         });
 
-        Button stopButton = findViewById(R.id.stop_button);
-        stopButton.setOnClickListener(new View.OnClickListener() {
+        mStopButton = findViewById(R.id.stop_button);
+        mStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Timber.d("onClick: stop");
                 stopMeasurement();
+                hideStopButton();
+                showStartButton();
             }
         });
 
@@ -139,7 +149,30 @@ public class MainActivity extends AppCompatActivity {
                 sharedPreferences.getInt(getString(R.string.saved_unlock_count_key),
                         getResources().getInteger(R.integer.initial_unlock_count));
 
+        // PINコード解除後の画面表示回数に下線を引く
+        SpannableStringBuilder userPresentCount =
+                new SpannableStringBuilder(String.valueOf(originalUnlockCount));
+        userPresentCount.setSpan(new UnderlineSpan(),
+                0,
+                userPresentCount.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         TextView countTextView = findViewById(R.id.user_present_count);
-        countTextView.setText("count = " + originalUnlockCount);
+        countTextView.setText(userPresentCount);
+    }
+
+    private void showStartButton() {
+        mStartButton.setVisibility(View.VISIBLE);
+    }
+
+    private void hideStartButton() {
+        mStartButton.setVisibility(View.GONE);
+    }
+
+    private void showStopButton() {
+        mStopButton.setVisibility(View.VISIBLE);
+    }
+
+    private void hideStopButton() {
+        mStopButton.setVisibility(View.GONE);
     }
 }

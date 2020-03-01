@@ -5,36 +5,57 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/user_present_count"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Loading ..."
-        android:textSize="50dp" />
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/home_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_count"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/home_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/home_count"
+            android:text="@string/home_colon"
+            android:textSize="50sp" />
+
+        <TextView
+            android:id="@+id/user_present_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/home_colon"
+            android:textSize="50sp" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/user_present_count"
-        android:layout_marginTop="33dp"
-        android:text="Start" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/home_start_button"
+        android:visibility="visible" />
 
     <Button
         android:id="@+id/stop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/user_present_count"
-        android:layout_marginTop="98dp"
-        android:text="Stop" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/home_stop_button"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/reset_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/user_present_count"
-        android:layout_marginTop="163dp"
-        android:text="Reset" />
+        android:layout_centerVertical="true"
+        android:text="@string/home_reset_button" />
 
 </RelativeLayout>

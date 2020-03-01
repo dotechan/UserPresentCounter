@@ -5,4 +5,11 @@
     <string name="preference_file_key">key</string>
     <string name="saved_unlock_count_key">key_unlock_count</string>
     <string name="stop_measurement_from_notification">stop</string>
+
+    <!-- Home Screen -->
+    <string name="home_count">Count</string>
+    <string name="home_colon">:</string>
+    <string name="home_start_button">Start</string>
+    <string name="home_stop_button">Stop</string>
+    <string name="home_reset_button">Reset</string>
 </resources>
