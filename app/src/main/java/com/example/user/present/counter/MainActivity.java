@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -146,8 +149,15 @@ public class MainActivity extends AppCompatActivity {
                 sharedPreferences.getInt(getString(R.string.saved_unlock_count_key),
                         getResources().getInteger(R.integer.initial_unlock_count));
 
+        // PINコード解除後の画面表示回数に下線を引く
+        SpannableStringBuilder userPresentCount =
+                new SpannableStringBuilder(String.valueOf(originalUnlockCount));
+        userPresentCount.setSpan(new UnderlineSpan(),
+                0,
+                userPresentCount.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         TextView countTextView = findViewById(R.id.user_present_count);
-        countTextView.setText(String.valueOf(originalUnlockCount));
+        countTextView.setText(userPresentCount);
     }
 
     private void showStartButton() {
