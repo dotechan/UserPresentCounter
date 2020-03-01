@@ -150,14 +150,14 @@ public class MainActivity extends AppCompatActivity {
                         getResources().getInteger(R.integer.initial_unlock_count));
 
         // PINコード解除後の画面表示回数に下線を引く
-        SpannableStringBuilder userPresentCount =
+        SpannableStringBuilder unlockCount =
                 new SpannableStringBuilder(String.valueOf(originalUnlockCount));
-        userPresentCount.setSpan(new UnderlineSpan(),
+        unlockCount.setSpan(new UnderlineSpan(),
                 0,
-                userPresentCount.length(),
+                unlockCount.length(),
                 Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        TextView countTextView = findViewById(R.id.user_present_count);
-        countTextView.setText(userPresentCount);
+        TextView countTextView = findViewById(R.id.unlock_count);
+        countTextView.setText(unlockCount);
     }
 
     private void showStartButton() {

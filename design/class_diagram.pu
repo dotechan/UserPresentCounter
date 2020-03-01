@@ -21,8 +21,8 @@ class MeasurementService <<Service>> {
 
 }
 
-package user.present.count {
-    class UserPresentReceiver <<BroadcastReceiver>> {
+package user.unlock.count {
+    class UnlockReceiver <<BroadcastReceiver>> {
         + onReceive()
     }
 
@@ -48,27 +48,27 @@ package user.present.count {
 }
 
 package data {
-    class UserPresentCountRepository
-    class UserPresentCountLocalDataSource
-    class UserPresentCount
+    class UnlockCountRepository
+    class UnlockCountLocalDataSource
+    class UnlockCount
 }
 
 ' === 関係 ===
 MainActivity "1" o-- "1" MeasurementReceiver
 MeasurementReceiver --> MeasurementService : start / stop >
-MeasurementService "1" o-- "1" UserPresentReceiver
+MeasurementService "1" o-- "1" UnlockReceiver
 MeasurementService "1" -- "1" Notification : create >
-UserPresentReceiver "1" -- "1" RecordService : use >
-RecordService "1" o--> "1" UserPresentCountRepository
-UserPresentCountRepository "1" o--> "1" UserPresentCountLocalDataSource
-UserPresentCountLocalDataSource "1" ..> "1" UserPresentCount
-UserPresentCountLocalDataSource "1" --> "1" SharedPreferences
+UnlockReceiver "1" -- "1" RecordService : use >
+RecordService "1" o--> "1" UnlockCountRepository
+UnlockCountRepository "1" o--> "1" UnlockCountLocalDataSource
+UnlockCountLocalDataSource "1" ..> "1" UnlockCount
+UnlockCountLocalDataSource "1" --> "1" SharedPreferences
 
 MainActivity -- DisplayCountFragment : create >
 MainActivity -- ResetTotalCountFragment : create >
 DisplayCountFragment -- DisplayCountViewModel
 ResetTotalCountFragment -- ResetTotalCountViewModel
-DisplayCountViewModel -- UserPresentCountRepository
-ResetTotalCountViewModel -- UserPresentCountRepository
+DisplayCountViewModel -- UnlockCountRepository
+ResetTotalCountViewModel -- UnlockCountRepository
 
 @enduml

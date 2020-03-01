@@ -14,7 +14,7 @@ import android.os.IBinder;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
-import com.example.user.present.counter.count.UserPresentReceiver;
+import com.example.user.present.counter.count.UnlockReceiver;
 
 import timber.log.Timber;
 
@@ -22,14 +22,14 @@ public class MeasurementService extends Service {
 
     private static final String TAG = "MeasurementService";
 
-    private UserPresentReceiver mUserPresentReceiver = null;
+    private UnlockReceiver mUnlockReceiver = null;
 
     @Override
     public void onCreate() {
         Timber.d("onCreate");
         super.onCreate();
 
-        registerUserPresentReceiver();
+        registerUnlockReceiver();
     }
 
     @Override
@@ -63,20 +63,20 @@ public class MeasurementService extends Service {
         super.onDestroy();
 
         // TODO: ForegroundServiceにしているんだけどすぐにonDestroyがコールされてしまうなあ
-        unregisterUserPresentReceiver();
+        unregisterUnlockReceiver();
     }
 
-    private void registerUserPresentReceiver() {
-        Timber.d("registerUserPresentReceiver");
+    private void registerUnlockReceiver() {
+        Timber.d("registerUnlockReceiver");
 
-        mUserPresentReceiver = new UserPresentReceiver();
+        mUnlockReceiver = new UnlockReceiver();
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Intent.ACTION_USER_PRESENT);
-        registerReceiver(mUserPresentReceiver, intentFilter);
+        registerReceiver(mUnlockReceiver, intentFilter);
     }
 
-    private void unregisterUserPresentReceiver() {
-        unregisterReceiver(mUserPresentReceiver);
+    private void unregisterUnlockReceiver() {
+        unregisterReceiver(mUnlockReceiver);
     }
 
     private Notification createNotification() {
