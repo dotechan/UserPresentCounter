@@ -8,9 +8,9 @@ import androidx.annotation.NonNull;
 
 import timber.log.Timber;
 
-public class UserPresentReceiver extends BroadcastReceiver {
+public class UnlockReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "UserPresentReceiver";
+    private static final String TAG = "UnlockReceiver";
 
     @Override
     public void onReceive(Context context, Intent intent) {
