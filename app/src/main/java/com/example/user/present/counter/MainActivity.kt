@@ -8,36 +8,34 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.UnderlineSpan
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.user.present.counter.MeasurementReceiver
+import com.example.user.present.counter.databinding.ActivityMainBinding
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mMeasurementReceiver: MeasurementReceiver
-    private lateinit var mStartButton: View
-    private lateinit var mStopButton: View
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        mStartButton = findViewById(R.id.start_button)
-        mStartButton.setOnClickListener(View.OnClickListener {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.startButton.setOnClickListener(View.OnClickListener {
             Timber.d("onClick: start")
             startMeasurement()
             hideStartButton()
             showStopButton()
         })
-        mStopButton = findViewById(R.id.stop_button)
-        mStopButton.setOnClickListener(View.OnClickListener {
+        binding.stopButton.setOnClickListener(View.OnClickListener {
             Timber.d("onClick: stop")
             stopMeasurement()
             hideStopButton()
             showStartButton()
         })
-        val resetButton = findViewById<Button>(R.id.reset_button)
-        resetButton.setOnClickListener {
+        binding.resetButton.setOnClickListener {
             Timber.d("onClick: reset")
             resetUnlockCount()
             updateUnlockCountView()
@@ -132,18 +130,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showStartButton() {
-        mStartButton.visibility = View.VISIBLE
+        binding.startButton.visibility = View.VISIBLE
     }
 
     private fun hideStartButton() {
-        mStartButton.visibility = View.GONE
+        binding.startButton.visibility = View.GONE
     }
 
     private fun showStopButton() {
-        mStopButton.visibility = View.VISIBLE
+        binding.stopButton.visibility = View.VISIBLE
     }
 
     private fun hideStopButton() {
-        mStopButton.visibility = View.GONE
+        binding.stopButton.visibility = View.GONE
     }
 }
