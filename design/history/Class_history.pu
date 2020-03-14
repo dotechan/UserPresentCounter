@@ -1,0 +1,67 @@
+@startuml
+
+title [クラス図]履歴
+
+' === 定義 ===
+class RecordService
+
+package history {
+    class HistoryFragment
+
+    Class HistoryListView {
+        - recordedDateList: RecordedDateList
+    }
+
+    interface IRecordedDateRepository {
+        + save(recordedDate: RecordedDate)
+        + getRecordedDateList(): RecordedDateList
+    }
+
+    class RecordedDateLocalRepository
+
+    enum Type {
+        STRAT
+        STOP
+        RESET
+        UNLOCK
+        - resourceId: int
+    }
+
+    interface RecordedDate {
+        recordedDate: Date
+        type: Type
+        + formatDate: String
+    }
+
+    class StartDate
+    class StopDate
+    class ResetDate
+    class UnlockedDate
+
+    class RecordedDateList {
+        - RecordedDate: List<RecordedDate>
+        + sort()
+    }
+
+    class DB
+}
+
+' === 関係 ===
+RecordService --> RecordedDate : create >
+RecordService --> IRecordedDateRepository : save >
+
+HistoryFragment "1" o--> "1" IRecordedDateRepository : get >
+note top of IRecordedDateRepository : ドメインオブジェクトであるRecordedDateListがFragmentから操作できてしまう
+IRecordedDateRepository <|.. RecordedDateLocalRepository
+HistoryFragment "1" *--> "1" HistoryListView
+RecordedDateList "1" o--> "0..*" RecordedDate
+RecordedDate <|-- StartDate
+RecordedDate <|-- StopDate
+RecordedDate <|-- ResetDate
+RecordedDate <|-- UnlockedDate
+RecordService ..> Type : <<use>>
+IRecordedDateRepository --> RecordedDate
+IRecordedDateRepository --> RecordedDateList : create >
+RecordedDateLocalRepository --> DB
+
+@enduml

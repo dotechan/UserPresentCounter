@@ -1,0 +1,57 @@
+@startuml
+
+title [シーケンス図]履歴
+
+hide footbox
+autonumber
+
+' === 定義 ===
+actor User
+participant RecordService
+participant UnlockedDate
+participant RecordedDateLocalRepository
+participant DB
+
+participant HistoryFragment
+participant RecordedDateList
+
+' === 処理 ===
+== ロック解除 ==
+User -> RecordService : unlock
+activate RecordService
+
+create UnlockedDate
+RecordService -> UnlockedDate : new(date: Date, UNLOCK: Type)
+note right of RecordService
+    ユーザー操作に応じてRecordedDateをimplementsしたクラスをインスタンス化する
+end note
+
+RecordService -> RecordedDateLocalRepository : save(unlockedDate: RecordedDate)
+activate RecordedDateLocalRepository
+
+RecordedDateLocalRepository -> DB : save(unlockedDate: RecordedDate)
+
+' 後処理
+deactivate RecordedDateLocalRepository
+
+== 履歴画面表示 ==
+create HistoryFragment
+User -> HistoryFragment : open
+activate HistoryFragment
+
+HistoryFragment -> RecordedDateLocalRepository : getRecordedDateList(): RecordedDateList
+activate RecordedDateLocalRepository
+
+RecordedDateLocalRepository -> DB : getRecordedDateList
+activate DB
+DB --> RecordedDateLocalRepository : RecordedDateList
+deactivate DB
+
+create RecordedDateList
+RecordedDateLocalRepository -> RecordedDateList : new(recordedDateList: RecordedDateList)
+
+RecordedDateLocalRepository --> HistoryFragment :  RecordedDateList
+
+HistoryFragment -> HistoryFragment : show()
+
+@enduml
