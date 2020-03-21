@@ -3,21 +3,44 @@
 title [クラス図]履歴
 
 ' === 定義 ===
-class RecordService
+class MainActivity {
+    + start()
+    + stop()
+    + reset()
+}
+
+class RecordService {
+    + unlock()
+}
+
+package java.util {
+    class Date
+}
+
+package mock {
+    class Injection {
+        + {static} provideHistoryRepository(context: Context): HistoryRepository
+    }
+}
 
 package history {
     class HistoryFragment
 
+    class HistoryViewModel {
+        - HistoryList: LiveData<List<History>>
+        + save(history: History)
+    }
+
     Class HistoryListView {
-        - recordedDateList: RecordedDateList
+        - HistoryList: LiveData<List<History>>
     }
 
-    interface IRecordedDateRepository {
-        + save(recordedDate: RecordedDate)
-        + getRecordedDateList(): RecordedDateList
+    interface IHistoryRepository {
+        + getHistoryList(): LiveData<List<History>>
+        + save(history: History)
     }
 
-    class RecordedDateLocalRepository
+    class HistoryRepository
 
     enum Type {
         STRAT
@@ -27,41 +50,46 @@ package history {
         - resourceId: int
     }
 
-    interface RecordedDate {
-        recordedDate: Date
+    class History <<Entity>> {
+        History: Date
         type: Type
         + formatDate: String
     }
 
-    class StartDate
-    class StopDate
-    class ResetDate
-    class UnlockedDate
+    package local {
+        interface HistoryDao <<Dao>> {
+            ~ getHistoryList(): LiveData<List<History>>
+            ~ save(history: History)
+        }
 
-    class RecordedDateList {
-        - RecordedDate: List<RecordedDate>
-        + sort()
+        abstract HistoryDatabase <<RoomDatabase>> {
+            - INSTANCE: HistoryDatabase
+            ~ {abstract} historyDao: HistoryDao
+        }
     }
-
-    class DB
 }
 
 ' === 関係 ===
-RecordService --> RecordedDate : create >
-RecordService --> IRecordedDateRepository : save >
+MainActivity --> Injection : use >
+RecordService --> Injection : use >
+HistoryFragment --> Injection : use >
 
-HistoryFragment "1" o--> "1" IRecordedDateRepository : get >
-note top of IRecordedDateRepository : ドメインオブジェクトであるRecordedDateListがFragmentから操作できてしまう
-IRecordedDateRepository <|.. RecordedDateLocalRepository
-HistoryFragment "1" *--> "1" HistoryListView
-RecordedDateList "1" o--> "0..*" RecordedDate
-RecordedDate <|-- StartDate
-RecordedDate <|-- StopDate
-RecordedDate <|-- ResetDate
-RecordedDate <|-- UnlockedDate
-RecordService ..> Type : <<use>>
-IRecordedDateRepository --> RecordedDate
-IRecordedDateRepository --> RecordedDateList : create >
-RecordedDateLocalRepository --> DB
+MainActivity --> History : create >
+MainActivity --> IHistoryRepository : save >
+
+RecordService --> History : create >
+RecordService --> IHistoryRepository : save >
+
+HistoryFragment "1" o--> "1" HistoryViewModel
+HistoryFragment "1" *-> "1" HistoryListView
+
+HistoryViewModel "1" o--> "1" IHistoryRepository
+IHistoryRepository <|.. HistoryRepository
+HistoryRepository "1" --> "1" HistoryDao
+HistoryDao --> History
+HistoryDao "1" -> "1" HistoryDatabase
+HistoryDatabase --> History
+History "1" *-- "1" Date
+History +-- Type
 
 @enduml
