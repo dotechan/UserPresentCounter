@@ -5,8 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.IBinder
 import com.example.user.present.counter.R
+import com.example.user.present.counter.data.Injection
 import com.example.user.present.counter.history.History
 import com.example.user.present.counter.history.Type
+import kotlinx.coroutines.*
 import timber.log.Timber
 import java.io.FileDescriptor
 import java.io.PrintWriter
@@ -22,7 +24,7 @@ class RecordService : Service() {
         Timber.d("onStartCommand")
 
         recordUnlockCount()
-        recordUnlockDate(Date())
+        recordUnlockHistory(Date())
 
         return super.onStartCommand(intent, flags, startId)
     }
@@ -55,9 +57,15 @@ class RecordService : Service() {
         }
     }
 
-    fun recordUnlockDate(date: Date) {
+    fun recordUnlockHistory(date: Date) {
         val type = Type.UNLOCK
         val history = History(date, type)
+        val repository = Injection.provideHistoryRepository(applicationContext)
+        // TODO: Coroutineのscopeについて理解できていない。なぜscopeが必要になるのか？
+        val scope = CoroutineScope(Dispatchers.Default)
+        scope.launch {
+            repository.save(history)
+        }
     }
 
     companion object {

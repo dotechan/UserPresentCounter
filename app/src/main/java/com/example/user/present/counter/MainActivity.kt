@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.user.present.counter.databinding.ActivityMainBinding
+import com.example.user.present.counter.history.HistoryFragment
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
             resetUnlockCount()
             updateUnlockCountView()
         }
+        tempHistoryButton()
         setupBottomNavigationView()
         registerMeasurementReceiver()
     }
@@ -147,5 +149,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigationView() {
+    }
+
+    // TODO: BottomNavigationViewから遷移させる方法をマスターするまでの仮のボタン
+    private fun tempHistoryButton() {
+        binding.historyButton.setOnClickListener {
+            supportFragmentManager.beginTransaction().add(R.id.fragment_container, HistoryFragment()).commit()
+        }
     }
 }

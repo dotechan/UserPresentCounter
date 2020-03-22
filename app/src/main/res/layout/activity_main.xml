@@ -59,6 +59,19 @@
         android:layout_centerVertical="true"
         android:text="@string/home_reset_button" />
 
+    <!-- TODO: BottomNavigationViewから遷移させる方法をマスターするまでの仮のボタン -->
+    <Button
+        android:id="@+id/history_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reset_button"
+        android:text="history" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

@@ -16,7 +16,7 @@ class HistoryConverter {
 
     @TypeConverter
     fun fromAction(value: String): Type {
-        return Type.valueOf(value)
+        return Type.valueOf(value.toUpperCase())
     }
 
     @TypeConverter
