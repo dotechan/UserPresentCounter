@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             resetUnlockCount()
             updateUnlockCountView()
         }
+        setupBottomNavigationView()
         registerMeasurementReceiver()
     }
 
@@ -143,5 +144,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideStopButton() {
         binding.stopButton.visibility = View.GONE
+    }
+
+    private fun setupBottomNavigationView() {
     }
 }

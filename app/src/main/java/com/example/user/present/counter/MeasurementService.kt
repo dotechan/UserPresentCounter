@@ -20,7 +20,7 @@ class MeasurementService : Service() {
         registerUnlockReceiver()
     }
 
-    override fun startForegroundService(service: Intent): ComponentName {
+    override fun startForegroundService(service: Intent): ComponentName? {
         Timber.d("startForegroundService")
         return super.startForegroundService(service)
     }
