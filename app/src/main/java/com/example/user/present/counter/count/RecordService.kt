@@ -42,7 +42,9 @@ class RecordService : Service() {
         super.dump(fd, writer, args)
     }
 
-    fun recordUnlockCount() {
+    private fun recordUnlockCount() {
+        Timber.d("recordUnlockCount")
+        // TODO: DB操作などインフラの処理はRepositoryに任せる
         val sharedPreferences = getSharedPreferences(
                 getString(R.string.preference_file_key),
                 Context.MODE_PRIVATE)
@@ -57,11 +59,15 @@ class RecordService : Service() {
         }
     }
 
-    fun recordUnlockHistory(date: Date) {
+    private fun recordUnlockHistory(date: Date) {
+        Timber.d("recordUnlockHistory")
         val type = Type.UNLOCK
         val history = History(date, type)
         val repository = Injection.provideHistoryRepository(applicationContext)
-        // TODO: Coroutineのscopeについて理解できていない。なぜscopeが必要になるのか？
+        // Coroutineの開始方法は二つ
+        // launch : 呼び出し元に結果を返さない
+        // async : awaitと呼ばれる中断関数でresultを返せるようにする
+        // suspend修飾子を付与しておくことで呼び出し元がバックグラウンド実行などの考慮をしなくていい
         val scope = CoroutineScope(Dispatchers.Default)
         scope.launch {
             repository.save(history)

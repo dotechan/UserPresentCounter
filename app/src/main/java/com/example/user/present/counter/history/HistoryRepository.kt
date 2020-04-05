@@ -12,6 +12,9 @@ class HistoryRepository(
         return historyList
     }
 
+    // suspendはKotlinに関数をバックグラウンドで実行するようにという指示ではない
+    // ディスクの読み書き、ネットワークオペレーション、CPU負荷の高いオペレーションなどメインセーフティが必要な場合、
+    // suspend関数内部からwithContext()を使用する必要がある
     override suspend fun save(history: History) {
         historyDao.save(history)
     }
