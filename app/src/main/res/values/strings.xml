@@ -13,6 +13,9 @@
     <string name="home_stop_button">Stop</string>
     <string name="home_reset_button">Reset</string>
 
+    <!-- History Screen -->
+    <string name="history_item_icon">This icon represents a date.</string>
+
     <!-- Bottom Navigation -->
     <string name="home_title">Home</string>
     <string name="history_title">History</string>

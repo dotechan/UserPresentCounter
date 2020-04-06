@@ -29,7 +29,7 @@ class HistoryListAdapter internal constructor(
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val current = historyList[position]
         holder.typeIconView.setImageResource(current.type.resourceId)
-        holder.dateTextView.text = current.date.toString()
+        holder.dateTextView.text = current.formatDate()
     }
 
     internal fun setHistoryList(historyList: List<History>) {
