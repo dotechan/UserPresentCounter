@@ -12,7 +12,7 @@ data class History(
         @PrimaryKey @ColumnInfo(name = "date") val date: Date,
         @ColumnInfo(name = "type") val type: Type
 ) {
-    // FIXME: インスタンス毎にSimpleDateFormatを持つのはメモリの無駄なのでクラス変数に修正する
+    // javaで言うところのクラス変数はkotlinの言語仕様にないため、top-levelプロパティとして宣言している
     @Ignore
     private val simpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.JAPAN)
 
