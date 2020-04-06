@@ -23,7 +23,10 @@ class HistoryFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
 
-        historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
+        // FIXME: HistoryViewModelの引数なしコンストラクタがないからcreateできないという警告が出る
+        historyViewModel = ViewModelProvider
+                .AndroidViewModelFactory(activity!!.application)
+                .create(HistoryViewModel::class.java)
         historyViewModel.historyList.observe(this, Observer { historyList ->
             // TODO: UIの更新を行う
             historyList?.let { adapter.setHistoryList(it) }
