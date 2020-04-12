@@ -14,7 +14,7 @@
     <string name="home_reset_button">Reset</string>
 
     <!-- History Screen -->
-    <string name="history_item_icon">This icon represents a date.</string>
+    <string name="history_item_icon_description">This icon represents a date.</string>
 
     <!-- Bottom Navigation -->
     <string name="home_title">Home</string>

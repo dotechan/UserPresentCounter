@@ -14,14 +14,44 @@ data class History(
 ) {
     // javaで言うところのクラス変数はkotlinの言語仕様にないため、top-levelプロパティとして宣言している
     @Ignore
-    private val simpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.JAPAN)
+    // 履歴画面に表示する時間の形式に整形するフォーマッター
+    private val hmsSimpleDateFormat = SimpleDateFormat("HH:mm:ss", Locale.JAPAN)
+
+    @Ignore
+    // 履歴画面に表示する時間の形式に整形するフォーマッター
+    private val MdSimpleDateFormat = SimpleDateFormat("MM月dd日", Locale.JAPAN)
+
+    @Ignore
+    // 履歴画面に日付ヘッダーを挿入するかの判定に利用するフォーマッター
+    private val yMdSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.JAPAN)
 
     /**
-     * 履歴画面に表示する形式に整形する
+     * 履歴画面に表示する形式に整形するMdSimpleDateFormat
      *
      * @return 日付を「時間:分:秒」の形式に整形した文字列
      */
-    fun formatDate(): String {
-        return simpleDateFormat.format(date)
+    fun formatHHmmss(): String {
+        return hmsSimpleDateFormat.format(date)
+    }
+
+    /**
+     * 履歴画面に表示するヘッダーの形式に整形する
+     *
+     * @return 日付を「xx月xx日」の形式に整形した文字列
+     */
+    fun formatMMdd(): String {
+        return MdSimpleDateFormat.format(date)
+    }
+
+    /**
+     * 履歴の日付が指定した日付と一致するか判定する
+     * e.g. 履歴の日付が2020-04-12で指定した日付が2020-04-11の場合はfalseを返す
+     *
+     * @return 履歴の日付と指定した日付が同じ場合はtrue、異なる場合はfalse
+     */
+    fun equalsByDate(date: Date): Boolean {
+        val thisDate = yMdSimpleDateFormat.format(this.date)
+        val specifiedDate = yMdSimpleDateFormat.format(date)
+        return thisDate == specifiedDate
     }
 }
