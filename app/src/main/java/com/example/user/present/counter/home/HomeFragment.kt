@@ -48,6 +48,11 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateUnlockCountView()
+    }
+
     private fun startMeasurement() {
         val intent = Intent(requireContext(), MeasurementReceiver::class.java).apply {
             action = MeasurementReceiver.ACTION_START_MEASUREMENT
