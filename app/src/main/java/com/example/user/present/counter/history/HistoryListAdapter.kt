@@ -20,8 +20,11 @@ class HistoryListAdapter internal constructor(
     private var historyRecyclerViewList = emptyList<HistoryListItem>()
 
     inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val typeIconView: ImageView = itemView.findViewById(R.id.type_icon)
-        val dateTextView: TextView = itemView.findViewById(R.id.date_text)
+        val typeIconView: ImageView? = itemView.findViewById(R.id.type_icon)
+        val dateTextView: TextView? = itemView.findViewById(R.id.date_text)
+        val headerTextView: TextView? = itemView.findViewById(R.id.header_text)
+        val borderView: View? = itemView.findViewById(R.id.border_view)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder =
@@ -30,12 +33,16 @@ class HistoryListAdapter internal constructor(
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val item = historyRecyclerViewList[position]
         when (item) {
-            is HistoryListItem.HeaderItem -> VIEW_TYPE_HEADER
-            is HistoryListItem.HistoryItem -> {
-                holder.typeIconView.setImageResource(item.history.type.resourceId)
-                holder.dateTextView.text = item.history.formatHHmmss()
+            is HistoryListItem.HeaderItem -> {
+                holder.headerTextView?.text = item.label
             }
-            is HistoryListItem.BorderItem -> VIEW_TYPE_BORDER
+            is HistoryListItem.HistoryItem -> {
+                holder.typeIconView?.setImageResource(item.history.type.resourceId)
+                holder.dateTextView?.text = item.history.formatHHmmss()
+            }
+            is HistoryListItem.BorderItem -> {
+                holder.borderView
+            }
         }
     }
 
@@ -60,7 +67,7 @@ class HistoryListAdapter internal constructor(
     internal fun setHistoryList(historyList: List<History>) {
         this.historyList = historyList
         // TODO: 毎回リストを再作成していたらパフォーマンスが悪いので、リスト生成済みであれば追加するように修正する
-        historyRecyclerViewList = HistoryRecyclerViewList(historyList)
+        historyRecyclerViewList = HistoryRecyclerViewList(historyList).historyRecyclerViewList
         // TODO: パフォーマンスチューニングする。必要なデータの更新だけ通知すればよい
         notifyDataSetChanged()
     }
@@ -82,7 +89,7 @@ class HistoryListAdapter internal constructor(
             val previousDate: Date = Date(0)
 
             historyList.forEach { history ->
-                if (history.equalsByDate(previousDate)) {
+                if (history.equalsByDate(previousDate).not()) {
                     historyRecyclerViewList.add(HistoryListItem.HeaderItem(history.formatMMdd()))
                     historyRecyclerViewList.add(HistoryListItem.BorderItem)
                 }
