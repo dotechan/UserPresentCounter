@@ -8,6 +8,7 @@ import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
 import com.example.user.present.counter.domain.history.History
 import com.example.user.present.counter.domain.history.Type
+import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.io.FileDescriptor
@@ -24,7 +25,7 @@ class RecordService : Service() {
         Timber.d("onStartCommand")
 
         recordUnlockCount()
-        recordUnlockHistory(Date())
+        recordUnlockHistory()
 
         return super.onStartCommand(intent, flags, startId)
     }
@@ -59,18 +60,11 @@ class RecordService : Service() {
         }
     }
 
-    private fun recordUnlockHistory(date: Date) {
+    private fun recordUnlockHistory() {
         Timber.d("recordUnlockHistory")
-        val history = History(date, Type.UNLOCK)
         val repository = Injection.provideHistoryRepository(applicationContext)
-        // Coroutineの開始方法は二つ
-        // launch : 呼び出し元に結果を返さない
-        // async : awaitと呼ばれる中断関数でresultを返せるようにする
-        // suspend修飾子を付与しておくことで呼び出し元がバックグラウンド実行などの考慮をしなくていい
-        val scope = CoroutineScope(Dispatchers.Default)
-        scope.launch {
-            repository.save(history)
-        }
+        val recordHistoryUsecase = RecordHistoryUsecase(repository)
+        recordHistoryUsecase.execute(Type.UNLOCK)
     }
 
     companion object {

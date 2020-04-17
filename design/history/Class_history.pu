@@ -10,8 +10,8 @@ class HomeFragment <<Fragment>> {
     + showHistory()
 }
 
-class UnlockReceiver <<BroadcastReceiver>> {
-    + onReceive(context: Context, intent: Intent)
+class RecordService {
+    + unlock()
 }
 
 package mock {
@@ -70,8 +70,9 @@ package usecase {
         + save(history: History)
     }
 
-    class RecordService {
-        + unlock()
+    class RecordHistoryUsecase {
+        + execute(type: Type)
+        - recordHistory(history: History)
     }
 }
 
@@ -120,18 +121,18 @@ package infra {
 
 ' === 関係 ===
 HomeFragment --> HistoryFragment : show >
-
-UnlockReceiver --> RecordService : startService >
+HistoryFragment --> Injection : use >
 RecordService --> Injection : use >
-
-RecordService --> History : create >
-RecordService --> IHistoryRepository : save >
 
 ' domain
 History +-- Type
 IHistoryRepository --> History
 
-'usecase (ViewModelはusecaseではないか。しっくりこない)
+' usecase (ViewModelはusecaseではないか。しっくりこない)
+HomeFragment --> RecordHistoryUsecase : use >
+RecordService --> RecordHistoryUsecase : use >
+RecordHistoryUsecase --> History : create >
+RecordHistoryUsecase --> IHistoryRepository
 HistoryViewModel "1" o--> "1" IHistoryRepository
 
 ' infra

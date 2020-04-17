@@ -12,7 +12,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.user.present.counter.MeasurementReceiver
 import com.example.user.present.counter.R
+import com.example.user.present.counter.data.Injection
 import com.example.user.present.counter.databinding.FragmentHomeBinding
+import com.example.user.present.counter.domain.history.Type
+import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
 import timber.log.Timber
 
 class HomeFragment : Fragment() {
@@ -29,18 +32,21 @@ class HomeFragment : Fragment() {
         binding.startButton.setOnClickListener {
             Timber.d("onClick: start")
             startMeasurement()
+            recordStartHistory()
             hideStartButton()
             showStopButton()
         }
         binding.stopButton.setOnClickListener {
             Timber.d("onClick: stop")
             stopMeasurement()
+            recordStopHistory()
             hideStopButton()
             showStartButton()
         }
         binding.resetButton.setOnClickListener {
             Timber.d("onClick: reset")
             resetUnlockCount()
+            recordResetHistory()
             updateUnlockCountView()
         }
 
@@ -106,5 +112,26 @@ class HomeFragment : Fragment() {
 
     private fun hideStopButton() {
         binding.stopButton.visibility = View.GONE
+    }
+
+    private fun recordStartHistory() {
+        Timber.d("recordStartHistory")
+        val repository = Injection.provideHistoryRepository(requireContext().applicationContext)
+        val recordHistoryUsecase = RecordHistoryUsecase(repository)
+        recordHistoryUsecase.execute(Type.START)
+    }
+
+    private fun recordStopHistory() {
+        Timber.d("recordStopHistory")
+        val repository = Injection.provideHistoryRepository(requireContext().applicationContext)
+        val recordHistoryUsecase = RecordHistoryUsecase(repository)
+        recordHistoryUsecase.execute(Type.STOP)
+    }
+
+    private fun recordResetHistory() {
+        Timber.d("recordResetHistory")
+        val repository = Injection.provideHistoryRepository(requireContext().applicationContext)
+        val recordHistoryUsecase = RecordHistoryUsecase(repository)
+        recordHistoryUsecase.execute(Type.RESET)
     }
 }
