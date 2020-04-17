@@ -3,18 +3,15 @@
 title [クラス図]履歴
 
 ' === 定義 ===
-class MainActivity {
+class HomeFragment <<Fragment>> {
     + start()
     + stop()
     + reset()
+    + showHistory()
 }
 
-class RecordService {
-    + unlock()
-}
-
-package java.util {
-    class Date
+class UnlockReceiver <<BroadcastReceiver>> {
+    + onReceive(context: Context, intent: Intent)
 }
 
 package mock {
@@ -23,73 +20,130 @@ package mock {
     }
 }
 
-package history {
-    class HistoryFragment
-
-    class HistoryViewModel {
-        - HistoryList: LiveData<List<History>>
-        + save(history: History)
+package domain {
+    note left of History
+        操作の履歴を表す
+        履歴は操作の種類と操作した時刻の情報を持つ
+        ヘッダー表示のために日付を「xx月xx日」という形式の文字列に変換して提供する
+        コンテンツ表示のために日付を「HH:mm:ss」という形式の文字列に変換して提供する
+    end note
+    class History <<Entity>> {
+        date: Date
+        type: Type
+        + formatDate: String
+        + formatListHeader(): String
+        + formatListContent(): String
+        + equalsBy(date: Date): Boolean
     }
 
-    Class HistoryListView {
-        - HistoryList: LiveData<List<History>>
-    }
-
-    interface IHistoryRepository {
-        + getHistoryList(): LiveData<List<History>>
-        + save(history: History)
-    }
-
-    class HistoryRepository
-
+    note left of Type
+        履歴として保存する操作を定義する
+        ・PINコード解除の計測開始
+        ・PINコード解除の計測終了
+        ・PINコード解除の回数リセット
+        ・PINコード解除
+    end note
     enum Type {
         STRAT
         STOP
         RESET
         UNLOCK
-        - resourceId: int
+        + action: String
+        + resourceId: Int
     }
 
-    class History <<Entity>> {
-        History: Date
-        type: Type
-        + formatDate: String
+    note left of IHistoryRepository
+        履歴の保存と履歴の一覧をリスト形式で提供する
+        履歴は蓄積していき削除することは考えていない
+        T.B.D: 履歴の最大保有件数
+        i.e.Kyashは過去2年分の履歴まで
+    end note
+    interface IHistoryRepository {
+        + getHistoryList(): LiveData<List<History>>
+        + save(history: History)
+    }
+}
+
+package usecase {
+    class HistoryViewModel {
+        - HistoryList: LiveData<List<History>>
+        + save(history: History)
     }
 
-    package local {
-        interface HistoryDao <<Dao>> {
-            ~ getHistoryList(): LiveData<List<History>>
-            ~ save(history: History)
-        }
+    class RecordService {
+        + unlock()
+    }
+}
 
-        abstract HistoryDatabase <<RoomDatabase>> {
-            - INSTANCE: HistoryDatabase
-            ~ {abstract} historyDao: HistoryDao
-        }
+package presentation {
+    class HistoryFragment
+
+    class HistoryListAdapter <<RecyclerView.Adapter>> {
+        - historyRecyclerViewList
+    }
+
+    class HistoryListItem
+
+    note right of HistoryRecyclerViewList
+        RecyclerViewに表示するアイテムのリストを表す
+        値オブジェクトであるHistoryのListを受け取り
+        RecyclerViewに表示するアイテムのリストに変換する
+    end note
+    class HistoryRecyclerViewList {
+        ~ historyRecyclerViewList: ArrayList<HistoryListItem>
+    }
+
+    class HistoryListItem {
+        class HeaderItem
+        class HistoryItem
+        class BorderItem
+    }
+}
+
+package infra {
+    class HistoryRepository {
+        - historyDao: HistoryDao
+    }
+
+    interface HistoryDao <<Dao>> {
+        ~ getHistoryList(): LiveData<List<History>>
+        ~ save(history: History)
+    }
+
+    class HistoryConverter
+
+    abstract HistoryDatabase <<RoomDatabase>> {
+        - INSTANCE: HistoryDatabase
+        ~ {abstract} historyDao: HistoryDao
     }
 }
 
 ' === 関係 ===
-MainActivity --> Injection : use >
-RecordService --> Injection : use >
-HistoryFragment --> Injection : use >
+HomeFragment --> HistoryFragment : show >
 
-MainActivity --> History : create >
-MainActivity --> IHistoryRepository : save >
+UnlockReceiver --> RecordService : startService >
+RecordService --> Injection : use >
 
 RecordService --> History : create >
 RecordService --> IHistoryRepository : save >
 
-HistoryFragment "1" o--> "1" HistoryViewModel
-HistoryFragment "1" *-> "1" HistoryListView
-
-HistoryViewModel "1" o--> "1" IHistoryRepository
-IHistoryRepository <|.. HistoryRepository
-HistoryRepository "1" --> "1" HistoryDao
-HistoryDao --> History
-HistoryDao "1" -> "1" HistoryDatabase
-HistoryDatabase --> History
-History "1" *-- "1" Date
+' domain
 History +-- Type
+IHistoryRepository --> History
+
+'usecase (ViewModelはusecaseではないか。しっくりこない)
+HistoryViewModel "1" o--> "1" IHistoryRepository
+
+' infra
+IHistoryRepository <|.. HistoryRepository
+HistoryRepository "1" o--> "1" HistoryDao
+HistoryDao "1" -> "1" HistoryDatabase
+HistoryDatabase --> HistoryConverter : convert
+
+' presentation
+HistoryFragment "1" o--> "1" HistoryViewModel
+HistoryFragment --> HistoryListAdapter : use >
+HistoryListAdapter --> HistoryRecyclerViewList : create >
+HistoryRecyclerViewList "1" *--> "0..*" HistoryListItem : add >
 
 @enduml
