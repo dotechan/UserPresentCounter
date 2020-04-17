@@ -1,6 +1,7 @@
-package com.example.user.present.counter.history
+package com.example.user.present.counter.domain.history
 
 import androidx.lifecycle.LiveData
+import com.example.user.present.counter.domain.history.History
 
 interface IHistoryRepository {
 

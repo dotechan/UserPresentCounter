@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import com.example.user.present.counter.MeasurementReceiver
 import com.example.user.present.counter.R
 import com.example.user.present.counter.databinding.FragmentHomeBinding
-import com.example.user.present.counter.history.HistoryFragment
 import timber.log.Timber
 
 class HomeFragment : Fragment() {

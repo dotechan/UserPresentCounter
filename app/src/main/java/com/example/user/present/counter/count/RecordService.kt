@@ -6,8 +6,8 @@ import android.content.Intent
 import android.os.IBinder
 import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
-import com.example.user.present.counter.history.History
-import com.example.user.present.counter.history.Type
+import com.example.user.present.counter.domain.history.History
+import com.example.user.present.counter.domain.history.Type
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.io.FileDescriptor
@@ -61,8 +61,7 @@ class RecordService : Service() {
 
     private fun recordUnlockHistory(date: Date) {
         Timber.d("recordUnlockHistory")
-        val type = Type.UNLOCK
-        val history = History(date, type)
+        val history = History(date, Type.UNLOCK)
         val repository = Injection.provideHistoryRepository(applicationContext)
         // Coroutineの開始方法は二つ
         // launch : 呼び出し元に結果を返さない

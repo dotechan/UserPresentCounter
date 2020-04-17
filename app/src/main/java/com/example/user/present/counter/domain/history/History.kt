@@ -1,4 +1,4 @@
-package com.example.user.present.counter.history
+package com.example.user.present.counter.domain.history
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -26,30 +26,30 @@ data class History(
     private val yMdSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.JAPAN)
 
     /**
-     * 履歴画面に表示する形式に整形するMdSimpleDateFormat
+     * 履歴画面に表示するコンテンツの形式に日付を整形する
      *
      * @return 日付を「時間:分:秒」の形式に整形した文字列
      */
-    fun formatHHmmss(): String {
+    fun formatListContent(): String {
         return hmsSimpleDateFormat.format(date)
     }
 
     /**
-     * 履歴画面に表示するヘッダーの形式に整形する
+     * 履歴画面に表示するヘッダーの形式に日付を整形する
      *
      * @return 日付を「xx月xx日」の形式に整形した文字列
      */
-    fun formatMMdd(): String {
+    fun formatListHeader(): String {
         return MdSimpleDateFormat.format(date)
     }
 
     /**
-     * 履歴の日付が指定した日付と一致するか判定する
+     * 履歴の日付が指定した日付（時間以降は切り捨て）と一致するか文字列に変換してから判定する
      * e.g. 履歴の日付が2020-04-12で指定した日付が2020-04-11の場合はfalseを返す
      *
      * @return 履歴の日付と指定した日付が同じ場合はtrue、異なる場合はfalse
      */
-    fun equalsByDate(date: Date): Boolean {
+    fun equalsBy(date: Date): Boolean {
         val thisDate = yMdSimpleDateFormat.format(this.date)
         val specifiedDate = yMdSimpleDateFormat.format(date)
         return thisDate == specifiedDate

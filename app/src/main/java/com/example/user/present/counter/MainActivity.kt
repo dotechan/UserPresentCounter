@@ -5,7 +5,7 @@ import android.content.IntentFilter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.user.present.counter.databinding.ActivityMainBinding
-import com.example.user.present.counter.history.HistoryFragment
+import com.example.user.present.counter.presentation.history.HistoryFragment
 import com.example.user.present.counter.home.HomeFragment
 import timber.log.Timber
 

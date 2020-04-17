@@ -1,8 +1,8 @@
 package com.example.user.present.counter.data
 
 import android.content.Context
-import com.example.user.present.counter.history.HistoryDatabase
-import com.example.user.present.counter.history.HistoryRepository
+import com.example.user.present.counter.infra.history.HistoryDatabase
+import com.example.user.present.counter.infra.history.HistoryRepository
 
 // TODO: java -> mockにディレクトリを移動する
 class Injection {

@@ -1,6 +1,7 @@
-package com.example.user.present.counter.history
+package com.example.user.present.counter.infra.history
 
 import androidx.room.TypeConverter
+import com.example.user.present.counter.domain.history.Type
 import java.util.*
 
 class HistoryConverter {
@@ -16,7 +17,7 @@ class HistoryConverter {
 
     @TypeConverter
     fun fromAction(value: String): Type {
-        return Type.valueOf(value.toUpperCase())
+        return Type.valueOf(value.toUpperCase(Locale.ROOT))
     }
 
     @TypeConverter

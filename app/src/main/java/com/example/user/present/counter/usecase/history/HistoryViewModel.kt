@@ -1,10 +1,12 @@
-package com.example.user.present.counter.history
+package com.example.user.present.counter.usecase.history
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.example.user.present.counter.data.Injection
+import com.example.user.present.counter.domain.history.History
+import com.example.user.present.counter.domain.history.IHistoryRepository
 import kotlinx.coroutines.launch
 
 class HistoryViewModel(application: Application) : AndroidViewModel(application) {

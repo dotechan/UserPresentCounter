@@ -1,4 +1,4 @@
-package com.example.user.present.counter.history
+package com.example.user.present.counter.presentation.history
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.user.present.counter.R
+import com.example.user.present.counter.usecase.history.HistoryViewModel
 
 class HistoryFragment : Fragment() {
 

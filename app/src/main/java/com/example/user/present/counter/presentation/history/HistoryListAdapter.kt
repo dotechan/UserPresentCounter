@@ -1,4 +1,4 @@
-package com.example.user.present.counter.history
+package com.example.user.present.counter.presentation.history
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.user.present.counter.R
+import com.example.user.present.counter.domain.history.History
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -38,7 +39,7 @@ class HistoryListAdapter internal constructor(
             }
             is HistoryListItem.HistoryItem -> {
                 holder.typeIconView?.setImageResource(item.history.type.resourceId)
-                holder.dateTextView?.text = item.history.formatHHmmss()
+                holder.dateTextView?.text = item.history.formatListContent()
             }
             is HistoryListItem.BorderItem -> {
                 holder.borderView
@@ -86,11 +87,11 @@ class HistoryListAdapter internal constructor(
         init {
             // 履歴の日付が異なればHeaderを挿入する
             // 比較元の日付の初期値は協定世界時（UTC）で1970-01-01T00:00:00としておく
-            val previousDate: Date = Date(0)
+            val previousDate = Date(0)
 
             historyList.forEach { history ->
-                if (history.equalsByDate(previousDate).not()) {
-                    historyRecyclerViewList.add(HistoryListItem.HeaderItem(history.formatMMdd()))
+                if (history.equalsBy(previousDate).not()) {
+                    historyRecyclerViewList.add(HistoryListItem.HeaderItem(history.formatListHeader()))
                     historyRecyclerViewList.add(HistoryListItem.BorderItem)
                 }
                 historyRecyclerViewList.add(HistoryListItem.HistoryItem(history))

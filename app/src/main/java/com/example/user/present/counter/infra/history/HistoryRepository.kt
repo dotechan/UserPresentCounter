@@ -1,6 +1,8 @@
-package com.example.user.present.counter.history
+package com.example.user.present.counter.infra.history
 
 import androidx.lifecycle.LiveData
+import com.example.user.present.counter.domain.history.History
+import com.example.user.present.counter.domain.history.IHistoryRepository
 
 class HistoryRepository(
         private val historyDao: HistoryDao
