@@ -9,8 +9,8 @@ import java.util.*
 
 @Entity(tableName = "history_table")
 data class History(
-        @PrimaryKey @ColumnInfo(name = "date") val date: Date,
-        @ColumnInfo(name = "type") val type: Type
+        @PrimaryKey @ColumnInfo(name = "date") val date: Date, // roomで利用するためにgetterが必要
+        @ColumnInfo(name = "type") val type: Type // roomで利用するためにgetterが必要
 ) {
     // javaで言うところのクラス変数はkotlinの言語仕様にないため、top-levelプロパティとして宣言している
     @Ignore
@@ -37,7 +37,7 @@ data class History(
     /**
      * 履歴画面に表示するヘッダーの形式に日付を整形する
      *
-     * @return 日付を「xx月xx日」の形式に整形した文字列
+     * @return 日付を「MM月dd日」の形式に整形した文字列
      */
     fun formatListHeader(): String {
         return MdSimpleDateFormat.format(date)
