@@ -10,7 +10,7 @@ import com.example.user.present.counter.domain.history.History
 @Dao
 interface HistoryDao {
 
-    @Query("SELECT * from history_table ORDER BY date ASC")
+    @Query("SELECT * from history_table ORDER BY date DESC")
     fun getHistoryList(): LiveData<List<History>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
