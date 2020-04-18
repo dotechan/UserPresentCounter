@@ -9,15 +9,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.user.present.counter.R
 import com.example.user.present.counter.domain.history.History
-import java.util.*
-import kotlin.collections.ArrayList
+import com.example.user.present.counter.domain.history.HistoryRecyclerViewList
 
 class HistoryListAdapter internal constructor(
         context: Context
 ) : RecyclerView.Adapter<HistoryListAdapter.HistoryViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var historyList = emptyList<History>()
     private var historyRecyclerViewList = emptyList<HistoryListItem>()
 
     inner class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -66,9 +64,8 @@ class HistoryListAdapter internal constructor(
             }
 
     internal fun setHistoryList(historyList: List<History>) {
-        this.historyList = historyList
         // TODO: 毎回リストを再作成していたらパフォーマンスが悪いので、リスト生成済みであれば追加するように修正する
-        historyRecyclerViewList = HistoryRecyclerViewList(historyList).historyRecyclerViewList
+        historyRecyclerViewList = HistoryRecyclerViewList(historyList).list
         // TODO: パフォーマンスチューニングする。必要なデータの更新だけ通知すればよい
         notifyDataSetChanged()
     }
@@ -77,25 +74,5 @@ class HistoryListAdapter internal constructor(
         private const val VIEW_TYPE_HEADER = 1
         private const val VIEW_TYPE_HISTORY = 2
         private const val VIEW_TYPE_BORDER = 3
-    }
-
-    inner class HistoryRecyclerViewList(
-            private val historyList: List<History>
-    ) : ArrayList<HistoryListItem>() {
-        val historyRecyclerViewList = ArrayList<HistoryListItem>()
-
-        init {
-            // 履歴の日付が異なればHeaderを挿入する
-            // 比較元の日付の初期値は協定世界時（UTC）で1970-01-01T00:00:00としておく
-            val previousDate = Date(0)
-
-            historyList.forEach { history ->
-                if (history.equalsBy(previousDate).not()) {
-                    historyRecyclerViewList.add(HistoryListItem.HeaderItem(history.formatListHeader()))
-                    historyRecyclerViewList.add(HistoryListItem.BorderItem)
-                }
-                historyRecyclerViewList.add(HistoryListItem.HistoryItem(history))
-            }
-        }
     }
 }
