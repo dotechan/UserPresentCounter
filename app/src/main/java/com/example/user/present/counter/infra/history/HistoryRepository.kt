@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import com.example.user.present.counter.domain.history.History
 import com.example.user.present.counter.domain.history.IHistoryRepository
 
-class HistoryRepository(
+// MockitoでMockするために継承できるようにopen修飾子を付与している
+open class HistoryRepository(
         private val historyDao: HistoryDao
 ) : IHistoryRepository {
 
