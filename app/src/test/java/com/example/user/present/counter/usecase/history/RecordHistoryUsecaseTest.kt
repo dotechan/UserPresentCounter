@@ -1,7 +1,6 @@
 package com.example.user.present.counter.usecase.history
 
 import com.example.user.present.counter.domain.history.History
-import com.example.user.present.counter.domain.history.IHistoryRepository
 import com.example.user.present.counter.domain.history.Type
 import com.example.user.present.counter.infra.history.HistoryRepository
 import kotlinx.coroutines.CoroutineScope
@@ -11,15 +10,18 @@ import org.junit.Test
 
 import org.junit.Before
 import org.mockito.ArgumentMatchers
+import org.mockito.Mock
 import org.mockito.Mockito.*
+import org.mockito.MockitoAnnotations
 import java.util.*
 
 class RecordHistoryUsecaseTest {
-    lateinit var repository: IHistoryRepository
+    @Mock
+    lateinit var repository: HistoryRepository
 
     @Before
     fun setUp() {
-        repository = mock(HistoryRepository::class.java)
+        MockitoAnnotations.initMocks(this)
     }
 
     @Test
