@@ -19,8 +19,4 @@ class HistoryViewModel(application: Application) : AndroidViewModel(application)
         repository = Injection.provideHistoryRepository(application.applicationContext)
         historyList = repository.getHistoryList()
     }
-
-    fun save(history: History) = viewModelScope.launch {
-        repository.save(history)
-    }
 }

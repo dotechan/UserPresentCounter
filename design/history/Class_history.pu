@@ -91,7 +91,7 @@ package presentation {
         RecyclerViewに表示するアイテムのリストに変換する
     end note
     class HistoryRecyclerViewList {
-        ~ historyRecyclerViewList: ArrayList<HistoryListItem>
+        ~ list: ArrayList<HistoryListItem>
     }
 
     class HistoryListItem {

@@ -1,5 +1,6 @@
 package com.example.user.present.counter.domain.history
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -9,8 +10,8 @@ import java.util.*
 
 @Entity(tableName = "history_table")
 data class History(
-        @PrimaryKey @ColumnInfo(name = "date") val date: Date, // roomで利用するためにgetterが必要
-        @ColumnInfo(name = "type") val type: Type // roomで利用するためにgetterが必要
+        @PrimaryKey @ColumnInfo(name = "date") @NonNull val date: Date, // roomで利用するためにgetterが必要
+        @ColumnInfo(name = "type") @NonNull val type: Type // roomで利用するためにgetterが必要
 ) {
     // javaで言うところのクラス変数はkotlinの言語仕様にないため、top-levelプロパティとして宣言している
     @Ignore
