@@ -6,22 +6,22 @@ import java.util.*
 
 class HistoryConverter {
     @TypeConverter
-    fun fromTimestamp(value: Long): Date {
+    fun gMTmsecToDate(value: Long): Date {
         return Date(value)
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date): Long {
+    fun dateToGMTmsec(date: Date): Long {
         return date.time
     }
 
     @TypeConverter
-    fun fromAction(value: String): Type {
+    fun typeStrToType(value: String): Type {
         return Type.valueOf(value.toUpperCase(Locale.ROOT))
     }
 
     @TypeConverter
-    fun typeToAction(type: Type): String {
+    fun typeToTypeStr(type: Type): String {
         return type.action
     }
 }
