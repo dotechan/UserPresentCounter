@@ -16,11 +16,7 @@ class RecordHistoryUsecase(val historyRepository: IHistoryRepository) {
     }
 
     private fun recordHistory(history: History) {
-        // Coroutineの開始方法は二つ
-        // launch : 呼び出し元に結果を返さない
-        // async : awaitと呼ばれる中断関数でresultを返せるようにする
-        // suspend修飾子を付与しておくことで呼び出し元がバックグラウンド実行などの考慮をしなくていい
-        val scope = CoroutineScope(Dispatchers.Default)
+        val scope = CoroutineScope(Dispatchers.IO)
         scope.launch {
             historyRepository.save(history)
         }
