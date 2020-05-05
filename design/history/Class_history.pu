@@ -1,0 +1,150 @@
+@startuml
+
+title [クラス図]履歴
+
+' === 定義 ===
+class HomeFragment <<Fragment>> {
+    + start()
+    + stop()
+    + reset()
+    + showHistory()
+}
+
+class RecordService {
+    + unlock()
+}
+
+package mock {
+    class Injection {
+        + {static} provideHistoryRepository(context: Context): HistoryRepository
+    }
+}
+
+package domain {
+    note left of History
+        操作の履歴を表す
+        履歴は操作の種類と操作した時刻の情報を持つ
+        ヘッダー表示のために日付を「xx月xx日」という形式の文字列に変換して提供する
+        コンテンツ表示のために日付を「HH:mm:ss」という形式の文字列に変換して提供する
+    end note
+    class History <<Entity>> {
+        date: Date
+        type: Type
+        + formatDate: String
+        + formatListHeader(): String
+        + formatListContent(): String
+        + equalsBy(date: Date): Boolean
+    }
+
+    note left of Type
+        履歴として保存する操作を定義する
+        ・PINコード解除の計測開始
+        ・PINコード解除の計測終了
+        ・PINコード解除の回数リセット
+        ・PINコード解除
+    end note
+    enum Type {
+        STRAT
+        STOP
+        RESET
+        UNLOCK
+        + action: String
+        + resourceId: Int
+    }
+
+    note left of IHistoryRepository
+        履歴の保存と履歴の一覧をリスト形式で提供する
+        履歴は蓄積していき削除することは考えていない
+        T.B.D: 履歴の最大保有件数
+        i.e.Kyashは過去2年分の履歴まで
+    end note
+    interface IHistoryRepository {
+        + getHistoryList(): LiveData<List<History>>
+        + save(history: History)
+    }
+}
+
+package usecase {
+    class HistoryViewModel {
+        - HistoryList: LiveData<List<History>>
+        + save(history: History)
+    }
+
+    class RecordHistoryUsecase {
+        + execute(type: Type)
+        - recordHistory(history: History)
+    }
+}
+
+package presentation {
+    class HistoryFragment
+
+    class HistoryListAdapter <<RecyclerView.Adapter>> {
+        - historyRecyclerViewList
+    }
+
+    class HistoryListItem
+
+    note right of HistoryRecyclerViewList
+        RecyclerViewに表示するアイテムのリストを表す
+        値オブジェクトであるHistoryのListを受け取り
+        RecyclerViewに表示するアイテムのリストに変換する
+    end note
+    class HistoryRecyclerViewList {
+        ~ list: ArrayList<HistoryListItem>
+    }
+
+    class HistoryListItem {
+        class HeaderItem
+        class HistoryItem
+        class BorderItem
+    }
+}
+
+package infra {
+    class HistoryRepository {
+        - historyDao: HistoryDao
+    }
+
+    interface HistoryDao <<Dao>> {
+        ~ getHistoryList(): LiveData<List<History>>
+        ~ save(history: History)
+    }
+
+    class HistoryConverter
+
+    abstract HistoryDatabase <<RoomDatabase>> {
+        - INSTANCE: HistoryDatabase
+        ~ {abstract} historyDao: HistoryDao
+    }
+}
+
+' === 関係 ===
+HomeFragment --> HistoryFragment : show >
+HistoryFragment --> Injection : use >
+RecordService --> Injection : use >
+
+' domain
+History +-- Type
+IHistoryRepository --> History
+
+' usecase (ViewModelはusecaseではないか。しっくりこない)
+HomeFragment --> RecordHistoryUsecase : use >
+RecordService --> RecordHistoryUsecase : use >
+RecordHistoryUsecase --> History : create >
+RecordHistoryUsecase --> IHistoryRepository
+HistoryViewModel "1" o--> "1" IHistoryRepository
+
+' infra
+IHistoryRepository <|.. HistoryRepository
+HistoryRepository "1" o--> "1" HistoryDao
+HistoryDao "1" -> "1" HistoryDatabase
+HistoryDatabase --> HistoryConverter : convert
+
+' presentation
+HistoryFragment "1" o--> "1" HistoryViewModel
+HistoryFragment --> HistoryListAdapter : use >
+HistoryListAdapter --> HistoryRecyclerViewList : create >
+HistoryRecyclerViewList "1" *--> "0..*" HistoryListItem : add >
+
+@enduml
