@@ -3,6 +3,7 @@ package com.example.user.present.counter
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.user.present.counter.databinding.ActivityMainBinding
 import com.example.user.present.counter.presentation.history.HistoryFragment
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupBottomNavigationView()
+        navigateInitialScreen()
         registerMeasurementReceiver()
     }
 
@@ -36,13 +38,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         Timber.d("onResume")
         super.onResume()
-
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.fragment_container, HomeFragment())
-                .commit()
-
-        tempHistoryButton()
     }
 
     override fun onPause() {
@@ -75,15 +70,38 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupBottomNavigationView() {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.navigation_home -> {
+                    supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, HomeFragment())
+                            .commit()
+                }
+                R.id.navigation_history -> {
+                    supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.fragment_container, HistoryFragment())
+                            .commit()
+                }
+                R.id.navigation_graph -> {
+                    Toast.makeText(
+                            baseContext,
+                            R.string.toast_graph_nonimplemented,
+                            Toast.LENGTH_SHORT).show()
+                }
+                R.id.navigation_Setting -> {
+                    Toast.makeText(
+                            baseContext,
+                            R.string.toast_setting_nonimplemented,
+                            Toast.LENGTH_SHORT).show()
+                }
+            }
+            return@setOnNavigationItemSelectedListener true
+        }
     }
 
-    // TODO: BottomNavigationViewから遷移させる方法をマスターするまでの仮のボタン
-    private fun tempHistoryButton() {
-        binding.historyButton.setOnClickListener {
-            supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, HistoryFragment())
-                    .commit()
-        }
+    private fun navigateInitialScreen() {
+        binding.bottomNavigation.selectedItemId = R.id.navigation_home
     }
 }

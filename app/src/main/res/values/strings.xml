@@ -21,4 +21,6 @@
     <string name="history_title">History</string>
     <string name="graph_title">Graph</string>
     <string name="setting_title">Setting</string>
+    <string name="toast_graph_nonimplemented">graph is nonimplemented.</string>
+    <string name="toast_setting_nonimplemented">setting is nonimplemented.</string>
 </resources>
