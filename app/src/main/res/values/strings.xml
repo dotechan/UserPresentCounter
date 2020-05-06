@@ -7,11 +7,10 @@
     <string name="stop_measurement_from_notification">stop</string>
 
     <!-- Home Screen -->
-    <string name="home_count">Count</string>
-    <string name="home_colon">:</string>
     <string name="home_start_button">START</string>
     <string name="home_stop_button">STOP</string>
     <string name="home_reset_button">RESET</string>
+    <string name="home_dummy_count">000</string>
 
     <!-- History Screen -->
     <string name="history_item_icon_description">This icon represents a date.</string>
