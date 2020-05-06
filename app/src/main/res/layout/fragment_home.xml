@@ -40,7 +40,9 @@
         android:layout_centerVertical="true"
         android:text="@string/home_start_button"
         android:theme="@style/Widget.MaterialComponents.Button"
-        android:visibility="visible" />
+        android:visibility="visible"
+        app:icon="@drawable/ic_start"
+        app:iconGravity="textEnd" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/stop_button"
@@ -50,7 +52,9 @@
         android:layout_centerVertical="true"
         android:text="@string/home_stop_button"
         android:theme="@style/Widget.MaterialComponents.Button"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:icon="@drawable/ic_stop"
+        app:iconGravity="textEnd" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/reset_button"
@@ -58,6 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="@string/home_reset_button"
-        android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+        android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        app:icon="@drawable/ic_reset"
+        app:iconGravity="textEnd" />
 
 </RelativeLayout>
