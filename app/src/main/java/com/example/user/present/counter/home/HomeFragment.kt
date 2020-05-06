@@ -29,26 +29,9 @@ class HomeFragment : Fragment() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.startButton.setOnClickListener {
-            Timber.d("onClick: start")
-            startMeasurement()
-            recordStartHistory()
-            hideStartButton()
-            showStopButton()
-        }
-        binding.stopButton.setOnClickListener {
-            Timber.d("onClick: stop")
-            stopMeasurement()
-            recordStopHistory()
-            hideStopButton()
-            showStartButton()
-        }
-        binding.resetButton.setOnClickListener {
-            Timber.d("onClick: reset")
-            resetUnlockCount()
-            recordResetHistory()
-            updateUnlockCountView()
-        }
+        setupStartButton()
+        setupStopButton()
+        setupResetButton()
 
         return binding.root
     }
@@ -133,5 +116,34 @@ class HomeFragment : Fragment() {
         val repository = Injection.provideHistoryRepository(requireContext().applicationContext)
         val recordHistoryUsecase = RecordHistoryUsecase(repository)
         recordHistoryUsecase.execute(Type.RESET)
+    }
+
+    private fun setupResetButton() {
+        binding.resetButton.setOnClickListener {
+            Timber.d("onClick: reset")
+            resetUnlockCount()
+            recordResetHistory()
+            updateUnlockCountView()
+        }
+    }
+
+    private fun setupStopButton() {
+        binding.stopButton.setOnClickListener {
+            Timber.d("onClick: stop")
+            stopMeasurement()
+            recordStopHistory()
+            hideStopButton()
+            showStartButton()
+        }
+    }
+
+    private fun setupStartButton() {
+        binding.startButton.setOnClickListener {
+            Timber.d("onClick: start")
+            startMeasurement()
+            recordStartHistory()
+            hideStartButton()
+            showStopButton()
+        }
     }
 }

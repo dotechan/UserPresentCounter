@@ -1,60 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <RelativeLayout
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/unlock_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true">
+        android:layout_centerInParent="true"
+        android:text="@string/home_dummy_count"
+        android:textSize="80sp"
+        tools:ignore="RelativeOverlap" />
 
-        <TextView
-            android:id="@+id/home_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/home_count"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/home_colon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/home_count"
-            android:text="@string/home_colon"
-            android:textSize="50sp" />
-
-        <TextView
-            android:id="@+id/unlock_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/home_colon"
-            android:textSize="50sp" />
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/start_button"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/unlock_count"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/home_start_button"
-        android:visibility="visible" />
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/stop_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/home_stop_button"
-        android:visibility="gone" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/reset_button"
+            style="@style/Button.Reset"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/home_reset_button"
+            app:icon="@drawable/ic_reset" />
 
-    <Button
-        android:id="@+id/reset_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="@string/home_reset_button" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/start_button"
+            style="@style/Button.StartStop"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/home_start_button"
+            android:visibility="visible"
+            app:icon="@drawable/ic_start" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/stop_button"
+            style="@style/Button.StartStop"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/home_stop_button"
+            android:visibility="gone"
+            app:icon="@drawable/ic_stop" />
+    </LinearLayout>
 
 </RelativeLayout>
