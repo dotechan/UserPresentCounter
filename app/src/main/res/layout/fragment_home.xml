@@ -36,46 +36,34 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/start_button"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Button.StartStop"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/home_start_button"
-        android:textSize="14sp"
         android:visibility="visible"
-        app:icon="@drawable/ic_start"
-        app:iconGravity="textEnd" />
+        app:icon="@drawable/ic_start" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/stop_button"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Button.StartStop"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="@string/home_stop_button"
-        android:textSize="14sp"
         android:visibility="gone"
-        app:icon="@drawable/ic_stop"
-        app:iconGravity="textEnd" />
+        app:icon="@drawable/ic_stop" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/reset_button"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Button.Reset"
         android:layout_centerVertical="true"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_toStartOf="@id/start_button"
         android:text="@string/home_reset_button"
-        android:textSize="14sp"
-        app:icon="@drawable/ic_reset"
-        app:iconGravity="textEnd" />
+        app:icon="@drawable/ic_reset" />
 
 </RelativeLayout>
