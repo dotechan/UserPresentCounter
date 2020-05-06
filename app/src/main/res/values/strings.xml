@@ -9,9 +9,9 @@
     <!-- Home Screen -->
     <string name="home_count">Count</string>
     <string name="home_colon">:</string>
-    <string name="home_start_button">Start</string>
-    <string name="home_stop_button">Stop</string>
-    <string name="home_reset_button">Reset</string>
+    <string name="home_start_button">START</string>
+    <string name="home_stop_button">STOP</string>
+    <string name="home_reset_button">RESET</string>
 
     <!-- History Screen -->
     <string name="history_item_icon_description">This icon represents a date.</string>
