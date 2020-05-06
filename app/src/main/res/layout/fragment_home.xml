@@ -32,29 +32,32 @@
             android:textSize="50sp" />
     </RelativeLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/home_start_button"
+        android:theme="@style/Widget.MaterialComponents.Button"
         android:visibility="visible" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/stop_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="@string/home_stop_button"
+        android:theme="@style/Widget.MaterialComponents.Button"
         android:visibility="gone" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/reset_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:text="@string/home_reset_button" />
+        android:text="@string/home_reset_button"
+        android:theme="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
 </RelativeLayout>
