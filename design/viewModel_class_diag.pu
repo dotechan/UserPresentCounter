@@ -1,0 +1,54 @@
+@startuml
+
+package androidx {
+    package lifecycle {
+        class ViewModelProvider {
+            + get(modelClass: Class<T>) : <T extends ViewModel>
+        }
+        class ViewModelStore {
+            - mMap: HashMap<String, ViewModel>
+            ~ put(key: String, viewModel: ViewModel)
+            ~ get(key: String) : ViewModel
+        }
+        class ViewModel
+        interface Factory {
+            ~ create(modelClass: Class<T>) : <T extends ViewModel> T
+        }
+        class NewInstanceFactory
+    }
+
+    package activity {
+        class ComponentActivity {
+            - mViewModelStore: ViewModelStore
+            + getViewModelStore(): ViewModelStore
+        }
+    }
+}
+
+package home {
+    class HomeViewModel
+    class HomeViewModelFactory
+}
+
+class MainActivity
+
+' == androidx.lifecycle ==
+Factory <|.. NewInstanceFactory
+
+ViewModelProvider "1" *--> "1" ViewModelStore
+ViewModelProvider "1" *--> "1" Factory
+
+Factory --> ViewModel : create >
+ViewModelStore "1" o--> "0..*" ViewModel : put >
+
+' == androidx.activity ==
+ComponentActivity <|-- MainActivity
+ComponentActivity "1" o--> "1" ViewModelStore
+
+' == home ==
+ViewModel <|-- HomeViewModel
+NewInstanceFactory <|-- HomeViewModelFactory
+
+HomeViewModelFactory -> HomeViewModel : create >
+
+@enduml
