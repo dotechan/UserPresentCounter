@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import com.example.user.present.counter.MeasurementReceiver
 import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
@@ -22,11 +24,23 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+    lateinit var viewModel: HomeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.d("onCreate")
+        super.onCreate(savedInstanceState)
+
+        // FIXME: MainActivityが破棄された場合はViewModelStoreもクリアされるので永続化が必要
+        viewModel = ViewModelProvider(activity!!.viewModelStore, HomeViewModelFactory())
+                .get(HomeViewModel::class.java)
+    }
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        Timber.d("onCreateView")
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         setupStartButton()
@@ -37,8 +51,16 @@ class HomeFragment : Fragment() {
     }
 
     override fun onResume() {
+        Timber.d("onResume")
         super.onResume()
+
         updateUnlockCountView()
+        updateButton()
+    }
+
+    override fun onDestroyView() {
+        Timber.d("onDestroyView")
+        super.onDestroyView()
     }
 
     private fun startMeasurement() {
@@ -134,6 +156,7 @@ class HomeFragment : Fragment() {
             recordStopHistory()
             hideStopButton()
             showStartButton()
+            viewModel.isMeasuring = false
         }
     }
 
@@ -144,6 +167,18 @@ class HomeFragment : Fragment() {
             recordStartHistory()
             hideStartButton()
             showStopButton()
+            viewModel.isMeasuring = true
+        }
+    }
+
+    private fun updateButton() {
+        Timber.d("isMeasuring = ${viewModel.isMeasuring}")
+        if (viewModel.isMeasuring) {
+            hideStartButton()
+            showStopButton()
+        } else {
+            hideStopButton()
+            showStartButton()
         }
     }
 }
