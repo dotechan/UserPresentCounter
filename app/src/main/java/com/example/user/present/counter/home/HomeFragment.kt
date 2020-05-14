@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import com.example.user.present.counter.MeasurementReceiver
 import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
@@ -30,7 +29,7 @@ class HomeFragment : Fragment() {
         Timber.d("onCreate")
         super.onCreate(savedInstanceState)
 
-        // FIXME: MainActivityが破棄された場合はViewModelStoreもクリアされるので永続化が必要
+        // TODO: 計測のライフサイクルを考慮してViewModelからDBに永続化した方がいいのか判断する
         viewModel = ViewModelProvider(activity!!.viewModelStore, HomeViewModelFactory())
                 .get(HomeViewModel::class.java)
     }
