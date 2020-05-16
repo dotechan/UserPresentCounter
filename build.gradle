@@ -1,15 +1,55 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.3.70'
+    // Define versions in a single place
+    ext {
+        // Gradle
+        gradleVersion = '3.6.3'
+
+        // Kotlin
+        kotlinVersion = '1.3.70'
+
+        // Sdk and tools
+        compileSdkVersion = 29
+        minSdkVersion = 24
+        targetSdkVersion = 29
+
+        // App dependencies kapt
+        roomVersion = '2.2.5'
+
+        // App dependencies implementation
+        appcompatVersion = '1.0.2'
+        constraintlayoutVersion = '1.1.3'
+        timberVersion = '4.7.1'
+        coreKtxVersion = '1.2.0'
+        materialVersion = '1.1.0'
+        archLifecycleVersion = '2.2.0'
+        coroutinesVersion = '1.3.2'
+
+        // Testing dependencies test
+        junit = '4.13'
+        testCore = '1.2.0'
+        mockitoCore = '3.1.0'
+        mockk = '1.9.3'
+        kotlinxCoroutinesCore = '1.3.4'
+        kotlinxCoroutinesTest = '1.3.3'
+        runner = '1.2.0'
+        robolectric = '4.3.1'
+
+        // Testing dependencies android
+        extJunit = '1.1.0'
+        espressoCore = '3.1.1'
+    }
+
     repositories {
         google()
         jcenter()
         
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.android.tools.build:gradle:$gradleVersion"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -26,10 +66,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    room_version = '2.2.5'
-    archLifecycleVersion = '2.2.0'
-    coroutines = '1.3.2'
 }
