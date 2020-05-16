@@ -57,7 +57,6 @@ dependencies {
     testImplementation "androidx.test:core:$rootProject.testCore"
     testImplementation "org.mockito:mockito-core:$rootProject.mockitoCore"
     testImplementation "io.mockk:mockk:$rootProject.mockk"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.kotlinxCoroutinesCore"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.kotlinxCoroutinesTest"
     testImplementation "androidx.test:runner:$rootProject.runner"
     testImplementation "org.robolectric:robolectric:$rootProject.robolectric"
