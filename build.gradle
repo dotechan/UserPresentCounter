@@ -18,27 +18,27 @@ buildscript {
         roomVersion = '2.2.5'
 
         // App dependencies implementation
-        appcompatVersion = '1.0.2'
+        appcompatVersion = '1.1.0'
         constraintlayoutVersion = '1.1.3'
         timberVersion = '4.7.1'
         coreKtxVersion = '1.2.0'
         materialVersion = '1.1.0'
         archLifecycleVersion = '2.2.0'
-        coroutinesVersion = '1.3.2'
+        coroutinesVersion = '1.3.6'
 
         // Testing dependencies test
         junit = '4.13'
         testCore = '1.2.0'
-        mockitoCore = '3.1.0'
-        mockk = '1.9.3'
-        kotlinxCoroutinesCore = '1.3.4'
-        kotlinxCoroutinesTest = '1.3.3'
+        mockitoCore = '3.3.3'
+        mockk = '1.10.0'
+        kotlinxCoroutinesCore = '1.3.6'
+        kotlinxCoroutinesTest = '1.3.6'
         runner = '1.2.0'
         robolectric = '4.3.1'
 
         // Testing dependencies android
-        extJunit = '1.1.0'
-        espressoCore = '3.1.1'
+        extJunit = '1.1.1'
+        espressoCore = '3.2.0'
     }
 
     repositories {
