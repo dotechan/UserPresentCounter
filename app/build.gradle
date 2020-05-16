@@ -29,6 +29,12 @@ android {
         unitTests.includeAndroidResources = true
         unitTests.returnDefaultValues = true
     }
+    lintOptions {
+        // also check source code from included projects
+        checkDependencies = true
+        // also check the generated sources
+        checkGeneratedSources = true
+    }
 }
 
 dependencies {
