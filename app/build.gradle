@@ -30,6 +30,7 @@ android {
         unitTests.returnDefaultValues = true
     }
     lintOptions {
+        lintConfig file('lint.xml')
         // also check source code from included projects
         checkDependencies = true
         // also check the generated sources
