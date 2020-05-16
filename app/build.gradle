@@ -29,6 +29,13 @@ android {
         unitTests.includeAndroidResources = true
         unitTests.returnDefaultValues = true
     }
+    lintOptions {
+        lintConfig file('lint.xml')
+        // also check source code from included projects
+        checkDependencies = true
+        // also check the generated sources
+        checkGeneratedSources = true
+    }
 }
 
 dependencies {
@@ -57,7 +64,6 @@ dependencies {
     testImplementation "androidx.test:core:$rootProject.testCore"
     testImplementation "org.mockito:mockito-core:$rootProject.mockitoCore"
     testImplementation "io.mockk:mockk:$rootProject.mockk"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.kotlinxCoroutinesCore"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.kotlinxCoroutinesTest"
     testImplementation "androidx.test:runner:$rootProject.runner"
     testImplementation "org.robolectric:robolectric:$rootProject.robolectric"
