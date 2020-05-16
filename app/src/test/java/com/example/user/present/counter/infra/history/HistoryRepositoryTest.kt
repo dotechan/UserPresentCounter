@@ -31,12 +31,4 @@ class HistoryRepositoryTest {
                 .historyDao()
         repository = HistoryRepository(historyDao)
     }
-
-    //
-    @Ignore
-    @Test
-    fun getHistoryList() {
-        var list = repository.getHistoryList().value
-        assertThat(list, Matchers.empty())
-    }
 }
