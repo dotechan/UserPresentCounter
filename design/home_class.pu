@@ -1,0 +1,73 @@
+@startuml
+
+package home {
+    package domain {
+        class UnlockCount {
+            - unlockCount: Int
+            + increase()
+            + reset()
+        }
+
+        interface IUnlockCountRepository {
+            + save()
+            + load()
+        }
+    }
+
+    package usecase {
+        class ActionCreator
+        interface MeasureUsecase
+        class StartMeasurement
+        class StopMeasurement
+        interface UnlockCountUsecase
+        class ResetUnlockCount
+    }
+
+    package infra {
+        class UnlockCountRepository
+
+        interface UnlockCountDao
+
+        abstract UnlockCountDatabase
+    }
+
+    package presentation {
+        class HomeFragment {
+            - unlockCountText: View
+            - startButton: View
+            - stopButton: View
+            - resetButton: View
+        }
+
+        class HomeViewModel {
+            + unlockCount: LiveData<UnlockCount>
+            + isMeasuring(): Boolean
+        }
+
+        class HomeViewModelFactory
+    }
+}
+
+' == 依存関係 ==
+HomeFragment -- HomeViewModelFactory
+HomeFragment -- HomeViewModel
+HomeViewModelFactory -> HomeViewModel
+
+HomeViewModel -- IUnlockCountRepository : observe >
+IUnlockCountRepository <|.. UnlockCountRepository
+IUnlockCountRepository -> UnlockCount
+
+UnlockCountRepository --> UnlockCountDao
+UnlockCountDao --> UnlockCountDatabase
+
+HomeViewModel --> ActionCreator
+ActionCreator --> MeasureUsecase
+ActionCreator --> UnlockCountUsecase
+HomeViewModel --> MeasureUsecase : execute >
+MeasureUsecase <|.. StartMeasurement
+MeasureUsecase <|.. StopMeasurement
+HomeViewModel --> UnlockCountUsecase : execute >
+UnlockCountUsecase <|.. ResetUnlockCount
+UnlockCountUsecase --> IUnlockCountRepository
+
+@enduml
