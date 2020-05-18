@@ -18,6 +18,7 @@ import com.example.user.present.counter.databinding.FragmentHomeBinding
 import com.example.user.present.counter.domain.history.Type
 import com.example.user.present.counter.domain.home.UnlockCount
 import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
+import com.example.user.present.counter.usecase.home.StartMeasurement
 import timber.log.Timber
 
 class HomeFragment : Fragment() {
@@ -61,13 +62,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         Timber.d("onDestroyView")
         super.onDestroyView()
-    }
-
-    private fun startMeasurement() {
-        val intent = Intent(requireContext(), MeasurementReceiver::class.java).apply {
-            action = MeasurementReceiver.ACTION_START_MEASUREMENT
-        }
-        requireContext().sendBroadcast(intent)
     }
 
     private fun stopMeasurement() {
@@ -163,7 +157,7 @@ class HomeFragment : Fragment() {
     private fun setupStartButton() {
         binding.startButton.setOnClickListener {
             Timber.d("onClick: start")
-            startMeasurement()
+            StartMeasurement(requireContext()).execute()
             recordStartHistory()
             hideStartButton()
             showStopButton()
