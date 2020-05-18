@@ -16,6 +16,7 @@ import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
 import com.example.user.present.counter.databinding.FragmentHomeBinding
 import com.example.user.present.counter.domain.history.Type
+import com.example.user.present.counter.domain.home.UnlockCount
 import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
 import timber.log.Timber
 
@@ -83,7 +84,7 @@ class HomeFragment : Fragment() {
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
             putInt(getString(com.example.user.present.counter.R.string.saved_unlock_count_key),
-                    resources.getInteger(com.example.user.present.counter.R.integer.initial_unlock_count))
+                    UnlockCount(0).count)
             apply()
         }
     }
@@ -92,7 +93,7 @@ class HomeFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences(
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE)
         val originalUnlockCount = sharedPreferences.getInt(getString(R.string.saved_unlock_count_key),
-                resources.getInteger(R.integer.initial_unlock_count))
+                UnlockCount(0).count)
         // PINコード解除後の画面表示回数に下線を引く
         val unlockCount = SpannableStringBuilder(originalUnlockCount.toString())
         unlockCount.setSpan(UnderlineSpan(),

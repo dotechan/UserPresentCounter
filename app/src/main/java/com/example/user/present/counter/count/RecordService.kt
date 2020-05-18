@@ -8,6 +8,7 @@ import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
 import com.example.user.present.counter.domain.history.History
 import com.example.user.present.counter.domain.history.Type
+import com.example.user.present.counter.domain.home.UnlockCount
 import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
 import kotlinx.coroutines.*
 import timber.log.Timber
@@ -51,7 +52,7 @@ class RecordService : Service() {
                 Context.MODE_PRIVATE)
         val originalUnlockCount = sharedPreferences.getInt(
                 getString(R.string.saved_unlock_count_key),
-                resources.getInteger(R.integer.initial_unlock_count))
+                UnlockCount(0).count)
         val currentUnlockCount = originalUnlockCount + 1
 
         with(sharedPreferences.edit()) {
