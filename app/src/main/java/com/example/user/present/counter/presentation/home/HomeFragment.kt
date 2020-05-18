@@ -1,4 +1,4 @@
-package com.example.user.present.counter.home
+package com.example.user.present.counter.presentation.home
 
 import android.content.Context
 import android.content.Intent
