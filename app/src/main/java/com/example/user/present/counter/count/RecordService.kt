@@ -46,19 +46,9 @@ class RecordService : Service() {
 
     private fun recordUnlockCount() {
         Timber.d("recordUnlockCount")
-        // TODO: DB操作などインフラの処理はRepositoryに任せる
-        val sharedPreferences = getSharedPreferences(
-                getString(R.string.preference_file_key),
-                Context.MODE_PRIVATE)
-        val originalUnlockCount = sharedPreferences.getInt(
-                getString(R.string.saved_unlock_count_key),
-                UnlockCount(0).count)
-        val currentUnlockCount = originalUnlockCount + 1
-
-        with(sharedPreferences.edit()) {
-            putInt(getString(R.string.saved_unlock_count_key), currentUnlockCount)
-            apply()
-        }
+        val repository = Injection.provideUnlockCountRepository(applicationContext)
+        val originalUnlockCount = repository.load()
+        repository.save(originalUnlockCount.increase())
     }
 
     private fun recordUnlockHistory() {
