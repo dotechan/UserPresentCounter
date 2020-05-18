@@ -1,7 +1,6 @@
 package com.example.user.present.counter.presentation.home
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -11,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.user.present.counter.MeasurementReceiver
 import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
 import com.example.user.present.counter.databinding.FragmentHomeBinding
@@ -19,6 +17,7 @@ import com.example.user.present.counter.domain.history.Type
 import com.example.user.present.counter.domain.home.UnlockCount
 import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
 import com.example.user.present.counter.usecase.home.StartMeasurement
+import com.example.user.present.counter.usecase.home.StopMeasurement
 import timber.log.Timber
 
 class HomeFragment : Fragment() {
@@ -62,13 +61,6 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         Timber.d("onDestroyView")
         super.onDestroyView()
-    }
-
-    private fun stopMeasurement() {
-        val intent = Intent(requireContext(), MeasurementReceiver::class.java).apply {
-            action = MeasurementReceiver.ACTION_STOP_MEASUREMENT
-        }
-        requireContext().sendBroadcast(intent)
     }
 
     private fun resetUnlockCount() {
@@ -146,7 +138,7 @@ class HomeFragment : Fragment() {
     private fun setupStopButton() {
         binding.stopButton.setOnClickListener {
             Timber.d("onClick: stop")
-            stopMeasurement()
+            StopMeasurement(requireContext()).execute()
             recordStopHistory()
             hideStopButton()
             showStartButton()
