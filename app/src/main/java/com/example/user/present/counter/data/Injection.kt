@@ -15,7 +15,7 @@ class Injection {
         }
 
         fun provideUnlockCountRepository(context: Context): InMemoryUnlockCountRepository {
-            return InMemoryUnlockCountRepository()
+            return InMemoryUnlockCountRepository.getRepository()
         }
     }
 }

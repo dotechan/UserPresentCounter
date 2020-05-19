@@ -14,6 +14,7 @@ import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
 import com.example.user.present.counter.databinding.FragmentHomeBinding
 import com.example.user.present.counter.domain.history.Type
+import com.example.user.present.counter.domain.home.IUnlockCountRepository
 import com.example.user.present.counter.domain.home.UnlockCount
 import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
 import com.example.user.present.counter.usecase.home.StartMeasurement
@@ -24,12 +25,14 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
+    lateinit var repository: IUnlockCountRepository
     lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Timber.d("onCreate")
         super.onCreate(savedInstanceState)
 
+        repository = Injection.provideUnlockCountRepository(requireContext())
         // TODO: 計測のライフサイクルを考慮してViewModelからDBに永続化した方がいいのか判断する
         viewModel = ViewModelProvider(activity!!.viewModelStore, HomeViewModelFactory())
                 .get(HomeViewModel::class.java)
@@ -76,10 +79,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateUnlockCountView() {
-        val sharedPreferences = requireContext().getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        val originalUnlockCount = sharedPreferences.getInt(getString(R.string.saved_unlock_count_key),
-                UnlockCount(0).count)
+
+        val originalUnlockCount = repository.load().count
         // PINコード解除後の画面表示回数に下線を引く
         val unlockCount = SpannableStringBuilder(originalUnlockCount.toString())
         unlockCount.setSpan(UnderlineSpan(),
