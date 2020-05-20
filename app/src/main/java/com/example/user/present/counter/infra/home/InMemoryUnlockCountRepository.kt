@@ -11,7 +11,9 @@ class InMemoryUnlockCountRepository : IUnlockCountRepository {
 
         fun getRepository(): InMemoryUnlockCountRepository = INSTANCE
                 ?: synchronized(this) {
-                    InMemoryUnlockCountRepository()
+                    InMemoryUnlockCountRepository().also {
+                        INSTANCE = it
+                    }
                 }
     }
 
@@ -19,13 +21,11 @@ class InMemoryUnlockCountRepository : IUnlockCountRepository {
 
     override fun load(): UnlockCount {
         Timber.d("load unlockCount = ${unlockCount.count}")
-        Timber.d("load unlockCount this = $this")
         return unlockCount
     }
 
     override fun save(unlockCount: UnlockCount) {
         Timber.d("save unlockCount = ${unlockCount.count}")
-        Timber.d("save unlockCount this = $this")
         this.unlockCount = unlockCount
     }
 
