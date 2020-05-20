@@ -19,11 +19,13 @@ class InMemoryUnlockCountRepository : IUnlockCountRepository {
 
     private var unlockCount = UnlockCount(0)
 
+    // TODO: domain層のUnlockCountがpresentation層から操作できてしまうため修正したい
     override fun load(): UnlockCount {
         Timber.d("load unlockCount = ${unlockCount.count}")
         return unlockCount
     }
 
+    // TODO: domain層のUnlockCountがpresentation層から操作できてしまうため修正したい
     override fun save(unlockCount: UnlockCount) {
         Timber.d("save unlockCount = ${unlockCount.count}")
         this.unlockCount = unlockCount
