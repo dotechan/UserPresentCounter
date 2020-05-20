@@ -67,15 +67,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun resetUnlockCount() {
-        // TODO: SharedPreferencesへのアクセスを行うクラスに切り出した方がいい
-        // TODO: SharedPreferencesの更新後に画面表示の更新処理も行う必要あり
-        val sharedPreferences = requireContext().getSharedPreferences(
-                getString(R.string.preference_file_key), Context.MODE_PRIVATE)
-        with(sharedPreferences.edit()) {
-            putInt(getString(com.example.user.present.counter.R.string.saved_unlock_count_key),
-                    UnlockCount(0).count)
-            apply()
-        }
+        repository.save(UnlockCount(0))
     }
 
     private fun updateUnlockCountView() {
