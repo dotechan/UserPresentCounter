@@ -31,6 +31,14 @@ class InMemoryUnlockCountRepository : IUnlockCountRepository {
         this.unlockCount = unlockCount
     }
 
+    override fun loadUIData(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun reset() {
+        unlockCount = UnlockCount(0)
+    }
+
     override fun toString(): String {
         return "${unlockCount.count}"
     }

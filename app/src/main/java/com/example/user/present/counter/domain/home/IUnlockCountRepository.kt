@@ -4,4 +4,8 @@ interface IUnlockCountRepository {
     fun load() : UnlockCount
 
     fun save(unlockCount: UnlockCount)
+
+    fun loadUIData() : Int
+
+    fun reset()
 }

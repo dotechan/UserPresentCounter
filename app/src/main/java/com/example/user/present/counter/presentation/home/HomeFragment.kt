@@ -17,6 +17,7 @@ import com.example.user.present.counter.domain.history.Type
 import com.example.user.present.counter.domain.home.IUnlockCountRepository
 import com.example.user.present.counter.domain.home.UnlockCount
 import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
+import com.example.user.present.counter.usecase.home.ResetUnlockCount
 import com.example.user.present.counter.usecase.home.StartMeasurement
 import com.example.user.present.counter.usecase.home.StopMeasurement
 import timber.log.Timber
@@ -67,7 +68,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun resetUnlockCount() {
-        repository.save(UnlockCount(0))
+        ResetUnlockCount().execute(repository)
     }
 
     private fun updateUnlockCountView() {

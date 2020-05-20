@@ -12,4 +12,12 @@ class UnlockCountRepository : IUnlockCountRepository {
     override fun save(unlockCount: UnlockCount) {
         // TODO("Not yet implemented")
     }
+
+    override fun loadUIData(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun reset() {
+        TODO("Not yet implemented")
+    }
 }
