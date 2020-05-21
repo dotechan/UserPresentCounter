@@ -32,7 +32,7 @@ class InMemoryUnlockCountRepository : IUnlockCountRepository {
     }
 
     override fun loadUIData(): Int {
-        TODO("Not yet implemented")
+        return unlockCount.count
     }
 
     override fun reset() {

@@ -1,6 +1,5 @@
 package com.example.user.present.counter.presentation.home
 
-import android.content.Context
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -10,12 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
 import com.example.user.present.counter.databinding.FragmentHomeBinding
 import com.example.user.present.counter.domain.history.Type
 import com.example.user.present.counter.domain.home.IUnlockCountRepository
-import com.example.user.present.counter.domain.home.UnlockCount
 import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
 import com.example.user.present.counter.usecase.home.ResetUnlockCount
 import com.example.user.present.counter.usecase.home.StartMeasurement
@@ -73,7 +70,7 @@ class HomeFragment : Fragment() {
 
     private fun updateUnlockCountView() {
 
-        val originalUnlockCount = repository.load().count
+        val originalUnlockCount = repository.loadUIData()
         // PINコード解除後の画面表示回数に下線を引く
         val unlockCount = SpannableStringBuilder(originalUnlockCount.toString())
         unlockCount.setSpan(UnderlineSpan(),
