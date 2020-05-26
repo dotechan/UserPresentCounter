@@ -64,14 +64,6 @@ class MeasurementService : Service() {
         // https://developer.android.com/training/notify-user/navigation.html?hl=ja#DirectEntry
         val intent = Intent(this, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
-        val stopIntent = Intent(this, MeasurementReceiver::class.java)
-        stopIntent.action = MeasurementReceiver.ACTION_STOP_MEASUREMENT
-        val stopPendingIntent = PendingIntent.getBroadcast(this, 0, stopIntent, 0)
-        val action = NotificationCompat.Action.Builder(
-                R.drawable.ic_launcher_foreground,
-                getString(R.string.stop_measurement_from_notification),
-                stopPendingIntent)
-                .build()
 
         return NotificationCompat.Builder(this, "temp_id")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -80,7 +72,6 @@ class MeasurementService : Service() {
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(false)
-                .addAction(action)
                 .build()
     }
 

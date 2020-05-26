@@ -4,7 +4,6 @@
     <string name="channel_description">channel_description</string>
     <string name="preference_file_key">key</string>
     <string name="saved_unlock_count_key">key_unlock_count</string>
-    <string name="stop_measurement_from_notification">stop</string>
 
     <!-- Home Screen -->
     <string name="home_start_button">START</string>

@@ -11,7 +11,6 @@ import com.example.user.present.counter.presentation.home.HomeFragment
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var mMeasurementReceiver: MeasurementReceiver
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +21,6 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavigationView()
         navigateInitialScreen()
-        registerMeasurementReceiver()
     }
 
     override fun onStart() {
@@ -52,21 +50,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         Timber.d("onDestroy")
-        unregisterMeasurementReceiver()
         super.onDestroy()
-    }
-
-    private fun registerMeasurementReceiver() {
-        mMeasurementReceiver = MeasurementReceiver()
-        val intentFilter = IntentFilter().apply {
-            addAction(MeasurementReceiver.ACTION_START_MEASUREMENT)
-            addAction(MeasurementReceiver.ACTION_STOP_MEASUREMENT)
-        }
-        registerReceiver(mMeasurementReceiver, intentFilter)
-    }
-
-    private fun unregisterMeasurementReceiver() {
-        unregisterReceiver(mMeasurementReceiver)
     }
 
     private fun setupBottomNavigationView() {
