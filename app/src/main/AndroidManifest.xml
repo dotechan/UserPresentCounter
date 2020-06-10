@@ -24,15 +24,15 @@
         </activity>
 
         <service
-            android:name=".MeasurementService"
+            android:name=".frameworks.home.SmartPhoneUsageMeasurementService"
             android:exported="false" />
 
         <receiver
-            android:name=".count.UnlockReceiver"
+            android:name=".frameworks.home.UserPresentReceiver"
             android:enabled="true" />
 
         <service
-            android:name=".count.RecordService"
+            android:name=".domain.home.RecordSmartPhoneUsageService"
             android:exported="false" />
     </application>
 

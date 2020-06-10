@@ -1,32 +1,32 @@
 package com.example.user.present.counter.infra.home
 
-import com.example.user.present.counter.domain.home.IUnlockCountRepository
-import com.example.user.present.counter.domain.home.UnlockCount
+import com.example.user.present.counter.domain.home.ISmartPhoneUsageRateRepository
+import com.example.user.present.counter.domain.home.UserPresentCount
 import timber.log.Timber
 
-class InMemoryUnlockCountRepository : IUnlockCountRepository {
+class InMemorySmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
     companion object {
         @Volatile
-        private var INSTANCE: InMemoryUnlockCountRepository? = null
+        private var INSTANCE: InMemorySmartPhoneUsageRateRepository? = null
 
-        fun getRepository(): InMemoryUnlockCountRepository = INSTANCE
+        fun getRepository(): InMemorySmartPhoneUsageRateRepository = INSTANCE
                 ?: synchronized(this) {
-                    InMemoryUnlockCountRepository().also {
+                    InMemorySmartPhoneUsageRateRepository().also {
                         INSTANCE = it
                     }
                 }
     }
 
-    private var unlockCount = UnlockCount(0)
+    private var unlockCount = UserPresentCount(0)
 
     // TODO: domain層のUnlockCountがpresentation層から操作できてしまうため修正したい
-    override fun load(): UnlockCount {
+    override fun load(): UserPresentCount {
         Timber.d("load unlockCount = ${unlockCount.count}")
         return unlockCount
     }
 
     // TODO: domain層のUnlockCountがpresentation層から操作できてしまうため修正したい
-    override fun save(unlockCount: UnlockCount) {
+    override fun save(unlockCount: UserPresentCount) {
         Timber.d("save unlockCount = ${unlockCount.count}")
         this.unlockCount = unlockCount
     }
@@ -36,7 +36,7 @@ class InMemoryUnlockCountRepository : IUnlockCountRepository {
     }
 
     override fun reset() {
-        unlockCount = UnlockCount(0)
+        unlockCount = UserPresentCount(0)
     }
 
     override fun toString(): String {

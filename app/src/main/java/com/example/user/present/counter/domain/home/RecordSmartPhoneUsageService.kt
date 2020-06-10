@@ -1,22 +1,18 @@
-package com.example.user.present.counter.count
+package com.example.user.present.counter.domain.home
 
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.os.IBinder
-import com.example.user.present.counter.R
 import com.example.user.present.counter.data.Injection
-import com.example.user.present.counter.domain.history.History
 import com.example.user.present.counter.domain.history.Type
-import com.example.user.present.counter.domain.home.UnlockCount
 import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
-import kotlinx.coroutines.*
 import timber.log.Timber
 import java.io.FileDescriptor
 import java.io.PrintWriter
-import java.util.*
 
-class RecordService : Service() {
+// TODO domain層にAndroid frameworkの固有要素であるServiceを配置するのが微妙かな
+// ドメインサービスならいいんだが、Serviceの継承をやめたい
+class RecordSmartPhoneUsageService : Service() {
     override fun onCreate() {
         Timber.d("onCreate")
         super.onCreate()

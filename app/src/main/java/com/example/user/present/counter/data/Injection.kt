@@ -3,7 +3,7 @@ package com.example.user.present.counter.data
 import android.content.Context
 import com.example.user.present.counter.infra.history.HistoryDatabase
 import com.example.user.present.counter.infra.history.HistoryRepository
-import com.example.user.present.counter.infra.home.InMemoryUnlockCountRepository
+import com.example.user.present.counter.infra.home.InMemorySmartPhoneUsageRateRepository
 
 // TODO: java -> mockにディレクトリを移動する
 class Injection {
@@ -14,8 +14,8 @@ class Injection {
             return HistoryRepository(database.historyDao())
         }
 
-        fun provideUnlockCountRepository(context: Context): InMemoryUnlockCountRepository {
-            return InMemoryUnlockCountRepository.getRepository()
+        fun provideUnlockCountRepository(context: Context): InMemorySmartPhoneUsageRateRepository {
+            return InMemorySmartPhoneUsageRateRepository.getRepository()
         }
     }
 }

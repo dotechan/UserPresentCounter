@@ -1,6 +1,6 @@
 package com.example.user.present.counter.domain.history
 
-import com.example.user.present.counter.domain.home.UnlockCount
+import com.example.user.present.counter.domain.home.UserPresentCount
 import org.junit.Test
 
 import org.junit.Before
@@ -13,11 +13,11 @@ import org.junit.Assert.assertEquals
  * テストメソッドの命名は[UnitOfWork_StateUnderTest_ExpectedBehavior]とする
  */
 class UnlockCountTest {
-    lateinit var target: UnlockCount
+    lateinit var target: UserPresentCount
 
     @Before
     fun setUp() {
-        target = UnlockCount(INITIAL_VALUE)
+        target = UserPresentCount(INITIAL_VALUE)
     }
 
     @Test
@@ -49,7 +49,7 @@ class UnlockCountTest {
 
     @Test
     fun getCount_given1_return1() {
-        val actual = UnlockCount(1).count
+        val actual = UserPresentCount(1).count
         assertEquals("unlock countが正しく初期化されていません。",
                 actual, 1)
     }

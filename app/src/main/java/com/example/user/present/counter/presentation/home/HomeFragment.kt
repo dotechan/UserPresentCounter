@@ -12,9 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.user.present.counter.data.Injection
 import com.example.user.present.counter.databinding.FragmentHomeBinding
 import com.example.user.present.counter.domain.history.Type
-import com.example.user.present.counter.domain.home.IUnlockCountRepository
+import com.example.user.present.counter.domain.home.ISmartPhoneUsageRateRepository
 import com.example.user.present.counter.usecase.history.RecordHistoryUsecase
-import com.example.user.present.counter.usecase.home.ResetUnlockCount
+import com.example.user.present.counter.usecase.home.ResetSmartPhoneUsage
 import com.example.user.present.counter.usecase.home.StartMeasurement
 import com.example.user.present.counter.usecase.home.StopMeasurement
 import timber.log.Timber
@@ -23,7 +23,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
 
-    lateinit var repository: IUnlockCountRepository
+    lateinit var repository: ISmartPhoneUsageRateRepository
     lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,8 +64,8 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
     }
 
-    private fun resetUnlockCount() {
-        ResetUnlockCount().execute(repository)
+    private fun resetSmartPhoneUsage() {
+        ResetSmartPhoneUsage().execute(repository)
     }
 
     private fun updateUnlockCountView() {
@@ -120,7 +120,7 @@ class HomeFragment : Fragment() {
     private fun setupResetButton() {
         binding.resetButton.setOnClickListener {
             Timber.d("onClick: reset")
-            resetUnlockCount()
+            resetSmartPhoneUsage()
             recordResetHistory()
             updateUnlockCountView()
         }

@@ -1,6 +1,6 @@
 package com.example.user.present.counter.usecase.home
 
-import com.example.user.present.counter.domain.home.IUnlockCountRepository
+import com.example.user.present.counter.domain.home.ISmartPhoneUsageRateRepository
 import io.mockk.MockKAnnotations
 import io.mockk.confirmVerified
 import io.mockk.every
@@ -11,10 +11,10 @@ import org.junit.Test
 
 class ResetUnlockCountTest {
 
-    private val resetUnlockCount = ResetUnlockCount()
+    private val resetUnlockCount = ResetSmartPhoneUsage()
 
     @MockK
-    private lateinit var repository: IUnlockCountRepository
+    private lateinit var repository: ISmartPhoneUsageRateRepository
 
     @Before
     fun setUp() {

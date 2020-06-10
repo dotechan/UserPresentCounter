@@ -1,4 +1,4 @@
-package com.example.user.present.counter
+package com.example.user.present.counter.frameworks.home
 
 import android.app.*
 import android.content.BroadcastReceiver
@@ -8,10 +8,11 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
-import com.example.user.present.counter.count.UnlockReceiver
+import com.example.user.present.counter.MainActivity
+import com.example.user.present.counter.R
 import timber.log.Timber
 
-class MeasurementService : Service() {
+class SmartPhoneUsageMeasurementService : Service() {
     private lateinit var mUnlockReceiver: BroadcastReceiver
 
     override fun onCreate() {
@@ -48,7 +49,7 @@ class MeasurementService : Service() {
 
     private fun registerUnlockReceiver() {
         Timber.d("registerUnlockReceiver")
-        mUnlockReceiver = UnlockReceiver()
+        mUnlockReceiver = UserPresentReceiver()
         val intentFilter = IntentFilter().apply {
             addAction(Intent.ACTION_USER_PRESENT)
         }
