@@ -21,17 +21,14 @@ class SmartPhoneUsageMeasurementService : Service() {
         registerUnlockReceiver()
     }
 
-    override fun startForegroundService(service: Intent): ComponentName? {
-        Timber.d("startForegroundService")
-        return super.startForegroundService(service)
-    }
-
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         Timber.d("onStartCommand")
         // TODO: Notificationのデザインガイド
         // https://material.io/design/platform-guidance/android-notifications.html#
         createNotificationChannel()
         startForeground(1, createNotification())
+
+        // TODO: Startボタンが連打された時にNotificationを連続生成してメモリリークしないか確認する
         return START_STICKY
     }
 
@@ -43,7 +40,6 @@ class SmartPhoneUsageMeasurementService : Service() {
     override fun onDestroy() {
         Timber.d("onDestroy")
         super.onDestroy()
-        // TODO: ForegroundServiceにしているんだけどすぐにonDestroyがコールされてしまうなあ
         unregisterUnlockReceiver()
     }
 
