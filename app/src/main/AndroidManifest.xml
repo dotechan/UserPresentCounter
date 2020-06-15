@@ -30,10 +30,6 @@
         <receiver
             android:name=".frameworks.home.UserPresentReceiver"
             android:enabled="true" />
-
-        <service
-            android:name=".domain.home.RecordSmartPhoneUsageService"
-            android:exported="false" />
     </application>
 
 </manifest>
