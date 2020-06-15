@@ -21,7 +21,6 @@ class RecordSmartPhoneUsageService : Service() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         Timber.d("onStartCommand")
 
-        recordUnlockCount()
         recordUnlockHistory()
 
         return super.onStartCommand(intent, flags, startId)
@@ -40,12 +39,6 @@ class RecordSmartPhoneUsageService : Service() {
         super.dump(fd, writer, args)
     }
 
-    private fun recordUnlockCount() {
-        Timber.d("recordUnlockCount")
-        val repository = Injection.provideUnlockCountRepository(applicationContext)
-        val originalUnlockCount = repository.load()
-        repository.save(originalUnlockCount.increase())
-    }
 
     private fun recordUnlockHistory() {
         Timber.d("recordUnlockHistory")

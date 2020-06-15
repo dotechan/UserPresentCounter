@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         Timber.d("onCreate")
         super.onCreate(savedInstanceState)
 
-        repository = Injection.provideUnlockCountRepository(requireContext())
+        repository = Injection.provideSmartPhoneUsageRepository(requireContext())
         // TODO: 計測のライフサイクルを考慮してViewModelからDBに永続化した方がいいのか判断する
         viewModel = ViewModelProvider(activity!!.viewModelStore, HomeViewModelFactory())
                 .get(HomeViewModel::class.java)
