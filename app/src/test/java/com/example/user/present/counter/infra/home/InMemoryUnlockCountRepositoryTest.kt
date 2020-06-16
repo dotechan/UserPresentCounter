@@ -1,6 +1,7 @@
 package com.example.user.present.counter.infra.home
 
-import com.example.user.present.counter.domain.home.SmartPhoneUsageRate
+import com.example.user.present.counter.usagerate.domain.SmartPhoneUsageRate
+import com.example.user.present.counter.usagerate.infra.InMemorySmartPhoneUsageRateRepository
 import org.junit.Before
 import org.junit.Test
 

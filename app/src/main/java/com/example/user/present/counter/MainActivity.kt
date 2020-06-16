@@ -1,13 +1,12 @@
 package com.example.user.present.counter
 
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.user.present.counter.databinding.ActivityMainBinding
-import com.example.user.present.counter.presentation.history.HistoryFragment
-import com.example.user.present.counter.presentation.home.HomeFragment
+import com.example.user.present.counter.history.presentation.HistoryFragment
+import com.example.user.present.counter.usagerate.presentation.HomeFragment
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {

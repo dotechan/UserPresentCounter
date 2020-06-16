@@ -1,6 +1,7 @@
 package com.example.user.present.counter.infra.history
 
-import com.example.user.present.counter.domain.history.Type
+import com.example.user.present.counter.history.domain.Type
+import com.example.user.present.counter.history.infra.HistoryConverter
 import org.junit.Test
 
 import org.junit.Assert.*

@@ -24,11 +24,11 @@
         </activity>
 
         <service
-            android:name=".frameworks.home.SmartPhoneUsageMeasurementService"
+            android:name=".usagerate.framework.SmartPhoneUsageMeasurementService"
             android:exported="false" />
 
         <receiver
-            android:name=".frameworks.home.UserPresentReceiver"
+            android:name=".usagerate.framework.UserPresentReceiver"
             android:enabled="true" />
     </application>
 

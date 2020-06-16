@@ -1,11 +1,11 @@
 package com.example.user.present.counter.usecase.history
 
-import com.example.user.present.counter.domain.history.Type
-import com.example.user.present.counter.infra.history.HistoryRepository
+import com.example.user.present.counter.history.domain.Type
+import com.example.user.present.counter.history.infra.HistoryRepository
+import com.example.user.present.counter.history.usecase.RecordHistoryUsecase
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Test
 

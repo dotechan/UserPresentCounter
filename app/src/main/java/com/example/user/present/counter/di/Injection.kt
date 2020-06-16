@@ -1,0 +1,21 @@
+package com.example.user.present.counter.di
+
+import android.content.Context
+import com.example.user.present.counter.history.infra.HistoryDatabase
+import com.example.user.present.counter.history.infra.HistoryRepository
+import com.example.user.present.counter.usagerate.infra.InMemorySmartPhoneUsageRateRepository
+
+// TODO: java -> mockにディレクトリを移動する
+class Injection {
+
+    companion object {
+        fun provideHistoryRepository(context: Context): HistoryRepository {
+            val database = HistoryDatabase.getDatabase(context)
+            return HistoryRepository(database.historyDao())
+        }
+
+        fun provideSmartPhoneUsageRepository(context: Context): InMemorySmartPhoneUsageRateRepository {
+            return InMemorySmartPhoneUsageRateRepository.getRepository()
+        }
+    }
+}

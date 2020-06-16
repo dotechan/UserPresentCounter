@@ -3,12 +3,10 @@ package com.example.user.present.counter.infra.history
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import org.hamcrest.Matchers
+import com.example.user.present.counter.history.infra.HistoryDatabase
+import com.example.user.present.counter.history.infra.HistoryRepository
 import org.junit.Before
-import org.junit.Test
 
-import org.junit.Assert.*
-import org.junit.Ignore
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
