@@ -1,13 +1,11 @@
-package com.example.user.present.counter.infra.home
+package com.example.user.present.counter.usagerate.infra
 
 import com.example.user.present.counter.usagerate.domain.SmartPhoneUsageRate
-import com.example.user.present.counter.usagerate.infra.InMemorySmartPhoneUsageRateRepository
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
-import org.junit.Assert.assertEquals
-
-class InMemoryUnlockCountRepositoryTest {
+class InMemorySmartPhoneUsageRateRepositoryTest {
     private lateinit var target: InMemorySmartPhoneUsageRateRepository
 
     @Before

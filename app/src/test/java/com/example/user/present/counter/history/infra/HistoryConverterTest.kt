@@ -1,10 +1,8 @@
-package com.example.user.present.counter.infra.history
+package com.example.user.present.counter.history.infra
 
 import com.example.user.present.counter.history.domain.Type
-import com.example.user.present.counter.history.infra.HistoryConverter
-import org.junit.Test
-
 import org.junit.Assert.*
+import org.junit.Test
 import java.util.*
 
 class HistoryConverterTest {

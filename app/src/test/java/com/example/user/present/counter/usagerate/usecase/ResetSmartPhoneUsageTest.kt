@@ -1,7 +1,6 @@
-package com.example.user.present.counter.usecase.home
+package com.example.user.present.counter.usagerate.usecase
 
 import com.example.user.present.counter.usagerate.domain.ISmartPhoneUsageRateRepository
-import com.example.user.present.counter.usagerate.usecase.ResetSmartPhoneUsage
 import io.mockk.MockKAnnotations
 import io.mockk.confirmVerified
 import io.mockk.every
@@ -10,8 +9,7 @@ import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
-class ResetUnlockCountTest {
-
+class ResetSmartPhoneUsageTest {
     private val resetUnlockCount = ResetSmartPhoneUsage()
 
     @MockK

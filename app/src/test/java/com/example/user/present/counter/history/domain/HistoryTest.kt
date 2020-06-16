@@ -1,14 +1,10 @@
-package com.example.user.present.counter.history
+package com.example.user.present.counter.history.domain
 
-import com.example.user.present.counter.history.domain.History
-import com.example.user.present.counter.history.domain.Type
 import org.junit.After
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
-
-import org.junit.Assert.assertTrue
-import org.junit.Assert.assertFalse
-import java.util.Date
+import java.util.*
 
 class HistoryTest {
     lateinit var target: History
