@@ -19,13 +19,11 @@ class InMemorySmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
 
     private var unlockCount = SmartPhoneUsageRate(0)
 
-    // TODO: domain層のUnlockCountがpresentation層から操作できてしまうため修正したい
     override fun load(): SmartPhoneUsageRate {
         Timber.d("load unlockCount = ${unlockCount.userPresentCount}")
         return unlockCount
     }
 
-    // TODO: domain層のUnlockCountがpresentation層から操作できてしまうため修正したい
     override fun save(unlockCount: SmartPhoneUsageRate) {
         Timber.d("save unlockCount = ${unlockCount.userPresentCount}")
         this.unlockCount = unlockCount
