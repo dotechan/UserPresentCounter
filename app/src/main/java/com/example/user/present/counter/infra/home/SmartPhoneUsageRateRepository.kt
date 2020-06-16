@@ -1,15 +1,15 @@
 package com.example.user.present.counter.infra.home
 
 import com.example.user.present.counter.domain.home.ISmartPhoneUsageRateRepository
-import com.example.user.present.counter.domain.home.UserPresentCount
+import com.example.user.present.counter.domain.home.SmartPhoneUsageRate
 
 class SmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
-    override fun load() : UserPresentCount {
+    override fun load() : SmartPhoneUsageRate {
         // TODO("Not yet implemented")
-        return UserPresentCount(5)
+        return SmartPhoneUsageRate(5)
     }
 
-    override fun save(unlockCount: UserPresentCount) {
+    override fun save(unlockCount: SmartPhoneUsageRate) {
         // TODO("Not yet implemented")
     }
 

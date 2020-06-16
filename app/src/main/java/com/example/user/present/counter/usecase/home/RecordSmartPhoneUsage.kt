@@ -14,6 +14,6 @@ class RecordSmartPhoneUsage(private val context: Context) {
         Timber.d("record")
         val repository = Injection.provideSmartPhoneUsageRepository(context)
         val originalSmartPhoneUsage = repository.load()
-        repository.save(originalSmartPhoneUsage.increase())
+        repository.save(originalSmartPhoneUsage.record())
     }
 }

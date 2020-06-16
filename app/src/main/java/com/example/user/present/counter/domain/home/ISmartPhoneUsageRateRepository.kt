@@ -1,9 +1,9 @@
 package com.example.user.present.counter.domain.home
 
 interface ISmartPhoneUsageRateRepository {
-    fun load() : UserPresentCount
+    fun load() : SmartPhoneUsageRate
 
-    fun save(unlockCount: UserPresentCount)
+    fun save(unlockCount: SmartPhoneUsageRate)
 
     fun loadUIData() : Int
 

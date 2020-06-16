@@ -1,7 +1,7 @@
 package com.example.user.present.counter.infra.home
 
 import com.example.user.present.counter.domain.home.ISmartPhoneUsageRateRepository
-import com.example.user.present.counter.domain.home.UserPresentCount
+import com.example.user.present.counter.domain.home.SmartPhoneUsageRate
 import timber.log.Timber
 
 class InMemorySmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
@@ -17,29 +17,29 @@ class InMemorySmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
                 }
     }
 
-    private var unlockCount = UserPresentCount(0)
+    private var unlockCount = SmartPhoneUsageRate(0)
 
     // TODO: domain層のUnlockCountがpresentation層から操作できてしまうため修正したい
-    override fun load(): UserPresentCount {
-        Timber.d("load unlockCount = ${unlockCount.count}")
+    override fun load(): SmartPhoneUsageRate {
+        Timber.d("load unlockCount = ${unlockCount.userPresentCount}")
         return unlockCount
     }
 
     // TODO: domain層のUnlockCountがpresentation層から操作できてしまうため修正したい
-    override fun save(unlockCount: UserPresentCount) {
-        Timber.d("save unlockCount = ${unlockCount.count}")
+    override fun save(unlockCount: SmartPhoneUsageRate) {
+        Timber.d("save unlockCount = ${unlockCount.userPresentCount}")
         this.unlockCount = unlockCount
     }
 
     override fun loadUIData(): Int {
-        return unlockCount.count
+        return unlockCount.userPresentCount
     }
 
     override fun reset() {
-        unlockCount = UserPresentCount(0)
+        unlockCount = SmartPhoneUsageRate(0)
     }
 
     override fun toString(): String {
-        return "${unlockCount.count}"
+        return "${unlockCount.userPresentCount}"
     }
 }

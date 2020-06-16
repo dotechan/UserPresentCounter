@@ -1,6 +1,6 @@
 package com.example.user.present.counter.infra.home
 
-import com.example.user.present.counter.domain.home.UserPresentCount
+import com.example.user.present.counter.domain.home.SmartPhoneUsageRate
 import org.junit.Before
 import org.junit.Test
 
@@ -16,8 +16,8 @@ class InMemoryUnlockCountRepositoryTest {
 
     @Test
     fun load_saveThreeTimes_return3() {
-        target.save(UserPresentCount(3))
-        val actual = target.load().count
+        target.save(SmartPhoneUsageRate(3))
+        val actual = target.load().userPresentCount
         assertEquals(3, actual)
     }
 }
