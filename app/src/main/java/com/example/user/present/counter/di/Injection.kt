@@ -14,7 +14,7 @@ class Injection {
             return HistoryRepository(database.historyDao())
         }
 
-        fun provideSmartPhoneUsageRepository(context: Context): InMemorySmartPhoneUsageRateRepository {
+        fun provideInMemorySmartPhoneUsageRateRepository(): InMemorySmartPhoneUsageRateRepository {
             return InMemorySmartPhoneUsageRateRepository.getRepository()
         }
     }
