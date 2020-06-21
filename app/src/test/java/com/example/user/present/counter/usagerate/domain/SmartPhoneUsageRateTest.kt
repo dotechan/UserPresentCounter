@@ -48,6 +48,11 @@ class SmartPhoneUsageRateTest {
                 actual, 1)
     }
 
+    @Test(expected = IllegalArgumentException::class)
+    fun instantiate_givenInvalidCount_throwIllegalArgumentException() {
+        target = SmartPhoneUsageRate(SmartPhoneUsageRate.INVALID_COUNT)
+    }
+
     companion object Const {
         const val INCREMENT_THREE_TIMES = 3
     }
