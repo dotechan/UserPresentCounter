@@ -1,16 +1,29 @@
 package com.example.user.present.counter.usagerate.infra
 
+import android.content.SharedPreferences
+import android.content.res.Resources
+import com.example.user.present.counter.R
 import com.example.user.present.counter.usagerate.domain.ISmartPhoneUsageRateRepository
 import com.example.user.present.counter.usagerate.domain.SmartPhoneUsageRate
 
-class SmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
-    override fun load() : SmartPhoneUsageRate {
-        // TODO("Not yet implemented")
-        return SmartPhoneUsageRate(5)
+class SmartPhoneUsageRateRepository(
+        private val sharedPref: SharedPreferences,
+        private val resources: Resources
+) : ISmartPhoneUsageRateRepository {
+    override fun load(): SmartPhoneUsageRate {
+        val userPresentCount = sharedPref.getInt(
+                resources.getString(R.string.smartphone_usage_rate_key),
+                SmartPhoneUsageRate.INVALID_COUNT)
+
+        return SmartPhoneUsageRate(userPresentCount)
     }
 
     override fun save(unlockCount: SmartPhoneUsageRate) {
-        // TODO("Not yet implemented")
+        with(sharedPref.edit()) {
+            putInt(resources.getString(R.string.smartphone_usage_rate_file_key),
+                    unlockCount.userPresentCount)
+            commit()
+        }
     }
 
     override fun loadUIData(): Int {
@@ -18,6 +31,10 @@ class SmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
     }
 
     override fun reset() {
-        TODO("Not yet implemented")
+        with(sharedPref.edit()) {
+            putInt(resources.getString(R.string.smartphone_usage_rate_file_key),
+                    SmartPhoneUsageRate.INITIAL_COUNT)
+            commit()
+        }
     }
 }
