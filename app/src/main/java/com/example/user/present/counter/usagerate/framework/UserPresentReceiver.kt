@@ -12,6 +12,7 @@ class UserPresentReceiver : BroadcastReceiver() {
         Timber.d("onReceive: ${intent.action}")
         RecordSmartPhoneUsage(context.applicationContext).execute()
         RecordHistory(context.applicationContext).execute()
+        // TODO: 通知を受けるタイミング次第ではカウントアップ前に画面描画が走りそうなので、カウントアップ後に画面描画が必要になりそう
     }
 
     override fun toString(): String {

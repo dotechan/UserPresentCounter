@@ -12,7 +12,7 @@ class RecordSmartPhoneUsage(private val context: Context) {
 
     private fun record() {
         Timber.d("record")
-        val repository = Injection.provideInMemorySmartPhoneUsageRateRepository()
+        val repository = Injection.provideSmartPhoneUsageRateRepository(context)
         val originalSmartPhoneUsage = repository.load()
         repository.save(originalSmartPhoneUsage.record())
     }

@@ -13,26 +13,22 @@ class SmartPhoneUsageRateRepository(
     override fun load(): SmartPhoneUsageRate {
         val userPresentCount = sharedPref.getInt(
                 resources.getString(R.string.smartphone_usage_rate_key),
-                SmartPhoneUsageRate.INVALID_COUNT)
+                SmartPhoneUsageRate.INITIAL_COUNT)
 
         return SmartPhoneUsageRate(userPresentCount)
     }
 
     override fun save(unlockCount: SmartPhoneUsageRate) {
         with(sharedPref.edit()) {
-            putInt(resources.getString(R.string.smartphone_usage_rate_file_key),
+            putInt(resources.getString(R.string.smartphone_usage_rate_key),
                     unlockCount.userPresentCount)
             commit()
         }
     }
 
-    override fun loadUIData(): Int {
-        TODO("Not yet implemented")
-    }
-
     override fun reset() {
         with(sharedPref.edit()) {
-            putInt(resources.getString(R.string.smartphone_usage_rate_file_key),
+            putInt(resources.getString(R.string.smartphone_usage_rate_key),
                     SmartPhoneUsageRate.INITIAL_COUNT)
             commit()
         }

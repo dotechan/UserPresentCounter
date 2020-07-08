@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         Timber.d("onCreate")
         super.onCreate(savedInstanceState)
 
-        repository = Injection.provideInMemorySmartPhoneUsageRateRepository()
+        repository = Injection.provideSmartPhoneUsageRateRepository(context!!.applicationContext)
         // TODO: 計測のライフサイクルを考慮してViewModelからDBに永続化した方がいいのか判断する
         viewModel = ViewModelProvider(activity!!.viewModelStore, HomeViewModelFactory())
                 .get(HomeViewModel::class.java)
@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
         Timber.d("onResume")
         super.onResume()
 
-        updateUnlockCountView()
+        updateSmartPhoneUsageRate()
         updateButton()
     }
 
@@ -68,11 +68,11 @@ class HomeFragment : Fragment() {
         ResetSmartPhoneUsage().execute(repository)
     }
 
-    private fun updateUnlockCountView() {
-
-        val originalUnlockCount = repository.loadUIData()
+    private fun updateSmartPhoneUsageRate() {
+        // FIXME: domainオブジェクトがpresentation層に露出しているのでDTOでwrapする
+        val originalSmartPhoneUsageRate = repository.load().userPresentCount
         // PINコード解除後の画面表示回数に下線を引く
-        val unlockCount = SpannableStringBuilder(originalUnlockCount.toString())
+        val unlockCount = SpannableStringBuilder(originalSmartPhoneUsageRate.toString())
         unlockCount.setSpan(UnderlineSpan(),
                 0,
                 unlockCount.length,
@@ -122,7 +122,7 @@ class HomeFragment : Fragment() {
             Timber.d("onClick: reset")
             resetSmartPhoneUsage()
             recordResetHistory()
-            updateUnlockCountView()
+            updateSmartPhoneUsageRate()
         }
     }
 

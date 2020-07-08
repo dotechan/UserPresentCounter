@@ -5,7 +5,5 @@ interface ISmartPhoneUsageRateRepository {
 
     fun save(unlockCount: SmartPhoneUsageRate)
 
-    fun loadUIData() : Int
-
     fun reset()
 }

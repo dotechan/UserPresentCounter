@@ -29,10 +29,6 @@ class InMemorySmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
         this.unlockCount = unlockCount
     }
 
-    override fun loadUIData(): Int {
-        return unlockCount.userPresentCount
-    }
-
     override fun reset() {
         unlockCount = SmartPhoneUsageRate(0)
     }
