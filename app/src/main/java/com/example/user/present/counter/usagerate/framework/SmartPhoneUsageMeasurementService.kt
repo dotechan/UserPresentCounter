@@ -63,8 +63,8 @@ class SmartPhoneUsageMeasurementService : Service() {
 
         return NotificationCompat.Builder(this, "temp_id")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("boot service title")
-                .setContentText("boot service content text")
+                .setContentTitle(getString(R.string.measurement_notification_content_title))
+                .setContentText(getString(R.string.measurement_notification_content_text))
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(false)
