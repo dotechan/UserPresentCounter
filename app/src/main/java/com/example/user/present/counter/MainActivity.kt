@@ -73,12 +73,6 @@ class MainActivity : AppCompatActivity() {
                             R.string.toast_graph_nonimplemented,
                             Toast.LENGTH_SHORT).show()
                 }
-                R.id.navigation_Setting -> {
-                    Toast.makeText(
-                            baseContext,
-                            R.string.toast_setting_nonimplemented,
-                            Toast.LENGTH_SHORT).show()
-                }
             }
             return@setOnNavigationItemSelectedListener true
         }

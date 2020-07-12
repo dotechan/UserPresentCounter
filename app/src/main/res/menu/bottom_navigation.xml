@@ -16,9 +16,4 @@
         android:icon="@drawable/ic_graph_black"
         android:title="@string/graph_title" />
 
-    <item
-        android:id="@+id/navigation_Setting"
-        android:icon="@drawable/ic_setting_black"
-        android:title="@string/setting_title" />
-
 </menu>
