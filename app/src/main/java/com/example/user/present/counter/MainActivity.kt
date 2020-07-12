@@ -1,17 +1,15 @@
 package com.example.user.present.counter
 
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.user.present.counter.databinding.ActivityMainBinding
-import com.example.user.present.counter.presentation.history.HistoryFragment
-import com.example.user.present.counter.home.HomeFragment
+import com.example.user.present.counter.history.presentation.HistoryFragment
+import com.example.user.present.counter.usagerate.presentation.HomeFragment
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var mMeasurementReceiver: MeasurementReceiver
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavigationView()
         navigateInitialScreen()
-        registerMeasurementReceiver()
     }
 
     override fun onStart() {
@@ -52,21 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         Timber.d("onDestroy")
-        unregisterMeasurementReceiver()
         super.onDestroy()
-    }
-
-    private fun registerMeasurementReceiver() {
-        mMeasurementReceiver = MeasurementReceiver()
-        val intentFilter = IntentFilter().apply {
-            addAction(MeasurementReceiver.ACTION_START_MEASUREMENT)
-            addAction(MeasurementReceiver.ACTION_STOP_MEASUREMENT)
-        }
-        registerReceiver(mMeasurementReceiver, intentFilter)
-    }
-
-    private fun unregisterMeasurementReceiver() {
-        unregisterReceiver(mMeasurementReceiver)
     }
 
     private fun setupBottomNavigationView() {

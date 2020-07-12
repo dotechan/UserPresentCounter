@@ -4,7 +4,6 @@
     <string name="channel_description">channel_description</string>
     <string name="preference_file_key">key</string>
     <string name="saved_unlock_count_key">key_unlock_count</string>
-    <string name="stop_measurement_from_notification">stop</string>
 
     <!-- Home Screen -->
     <string name="home_start_button">START</string>
@@ -22,4 +21,14 @@
     <string name="setting_title">Setting</string>
     <string name="toast_graph_nonimplemented">graph is nonimplemented.</string>
     <string name="toast_setting_nonimplemented">setting is nonimplemented.</string>
+
+    <!-- SharedPreferences Key -->
+    <string name="smartphone_usage_rate_file_key">smartphone_usage_rate_file_key</string>
+    <string name="smartphone_usage_rate_key">smartphone_usage_rate_key</string>
+    <string name="smartphone_usage_rate_file_for_unit_test_key">
+        smartphone_usage_rate_file_for_unit_test_key
+    </string>
+    <string name="smartphone_usage_rate_for_unit_test_key">
+        smartphone_usage_rate_for_unit_test_key
+    </string>
 </resources>

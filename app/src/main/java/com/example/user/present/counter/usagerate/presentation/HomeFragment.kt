@@ -1,0 +1,161 @@
+package com.example.user.present.counter.usagerate.presentation
+
+import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.UnderlineSpan
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.example.user.present.counter.di.Injection
+import com.example.user.present.counter.databinding.FragmentHomeBinding
+import com.example.user.present.counter.history.domain.Type
+import com.example.user.present.counter.usagerate.domain.ISmartPhoneUsageRateRepository
+import com.example.user.present.counter.history.usecase.RecordHistoryUsecase
+import com.example.user.present.counter.usagerate.usecase.ResetSmartPhoneUsage
+import com.example.user.present.counter.usagerate.usecase.StartMeasurement
+import com.example.user.present.counter.usagerate.usecase.StopMeasurement
+import timber.log.Timber
+
+class HomeFragment : Fragment() {
+
+    private lateinit var binding: FragmentHomeBinding
+
+    lateinit var repository: ISmartPhoneUsageRateRepository
+    lateinit var viewModel: HomeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        Timber.d("onCreate")
+        super.onCreate(savedInstanceState)
+
+        repository = Injection.provideSmartPhoneUsageRateRepository(context!!.applicationContext)
+        // TODO: 計測のライフサイクルを考慮してViewModelからDBに永続化した方がいいのか判断する
+        viewModel = ViewModelProvider(activity!!.viewModelStore, HomeViewModelFactory())
+                .get(HomeViewModel::class.java)
+    }
+
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        Timber.d("onCreateView")
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        setupStartButton()
+        setupStopButton()
+        setupResetButton()
+
+        return binding.root
+    }
+
+    override fun onResume() {
+        Timber.d("onResume")
+        super.onResume()
+
+        updateSmartPhoneUsageRate()
+        updateButton()
+    }
+
+    override fun onDestroyView() {
+        Timber.d("onDestroyView")
+        super.onDestroyView()
+    }
+
+    private fun resetSmartPhoneUsage() {
+        ResetSmartPhoneUsage().execute(repository)
+    }
+
+    private fun updateSmartPhoneUsageRate() {
+        // FIXME: domainオブジェクトがpresentation層に露出しているのでDTOでwrapする
+        val originalSmartPhoneUsageRate = repository.load().userPresentCount
+        // PINコード解除後の画面表示回数に下線を引く
+        val unlockCount = SpannableStringBuilder(originalSmartPhoneUsageRate.toString())
+        unlockCount.setSpan(UnderlineSpan(),
+                0,
+                unlockCount.length,
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        binding.unlockCount.text = unlockCount
+    }
+
+    private fun showStartButton() {
+        binding.startButton.visibility = View.VISIBLE
+    }
+
+    private fun hideStartButton() {
+        binding.startButton.visibility = View.GONE
+    }
+
+    private fun showStopButton() {
+        binding.stopButton.visibility = View.VISIBLE
+    }
+
+    private fun hideStopButton() {
+        binding.stopButton.visibility = View.GONE
+    }
+
+    private fun recordStartHistory() {
+        Timber.d("recordStartHistory")
+        val repository = Injection.provideHistoryRepository(requireContext().applicationContext)
+        val recordHistoryUsecase = RecordHistoryUsecase(repository)
+        recordHistoryUsecase.execute(Type.START)
+    }
+
+    private fun recordStopHistory() {
+        Timber.d("recordStopHistory")
+        val repository = Injection.provideHistoryRepository(requireContext().applicationContext)
+        val recordHistoryUsecase = RecordHistoryUsecase(repository)
+        recordHistoryUsecase.execute(Type.STOP)
+    }
+
+    private fun recordResetHistory() {
+        Timber.d("recordResetHistory")
+        val repository = Injection.provideHistoryRepository(requireContext().applicationContext)
+        val recordHistoryUsecase = RecordHistoryUsecase(repository)
+        recordHistoryUsecase.execute(Type.RESET)
+    }
+
+    private fun setupResetButton() {
+        binding.resetButton.setOnClickListener {
+            Timber.d("onClick: reset")
+            resetSmartPhoneUsage()
+            recordResetHistory()
+            updateSmartPhoneUsageRate()
+        }
+    }
+
+    private fun setupStopButton() {
+        binding.stopButton.setOnClickListener {
+            Timber.d("onClick: stop")
+            StopMeasurement(requireContext()).execute()
+            recordStopHistory()
+            hideStopButton()
+            showStartButton()
+            viewModel.isMeasuring = false
+        }
+    }
+
+    private fun setupStartButton() {
+        binding.startButton.setOnClickListener {
+            Timber.d("onClick: start")
+            StartMeasurement(requireContext()).execute()
+            recordStartHistory()
+            hideStartButton()
+            showStopButton()
+            viewModel.isMeasuring = true
+        }
+    }
+
+    private fun updateButton() {
+        Timber.d("isMeasuring = ${viewModel.isMeasuring}")
+        if (viewModel.isMeasuring) {
+            hideStartButton()
+            showStopButton()
+        } else {
+            hideStopButton()
+            showStartButton()
+        }
+    }
+}

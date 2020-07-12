@@ -1,0 +1,110 @@
+@startuml
+
+' *** ユビキタス言語 ***
+' スマホ使用率(＝ユーザーが電源ボタン押下でのホーム画面の表示回数)
+'  - 記録する
+'  - 確認する
+'  - リセットする
+
+' スマホの使用を計測
+'  - 開始する
+'  - 停止する
+
+package domain {
+    class SmartPhoneUsageRate {
+        - userPresentCount
+        + checkUserPresentCount()
+        + recordSmartPhoneUsage()
+        + resetSmartPhoneUsage()
+    }
+
+    class UserPresentCount {
+        - count = 0
+    }
+
+    class RecordSmartPhoneUsageService {
+        + record()
+    }
+
+    interface ISmartPhoneUsageRateRepository {
+        + save()
+        + load()
+    }
+
+    enum Measurement {
+        IDLE
+        MEASURING
+    }
+}
+
+package presentation {
+    class HomeFragment {
+        + startMeasurement()
+        + stopMeasurement()
+        + ResetSmartPhoneUsage()
+    }
+}
+
+package usecase {
+    class StartMeasurement
+    class StopMeasurement
+    class RecordSmartPhoneUsage
+    class ResetSmartPhoneUsage
+}
+
+package infra {
+    class SmartPhoneUsageRateRepository {
+        + save()
+        + load()
+    }
+}
+
+' DDDはアーキテクチャに依存せずドメインを隔離できればいい
+' Android Frameworkの都合で実装せざるおえないコンポーネントについては
+' frameworksパッケージに閉じ込める(パッケージ構成は模索中)
+package frameworks {
+    class UserPresentReceiver
+    class Notification
+    note bottom of SmartPhoneUsageMesurementService
+        Androidアプリはバックグラウンドで多くの制約がある
+        ForegroundServiceを利用することでいくつかの制約を解消できる
+        例えば、バックグラウンドで通知を受け取ってDBに記録するなど
+        今回のアプリではバックグラウンドでデバイス起動後のホーム画面表示の通知
+        Intent.ACTION_USER_PRESENTを受け取って回数を記録する必要があるため
+        ForegroundServiceを利用する
+        ForegroundServiceはユーザーにアプリが実行中であることがわかるように
+        Notificationを表示しておく必要がある
+    end note
+    class SmartPhoneUsageMesurementService <<ForegroundService>> {
+        + start()
+        + stop()
+    }
+}
+
+RecordSmartPhoneUsageService --> SmartPhoneUsageRate
+SmartPhoneUsageRate "1" *--> "1" UserPresentCount
+
+' usecase -> domain
+RecordSmartPhoneUsage ---> RecordSmartPhoneUsageService
+ResetSmartPhoneUsage ---> ISmartPhoneUsageRateRepository
+StartMeasurement ---> SmartPhoneUsageMesurementService
+StopMeasurement ---> SmartPhoneUsageMesurementService
+
+' infra -> domain
+SmartPhoneUsageRateRepository ....|> ISmartPhoneUsageRateRepository
+
+' presentaion -> usecase
+HomeFragment --> StartMeasurement
+HomeFragment --> StopMeasurement
+HomeFragment --> ResetSmartPhoneUsage
+
+' frameworks -> usecase
+UserPresentReceiver --> RecordSmartPhoneUsage
+
+SmartPhoneUsageMesurementService --> UserPresentReceiver
+SmartPhoneUsageMesurementService --> Notification
+
+' frameworks -> domain
+SmartPhoneUsageMesurementService -> Measurement
+
+@enduml

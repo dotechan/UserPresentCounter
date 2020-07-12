@@ -23,19 +23,13 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".MeasurementReceiver" />
-
         <service
-            android:name=".MeasurementService"
+            android:name=".usagerate.framework.SmartPhoneUsageMeasurementService"
             android:exported="false" />
 
         <receiver
-            android:name=".count.UnlockReceiver"
+            android:name=".usagerate.framework.UserPresentReceiver"
             android:enabled="true" />
-
-        <service
-            android:name=".count.RecordService"
-            android:exported="false" />
     </application>
 
 </manifest>
