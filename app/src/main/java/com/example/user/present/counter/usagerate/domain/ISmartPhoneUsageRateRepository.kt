@@ -1,9 +1,11 @@
 package com.example.user.present.counter.usagerate.domain
 
-interface ISmartPhoneUsageRateRepository {
-    fun load() : SmartPhoneUsageRate
+import androidx.lifecycle.MutableLiveData
 
-    fun save(unlockCount: SmartPhoneUsageRate)
+interface ISmartPhoneUsageRateRepository {
+    fun load() : MutableLiveData<SmartPhoneUsageRate>
+
+    fun increment()
 
     fun reset()
 }

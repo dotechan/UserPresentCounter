@@ -1,5 +1,6 @@
 package com.example.user.present.counter.usagerate.infra
 
+import androidx.lifecycle.MutableLiveData
 import com.example.user.present.counter.usagerate.domain.ISmartPhoneUsageRateRepository
 import com.example.user.present.counter.usagerate.domain.SmartPhoneUsageRate
 import timber.log.Timber
@@ -17,23 +18,25 @@ class InMemorySmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
                 }
     }
 
-    private var unlockCount = SmartPhoneUsageRate(0)
+    private var unlockCount: MutableLiveData<SmartPhoneUsageRate> = MutableLiveData()
+    init {
+        reset()
+    }
 
-    override fun load(): SmartPhoneUsageRate {
-        Timber.d("load unlockCount = ${unlockCount.userPresentCount}")
+    override fun load(): MutableLiveData<SmartPhoneUsageRate> {
+        Timber.d("load unlockCount = ${unlockCount.value!!.userPresentCount}")
         return unlockCount
     }
 
-    override fun save(unlockCount: SmartPhoneUsageRate) {
-        Timber.d("save unlockCount = ${unlockCount.userPresentCount}")
-        this.unlockCount = unlockCount
+    override fun increment() {
+        TODO("Not yet implemented")
     }
 
     override fun reset() {
-        unlockCount = SmartPhoneUsageRate(0)
+        unlockCount.value = SmartPhoneUsageRate(0)
     }
 
     override fun toString(): String {
-        return "${unlockCount.userPresentCount}"
+        return "${unlockCount.value}"
     }
 }
