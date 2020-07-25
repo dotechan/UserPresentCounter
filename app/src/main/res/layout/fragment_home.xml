@@ -15,6 +15,14 @@
         android:textSize="80sp"
         tools:ignore="RelativeOverlap" />
 
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/home_unit_times"
+        android:textSize="24sp"
+        android:layout_toEndOf="@+id/unlock_count"
+        android:layout_alignBottom="@+id/unlock_count" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
