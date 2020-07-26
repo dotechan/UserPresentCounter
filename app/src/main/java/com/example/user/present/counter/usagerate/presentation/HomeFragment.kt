@@ -60,16 +60,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Timber.d("onViewCreated")
         super.onViewCreated(view, savedInstanceState)
-        // TODO: ラムダ式で書けるはず
+
         val smartPhoneUsageRateObserver = Observer<SmartPhoneUsageRate> { new ->
-            Timber.i("update smartphone usage.")
-            // PINコード解除後の画面表示回数に下線を引く
-            val unlockCount = SpannableStringBuilder(new.userPresentCount.toString())
-            unlockCount.setSpan(UnderlineSpan(),
-                    0,
-                    unlockCount.length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            binding.unlockCount.text = unlockCount
+            Timber.i("update smartphone usage. new count = $new")
+            binding.unlockCount.text = new.userPresentCount.toString()
         }
         viewModel.smartPhoneUsageRate.observe(viewLifecycleOwner, smartPhoneUsageRateObserver)
     }
