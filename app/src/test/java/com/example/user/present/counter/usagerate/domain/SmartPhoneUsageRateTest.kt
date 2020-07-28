@@ -42,10 +42,11 @@ class SmartPhoneUsageRateTest {
     }
 
     @Test
-    fun getCount_given1_return1() {
-        val actual = SmartPhoneUsageRate(1).userPresentCount
+    fun instantiate_givenInitialCount_return0() {
+        val actual = SmartPhoneUsageRate(SmartPhoneUsageRate.INITIAL_COUNT)
+                .userPresentCount
         assertEquals("unlock countが正しく初期化されていません。",
-                actual, 1)
+                actual, 0)
     }
 
     @Test(expected = IllegalArgumentException::class)
