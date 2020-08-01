@@ -15,38 +15,19 @@ class SmartPhoneUsageRateTest {
     }
 
     @Test
-    fun increase_increaseOneTime_return1() {
-        val actual = target.record()
-        MatcherAssert.assertThat("unlock countがインクリメントされていません。",
-                actual.userPresentCount, CoreMatchers.`is`(1))
-    }
-
-    @Test
-    fun increase_increaseThreeTime_return3() {
-        repeat(INCREMENT_THREE_TIMES) {
-            target = target.record()
-        }
-        val actual = target
-        MatcherAssert.assertThat("unlock countがインクリメントされていません。",
-                actual.userPresentCount, CoreMatchers.`is`(3))
-    }
-
-    @Test
-    fun reset_resetAfterIncreaseThreeTime_return0() {
-        repeat(INCREMENT_THREE_TIMES) {
-            target = target.record()
-        }
-        val actual = target.reset()
-        MatcherAssert.assertThat("unlock countが0にリセットされていません。",
-                actual.userPresentCount, CoreMatchers.`is`(SmartPhoneUsageRate.INITIAL_COUNT))
-    }
-
-    @Test
     fun instantiate_givenInitialCount_return0() {
         val actual = SmartPhoneUsageRate(SmartPhoneUsageRate.INITIAL_COUNT)
                 .userPresentCount
-        assertEquals("unlock countが正しく初期化されていません。",
+        assertEquals("unlock countの値は0から999にしてください。",
                 actual, 0)
+    }
+
+    @Test
+    fun instantiate_givenMaxCount_return999() {
+        val actual = SmartPhoneUsageRate(SmartPhoneUsageRate.MAX_COUNT)
+                .userPresentCount
+        assertEquals("unlock countの値は0から999にしてください。",
+                actual, 999)
     }
 
     @Test(expected = IllegalArgumentException::class)
@@ -54,7 +35,25 @@ class SmartPhoneUsageRateTest {
         target = SmartPhoneUsageRate(SmartPhoneUsageRate.INVALID_COUNT)
     }
 
-    companion object Const {
-        const val INCREMENT_THREE_TIMES = 3
+    @Test
+    fun instantiate_givenGreaterMaxCount_return999() {
+        val actual = SmartPhoneUsageRate(SmartPhoneUsageRate.GREATER_MAX_COUNT)
+                .userPresentCount
+        assertEquals("unlock countが1000に到達したら999に丸めてください。",
+                actual, 999)
+    }
+
+    @Test
+    fun record_recordOneTime_return1() {
+        val actual = target.record()
+        MatcherAssert.assertThat("unlock countがインクリメントされていません。",
+                actual.userPresentCount, CoreMatchers.`is`(1))
+    }
+
+    @Test
+    fun reset_resetOneTime_return0() {
+        val actual = target.reset()
+        MatcherAssert.assertThat("unlock countが0にリセットされていません。",
+                actual.userPresentCount, CoreMatchers.`is`(SmartPhoneUsageRate.INITIAL_COUNT))
     }
 }
