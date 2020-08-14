@@ -27,6 +27,15 @@
         android:textSize="24sp"
         app:drawableEndCompat="@drawable/ic_unlock" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ic_plus_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/unlock_count"
+        android:layout_toEndOf="@+id/unlock_count"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_plus_badge" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

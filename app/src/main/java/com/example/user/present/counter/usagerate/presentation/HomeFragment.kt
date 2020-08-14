@@ -61,9 +61,15 @@ class HomeFragment : Fragment() {
         Timber.d("onViewCreated")
         super.onViewCreated(view, savedInstanceState)
 
-        val smartPhoneUsageRateObserver = Observer<SmartPhoneUsageRate> { new ->
-            Timber.i("update smartphone usage. new count = $new")
-            binding.unlockCount.text = new.userPresentCount.toString()
+        val smartPhoneUsageRateObserver = Observer<SmartPhoneUsageRate> { newRate ->
+            Timber.i("update smartphone usage. new count = $newRate")
+            binding.unlockCount.text = newRate.userPresentCount.toString()
+
+            if (newRate.greaterThanMaxCount()) {
+                binding.icPlusBadge.visibility = View.VISIBLE
+            } else {
+                binding.icPlusBadge.visibility = View.INVISIBLE
+            }
         }
         viewModel.smartPhoneUsageRate.observe(viewLifecycleOwner, smartPhoneUsageRateObserver)
     }

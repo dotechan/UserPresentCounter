@@ -17,10 +17,13 @@ class SmartPhoneUsageRate(var userPresentCount: Int) {
         return SmartPhoneUsageRate(INITIAL_COUNT)
     }
 
+    fun greaterThanMaxCount() = userPresentCount >= MAX_COUNT
+
     companion object {
         const val INITIAL_COUNT = 0
         const val INVALID_COUNT = -1
+        const val BELOW_MAX_COUNT = 998
         const val MAX_COUNT = 999
-        const val GREATER_MAX_COUNT = 1000
+        const val ABOVE_MAX_COUNT = 1000
     }
 }
