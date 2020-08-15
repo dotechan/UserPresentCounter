@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">スマホ使用率</string>
+    <string name="channel_name">スマホ使用率計測中</string>
+    <string name="channel_description">スマホ使用率を計測していることがわかるように通知します</string>
+
+    <!-- Home Screen -->
+    <string name="home_start_button">START</string>
+    <string name="home_stop_button">STOP</string>
+    <string name="home_reset_button">RESET</string>
+    <string name="home_dummy_count">0000</string>
+    <string name="home_unit_times">回</string>
+
+    <!-- Notification -->
+    <string name="measurement_notification_content_title">計測中</string>
+    <string name="measurement_notification_content_text">
+        計測を中止するにはホーム画面からストップボタンを押してください。
+    </string>
+
+    <!-- History Screen -->
+    <string name="history_item_icon_description">This icon represents a date.</string>
+
+    <!-- Bottom Navigation -->
+    <string name="home_title">ホーム</string>
+    <string name="history_title">履歴</string>
+    <string name="graph_title">グラフ</string>
+    <string name="toast_graph_nonimplemented">graph is nonimplemented.</string>
+</resources>

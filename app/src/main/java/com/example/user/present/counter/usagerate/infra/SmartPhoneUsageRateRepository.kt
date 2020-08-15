@@ -30,7 +30,7 @@ class SmartPhoneUsageRateRepository(
         Timber.d("load")
 
         val userPresentCount = sharedPref.getInt(
-                resources.getString(R.string.smartphone_usage_rate_key),
+                SmartPhoneUsageRateRepository.Key.USAGE_RATE.name,
                 SmartPhoneUsageRate.INITIAL_COUNT)
 
         smartPhoneUsageRate.value = SmartPhoneUsageRate(userPresentCount)
@@ -42,14 +42,14 @@ class SmartPhoneUsageRateRepository(
         Timber.d("increment")
 
         val currentUserPresentCount = sharedPref.getInt(
-                resources.getString(R.string.smartphone_usage_rate_key),
+                SmartPhoneUsageRateRepository.Key.USAGE_RATE.name,
                 SmartPhoneUsageRate.INITIAL_COUNT)
         Timber.d("current count = $currentUserPresentCount")
 
         val incrementedUserPresentCount = currentUserPresentCount.inc()
         Timber.d("incremented count = $incrementedUserPresentCount")
         with(sharedPref.edit()) {
-            putInt(resources.getString(R.string.smartphone_usage_rate_key),
+            putInt(SmartPhoneUsageRateRepository.Key.USAGE_RATE.name,
                     incrementedUserPresentCount)
             commit()
         }
@@ -61,11 +61,16 @@ class SmartPhoneUsageRateRepository(
         Timber.d("reset")
 
         with(sharedPref.edit()) {
-            putInt(resources.getString(R.string.smartphone_usage_rate_key),
+            putInt(SmartPhoneUsageRateRepository.Key.USAGE_RATE.name,
                     SmartPhoneUsageRate.INITIAL_COUNT)
             commit()
         }
 
         smartPhoneUsageRate.value = SmartPhoneUsageRate(SmartPhoneUsageRate.INITIAL_COUNT)
+    }
+
+    enum class Key {
+        USAGE_RATE_FILE,
+        USAGE_RATE,
     }
 }

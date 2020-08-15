@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">Smartphone Usage Counter</string>
-    <string name="channel_name">channel_name</string>
-    <string name="channel_description">channel_description</string>
-    <string name="preference_file_key">key</string>
-    <string name="saved_unlock_count_key">key_unlock_count</string>
+    <string name="channel_name">Measuring Smartphone Usage</string>
+    <string name="channel_description">Measuring Smartphone Usage</string>
 
     <!-- Home Screen -->
     <string name="home_start_button">START</string>
@@ -24,14 +22,4 @@
     <string name="history_title">History</string>
     <string name="graph_title">Graph</string>
     <string name="toast_graph_nonimplemented">graph is nonimplemented.</string>
-
-    <!-- SharedPreferences Key -->
-    <string name="smartphone_usage_rate_file_key">smartphone_usage_rate_file_key</string>
-    <string name="smartphone_usage_rate_key">smartphone_usage_rate_key</string>
-    <string name="smartphone_usage_rate_file_for_unit_test_key">
-        smartphone_usage_rate_file_for_unit_test_key
-    </string>
-    <string name="smartphone_usage_rate_for_unit_test_key">
-        smartphone_usage_rate_for_unit_test_key
-    </string>
 </resources>
