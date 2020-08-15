@@ -87,5 +87,6 @@ lint/tmp/
 # ito add start
 design/*
 !*.pu
+.DS_Store
 # ito add end
 
