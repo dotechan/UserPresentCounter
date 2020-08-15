@@ -67,12 +67,13 @@ class MainActivity : AppCompatActivity() {
                             .replace(R.id.fragment_container, HistoryFragment())
                             .commit()
                 }
-                R.id.navigation_graph -> {
-                    Toast.makeText(
-                            baseContext,
-                            R.string.toast_graph_nonimplemented,
-                            Toast.LENGTH_SHORT).show()
-                }
+//                FIXME: 初回リリースからはグラフ表示機能をドロップしたためコメントアウトしている
+//                R.id.navigation_graph -> {
+//                    Toast.makeText(
+//                            baseContext,
+//                            R.string.toast_graph_nonimplemented,
+//                            Toast.LENGTH_SHORT).show()
+//                }
             }
             return@setOnNavigationItemSelectedListener true
         }
