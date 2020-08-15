@@ -24,7 +24,7 @@ class Injection {
             val sharedPref = context.getSharedPreferences(
                     SmartPhoneUsageRateRepository.Key.USAGE_RATE_FILE.name, Context.MODE_PRIVATE)
 
-            return SmartPhoneUsageRateRepository.getRepository(sharedPref, context.resources)
+            return SmartPhoneUsageRateRepository.getRepository(sharedPref)
         }
     }
 }

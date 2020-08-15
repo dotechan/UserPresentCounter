@@ -1,24 +1,20 @@
 package com.example.user.present.counter.usagerate.infra
 
 import android.content.SharedPreferences
-import android.content.res.Resources
 import androidx.lifecycle.MutableLiveData
-import com.example.user.present.counter.R
 import com.example.user.present.counter.usagerate.domain.ISmartPhoneUsageRateRepository
 import com.example.user.present.counter.usagerate.domain.SmartPhoneUsageRate
 import timber.log.Timber
 
 class SmartPhoneUsageRateRepository(
-        private val sharedPref: SharedPreferences,
-        private val resources: Resources
-) : ISmartPhoneUsageRateRepository {
+        private val sharedPref: SharedPreferences) : ISmartPhoneUsageRateRepository {
     companion object {
         @Volatile
         private var INSTANCE: SmartPhoneUsageRateRepository? = null
 
-        fun getRepository(sharedPref: SharedPreferences, resources: Resources): SmartPhoneUsageRateRepository = INSTANCE
+        fun getRepository(sharedPref: SharedPreferences): SmartPhoneUsageRateRepository = INSTANCE
                 ?: synchronized(this) {
-                    SmartPhoneUsageRateRepository(sharedPref, resources).also {
+                    SmartPhoneUsageRateRepository(sharedPref).also {
                         INSTANCE = it
                     }
                 }
