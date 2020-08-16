@@ -2,9 +2,6 @@ package com.example.user.present.counter.usagerate.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +35,8 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(activity!!.viewModelStore,
                 HomeViewModelFactory(activity!!.application,
-                        Injection.provideSmartPhoneUsageRateRepository(context!!.applicationContext))
+                        Injection.provideSmartPhoneUsageRateRepository(context!!.applicationContext),
+                        Injection.provideMeasureStateRepository(context!!.applicationContext))
         ).get(HomeViewModel::class.java)
     }
 
@@ -61,17 +59,9 @@ class HomeFragment : Fragment() {
         Timber.d("onViewCreated")
         super.onViewCreated(view, savedInstanceState)
 
-        val smartPhoneUsageRateObserver = Observer<SmartPhoneUsageRate> { newRate ->
-            Timber.i("update smartphone usage. new count = $newRate")
-            binding.unlockCount.text = newRate.userPresentCount.toString()
+        observeSmartPhoneUsageRate()
 
-            if (newRate.greaterThanMaxCount()) {
-                binding.icPlusBadge.visibility = View.VISIBLE
-            } else {
-                binding.icPlusBadge.visibility = View.INVISIBLE
-            }
-        }
-        viewModel.smartPhoneUsageRate.observe(viewLifecycleOwner, smartPhoneUsageRateObserver)
+        observeMeasureState()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -82,8 +72,6 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         Timber.d("onResume")
         super.onResume()
-
-        updateButton()
     }
 
     override fun onPause() {
@@ -166,9 +154,7 @@ class HomeFragment : Fragment() {
             Timber.d("onClick: stop")
             StopMeasurement(requireContext()).execute()
             recordStopHistory()
-            hideStopButton()
-            showStartButton()
-            viewModel.isMeasuring = false
+            viewModel.stop()
         }
     }
 
@@ -177,20 +163,34 @@ class HomeFragment : Fragment() {
             Timber.d("onClick: start")
             StartMeasurement(requireContext()).execute()
             recordStartHistory()
-            hideStartButton()
-            showStopButton()
-            viewModel.isMeasuring = true
+            viewModel.start()
         }
     }
 
-    private fun updateButton() {
-        Timber.d("isMeasuring = ${viewModel.isMeasuring}")
-        if (viewModel.isMeasuring) {
-            hideStartButton()
-            showStopButton()
-        } else {
-            hideStopButton()
-            showStartButton()
+    private fun observeSmartPhoneUsageRate() {
+        val smartPhoneUsageRateObserver = Observer<SmartPhoneUsageRate> { newRate ->
+            Timber.i("update smartphone usage. new count = $newRate")
+            binding.unlockCount.text = newRate.userPresentCount.toString()
+
+            if (newRate.greaterThanMaxCount()) {
+                binding.icPlusBadge.visibility = View.VISIBLE
+            } else {
+                binding.icPlusBadge.visibility = View.INVISIBLE
+            }
         }
+        viewModel.smartPhoneUsageRate.observe(viewLifecycleOwner, smartPhoneUsageRateObserver)
+    }
+
+    private fun observeMeasureState() {
+        viewModel.isMeasuring.observe(viewLifecycleOwner, Observer {
+            Timber.i("update start/stop button. new state = $it")
+            if (it) {
+                hideStartButton()
+                showStopButton()
+            } else {
+                hideStopButton()
+                showStartButton()
+            }
+        })
     }
 }
