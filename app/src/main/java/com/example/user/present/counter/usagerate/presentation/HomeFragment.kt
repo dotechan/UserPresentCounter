@@ -59,28 +59,9 @@ class HomeFragment : Fragment() {
         Timber.d("onViewCreated")
         super.onViewCreated(view, savedInstanceState)
 
-        val smartPhoneUsageRateObserver = Observer<SmartPhoneUsageRate> { newRate ->
-            Timber.i("update smartphone usage. new count = $newRate")
-            binding.unlockCount.text = newRate.userPresentCount.toString()
+        observeSmartPhoneUsageRate()
 
-            if (newRate.greaterThanMaxCount()) {
-                binding.icPlusBadge.visibility = View.VISIBLE
-            } else {
-                binding.icPlusBadge.visibility = View.INVISIBLE
-            }
-        }
-        viewModel.smartPhoneUsageRate.observe(viewLifecycleOwner, smartPhoneUsageRateObserver)
-
-        viewModel.isMeasuring.observe(viewLifecycleOwner, Observer {
-            Timber.i("update start/stop button. new state = $it")
-            if (it) {
-                hideStartButton()
-                showStopButton()
-            } else {
-                hideStopButton()
-                showStartButton()
-            }
-        })
+        observeMeasureState()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -184,5 +165,32 @@ class HomeFragment : Fragment() {
             recordStartHistory()
             viewModel.start()
         }
+    }
+
+    private fun observeSmartPhoneUsageRate() {
+        val smartPhoneUsageRateObserver = Observer<SmartPhoneUsageRate> { newRate ->
+            Timber.i("update smartphone usage. new count = $newRate")
+            binding.unlockCount.text = newRate.userPresentCount.toString()
+
+            if (newRate.greaterThanMaxCount()) {
+                binding.icPlusBadge.visibility = View.VISIBLE
+            } else {
+                binding.icPlusBadge.visibility = View.INVISIBLE
+            }
+        }
+        viewModel.smartPhoneUsageRate.observe(viewLifecycleOwner, smartPhoneUsageRateObserver)
+    }
+
+    private fun observeMeasureState() {
+        viewModel.isMeasuring.observe(viewLifecycleOwner, Observer {
+            Timber.i("update start/stop button. new state = $it")
+            if (it) {
+                hideStartButton()
+                showStopButton()
+            } else {
+                hideStopButton()
+                showStartButton()
+            }
+        })
     }
 }
