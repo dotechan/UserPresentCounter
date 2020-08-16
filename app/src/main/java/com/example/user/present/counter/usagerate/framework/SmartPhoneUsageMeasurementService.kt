@@ -62,7 +62,7 @@ class SmartPhoneUsageMeasurementService : Service() {
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         return NotificationCompat.Builder(this, "temp_id")
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setSmallIcon(R.drawable.ic_notification_measuring)
                 .setContentTitle(getString(R.string.measurement_notification_content_title))
                 .setContentText(getString(R.string.measurement_notification_content_text))
                 .setPriority(NotificationCompat.PRIORITY_LOW)
