@@ -2,9 +2,6 @@ package com.example.user.present.counter.usagerate.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.UnderlineSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +35,8 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(activity!!.viewModelStore,
                 HomeViewModelFactory(activity!!.application,
-                        Injection.provideSmartPhoneUsageRateRepository(context!!.applicationContext))
+                        Injection.provideSmartPhoneUsageRateRepository(context!!.applicationContext),
+                        Injection.provideMeasureStateRepository(context!!.applicationContext))
         ).get(HomeViewModel::class.java)
     }
 
@@ -72,6 +70,17 @@ class HomeFragment : Fragment() {
             }
         }
         viewModel.smartPhoneUsageRate.observe(viewLifecycleOwner, smartPhoneUsageRateObserver)
+
+        viewModel.isMeasuring.observe(viewLifecycleOwner, Observer {
+            Timber.i("update start/stop button. new state = $it")
+            if (it) {
+                hideStartButton()
+                showStopButton()
+            } else {
+                hideStopButton()
+                showStartButton()
+            }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -82,8 +91,6 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         Timber.d("onResume")
         super.onResume()
-
-        updateButton()
     }
 
     override fun onPause() {
@@ -166,9 +173,7 @@ class HomeFragment : Fragment() {
             Timber.d("onClick: stop")
             StopMeasurement(requireContext()).execute()
             recordStopHistory()
-            hideStopButton()
-            showStartButton()
-            viewModel.isMeasuring = false
+            viewModel.stop()
         }
     }
 
@@ -177,20 +182,7 @@ class HomeFragment : Fragment() {
             Timber.d("onClick: start")
             StartMeasurement(requireContext()).execute()
             recordStartHistory()
-            hideStartButton()
-            showStopButton()
-            viewModel.isMeasuring = true
-        }
-    }
-
-    private fun updateButton() {
-        Timber.d("isMeasuring = ${viewModel.isMeasuring}")
-        if (viewModel.isMeasuring) {
-            hideStartButton()
-            showStopButton()
-        } else {
-            hideStopButton()
-            showStartButton()
+            viewModel.start()
         }
     }
 }

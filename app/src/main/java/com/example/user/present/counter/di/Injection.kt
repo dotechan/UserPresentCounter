@@ -5,6 +5,7 @@ import com.example.user.present.counter.R
 import com.example.user.present.counter.history.infra.HistoryDatabase
 import com.example.user.present.counter.history.infra.HistoryRepository
 import com.example.user.present.counter.usagerate.infra.InMemorySmartPhoneUsageRateRepository
+import com.example.user.present.counter.usagerate.infra.MeasureStateRepository
 import com.example.user.present.counter.usagerate.infra.SmartPhoneUsageRateRepository
 
 // TODO: java -> mockにディレクトリを移動する
@@ -25,6 +26,13 @@ class Injection {
                     SmartPhoneUsageRateRepository.Key.USAGE_RATE_FILE.name, Context.MODE_PRIVATE)
 
             return SmartPhoneUsageRateRepository.getRepository(sharedPref)
+        }
+
+        fun provideMeasureStateRepository(context: Context): MeasureStateRepository {
+            val sharedPref = context.getSharedPreferences(
+                    MeasureStateRepository.Key.MEASURE_STATE_FILE.name, Context.MODE_PRIVATE)
+
+            return MeasureStateRepository.getRepository(sharedPref)
         }
     }
 }
