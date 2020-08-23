@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -10,65 +11,87 @@
         android:id="@+id/unlock_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/home_dummy_count"
+        android:text="@string/home_init_count"
         android:textColor="@color/design_default_color_primary"
         android:textSize="100sp"
-        tools:ignore="RelativeOverlap" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RelativeOverlap"
+        tools:text="@string/home_dummy_count" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/unit_times"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/unlock_count"
-        android:layout_toEndOf="@+id/unlock_count"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="1dp"
         android:drawablePadding="8dp"
         android:text="@string/home_unit_times"
         android:textSize="24sp"
-        app:drawableEndCompat="@drawable/ic_unlock" />
+        app:drawableEndCompat="@drawable/ic_unlock"
+        app:layout_constraintBottom_toBottomOf="@+id/unlock_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/unlock_count" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ic_plus_badge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/unlock_count"
-        android:layout_toEndOf="@+id/unlock_count"
+        android:layout_marginEnd="69dp"
         android:visibility="invisible"
-        app:srcCompat="@drawable/ic_plus_badge" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/unlock_count"
+        app:layout_constraintTop_toTopOf="@+id/unlock_count"
+        app:srcCompat="@drawable/ic_plus_badge"
+        tools:visibility="visible" />
 
-    <LinearLayout
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/reset_button"
+        style="@style/Button.Reset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/unlock_count"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_reset_button"
+        app:icon="@drawable/ic_reset"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/start_button"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/unlock_count" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/reset_button"
-            style="@style/Button.Reset"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/home_reset_button"
-            app:icon="@drawable/ic_reset" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/start_button"
+        style="@style/Button.StartStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/home_start_button"
+        android:visibility="visible"
+        app:icon="@drawable/ic_start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/reset_button"
+        app:layout_constraintTop_toBottomOf="@+id/unlock_count" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/start_button"
-            style="@style/Button.StartStop"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/home_start_button"
-            android:visibility="visible"
-            app:icon="@drawable/ic_start" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/stop_button"
+        style="@style/Button.StartStop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/home_stop_button"
+        android:visibility="gone"
+        app:icon="@drawable/ic_stop"
+        app:layout_constraintBottom_toTopOf="@+id/reset_button"
+        app:layout_constraintEnd_toStartOf="@+id/reset_button"
+        app:layout_constraintTop_toTopOf="@+id/reset_button" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/stop_button"
-            style="@style/Button.StartStop"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/home_stop_button"
-            android:visibility="gone"
-            app:icon="@drawable/ic_stop" />
-    </LinearLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
