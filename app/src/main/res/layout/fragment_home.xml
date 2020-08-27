@@ -5,7 +5,8 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    tools:visibility="invisible">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/unlock_count"
@@ -51,47 +52,49 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/reset_button"
         style="@style/Button.Reset"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/measurement_button"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:text="@string/home_reset_button"
         app:icon="@drawable/ic_reset"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/start_button"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/unlock_count" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/start_button"
         style="@style/Button.StartStop"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/measurement_button"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
         android:text="@string/home_start_button"
         android:visibility="visible"
         app:icon="@drawable/ic_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/reset_button"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
         app:layout_constraintTop_toBottomOf="@+id/unlock_count" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/stop_button"
         style="@style/Button.StartStop"
+        android:layout_width="@dimen/measurement_button"
+        android:layout_height="wrap_content"
+        android:text="@string/home_stop_button"
+        android:visibility="visible"
+        app:icon="@drawable/ic_stop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/unlock_count" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="@string/home_stop_button"
-        android:visibility="gone"
-        app:icon="@drawable/ic_stop"
-        app:layout_constraintBottom_toTopOf="@+id/reset_button"
-        app:layout_constraintEnd_toStartOf="@+id/reset_button"
-        app:layout_constraintTop_toTopOf="@+id/reset_button" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
