@@ -10,6 +10,8 @@ import timber.log.Timber
 class UserPresentReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         Timber.d("onReceive: ${intent.action}")
+        if (intent.action != Intent.ACTION_USER_PRESENT) return
+
         IncrementSmartPhoneUsage(context.applicationContext).execute()
         RecordHistory(context.applicationContext).execute()
     }
