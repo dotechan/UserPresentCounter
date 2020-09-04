@@ -38,6 +38,8 @@ buildscript {
         // Testing dependencies android
         extJunit = '1.1.1'
         espressoCore = '3.2.0'
+
+        navVersion = '2.3.0'
     }
 
     repositories {
