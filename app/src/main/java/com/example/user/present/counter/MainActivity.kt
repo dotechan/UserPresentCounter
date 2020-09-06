@@ -2,7 +2,6 @@ package com.example.user.present.counter
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.user.present.counter.databinding.ActivityMainBinding
 import com.example.user.present.counter.history.presentation.HistoryFragment
@@ -58,13 +57,13 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home -> {
                     supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.fragment_container, HomeFragment())
+                            .replace(R.id.nav_host_fragment, HomeFragment())
                             .commit()
                 }
                 R.id.navigation_history -> {
                     supportFragmentManager
                             .beginTransaction()
-                            .replace(R.id.fragment_container, HistoryFragment())
+                            .replace(R.id.nav_host_fragment, HistoryFragment())
                             .commit()
                 }
 //                FIXME: 初回リリースからはグラフ表示機能をドロップしたためコメントアウトしている
