@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/home_dest">
+
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home_dest"
         android:name="com.example.user.present.counter.usagerate.presentation.HomeFragment"
-        android:label="HomeFragment" >
+        android:label="@string/home_title"
+        tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_historyFragment"
-            app:destination="@id/historyFragment" />
+            android:id="@+id/action_home_dest_to_history_dest"
+            app:destination="@id/history_dest" />
     </fragment>
+
     <fragment
-        android:id="@+id/historyFragment"
+        android:id="@+id/history_dest"
         android:name="com.example.user.present.counter.history.presentation.HistoryFragment"
-        android:label="HistoryFragment" />
+        android:label="@string/history_title"
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_history_dest_to_home_dest"
+            app:popUpTo="@id/home_dest" />
+    </fragment>
 </navigation>
