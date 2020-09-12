@@ -38,6 +38,8 @@ buildscript {
         // Testing dependencies android
         extJunit = '1.1.1'
         espressoCore = '3.2.0'
+
+        navVersion = '2.3.0'
     }
 
     repositories {
@@ -49,6 +51,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

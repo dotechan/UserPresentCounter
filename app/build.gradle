@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -59,6 +60,12 @@ dependencies {
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutinesVersion"
 
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.navVersion"
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$rootProject.navVersion"
+
     // Testing dependencies
     testImplementation "junit:junit:$rootProject.junit"
     testImplementation "androidx.test:core:$rootProject.testCore"
@@ -72,6 +79,8 @@ dependencies {
     // Android Testing dependencies
     androidTestImplementation "androidx.test.ext:junit:$rootProject.extJunit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoCore"
+    // Testing Navigation
+    androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.navVersion"
 }
 
 repositories {
