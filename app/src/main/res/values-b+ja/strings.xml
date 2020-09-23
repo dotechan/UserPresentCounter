@@ -19,6 +19,10 @@
 
     <!-- History Screen -->
     <string name="history_item_icon_description">This icon represents a date.</string>
+    <string name="history_item_action_unlock">ロック解除</string>
+    <string name="history_item_action_start">Start</string>
+    <string name="history_item_action_stop">Stop</string>
+    <string name="history_item_action_reset">Reset</string>
 
     <!-- Bottom Navigation -->
     <string name="home_title">ホーム</string>
