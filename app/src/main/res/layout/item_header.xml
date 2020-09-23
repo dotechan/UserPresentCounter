@@ -14,6 +14,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="HEADER" />
+        tools:text="12月34日(月)" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

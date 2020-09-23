@@ -20,7 +20,7 @@ data class History(
 
     @Ignore
     // 履歴画面に表示する時間の形式に整形するフォーマッター
-    private val MdSimpleDateFormat = SimpleDateFormat("MM月dd日", Locale.JAPAN)
+    private val MdSimpleDateFormat = SimpleDateFormat("MM月dd日(E)", Locale.JAPAN)
 
     @Ignore
     // 履歴画面に日付ヘッダーを挿入するかの判定に利用するフォーマッター
@@ -38,8 +38,9 @@ data class History(
     /**
      * 履歴画面に表示するヘッダーの形式に日付を整形する
      *
-     * @return 日付を「MM月dd日」の形式に整形した文字列
+     * @return 日付を「MM月dd日(曜日)」の形式に整形した文字列
      */
+    // TODO: 英語対応
     fun formatListHeader(): String {
         return MdSimpleDateFormat.format(date)
     }
