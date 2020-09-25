@@ -9,7 +9,7 @@
     <string name="home_reset_button">RESET</string>
     <string name="home_init_count">0</string>
     <string name="home_dummy_count">000</string>
-    <string name="home_unit_times">times</string>
+    <string name="home_title_unlocks">unlocks</string>
 
     <!-- Notification -->
     <string name="measurement_notification_content_title">Measuring now</string>
