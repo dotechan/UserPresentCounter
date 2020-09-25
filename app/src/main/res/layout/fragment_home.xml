@@ -6,7 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    tools:visibility="invisible">
+    tools:visibility="visible">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:text="@string/home_title_unlocks"
+        android:textSize="48sp"
+        app:drawableEndCompat="@drawable/ic_unlock"
+        app:layout_constraintBottom_toTopOf="@+id/unlock_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/unlock_count"
@@ -22,20 +34,6 @@
         tools:ignore="RelativeOverlap"
         tools:text="@string/home_dummy_count" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/unit_times"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="1dp"
-        android:drawablePadding="8dp"
-        android:text="@string/home_unit_times"
-        android:textSize="24sp"
-        app:drawableEndCompat="@drawable/ic_unlock"
-        app:layout_constraintBottom_toBottomOf="@+id/unlock_count"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/unlock_count" />
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ic_plus_badge"
         android:layout_width="wrap_content"
@@ -47,7 +45,6 @@
         app:layout_constraintTop_toTopOf="@+id/unlock_count"
         app:srcCompat="@drawable/ic_plus_badge"
         tools:visibility="visible" />
-
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/reset_button"
