@@ -28,9 +28,9 @@ class HistoryTest {
     @Test
     fun formatListHeader_returnsFormatString() {
         val actual = target.formatListHeader()
-        // フォーマットの検証であり、厳密にMM月dd日といった数字になっているかまでは検証していない
+        // フォーマットの検証であり、厳密にMM月dd日(曜日)といった数字になっているかまでは検証していない
         // CJK統合漢字の一覧より、右記の漢字をUnicodeで表すと"月"は6708、"日"は65E5
-        assertTrue(actual.matches(Regex("^[0-9]{1,2}[\\u6708][0-9]{1,2}[\\u65E5]$")))
+        assertTrue(actual.matches(Regex("^[0-9]{1,2}[\\u6708][0-9]{1,2}[\\u65E5]\\(.\\)$")))
     }
 
     @Test
