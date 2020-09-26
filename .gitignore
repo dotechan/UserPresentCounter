@@ -88,5 +88,6 @@ lint/tmp/
 design/*
 !*.pu
 .DS_Store
+.idea/codeStyles/Project.xml
 # ito add end
 
