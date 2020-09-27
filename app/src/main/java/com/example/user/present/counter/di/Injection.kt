@@ -8,7 +8,6 @@ import com.example.user.present.counter.usagerate.infra.InMemorySmartPhoneUsageR
 import com.example.user.present.counter.usagerate.infra.MeasureStateRepository
 import com.example.user.present.counter.usagerate.infra.SmartPhoneUsageRateRepository
 
-// TODO: java -> mockにディレクトリを移動する
 class Injection {
 
     companion object {

@@ -29,7 +29,7 @@ class InMemorySmartPhoneUsageRateRepository : ISmartPhoneUsageRateRepository {
     }
 
     override fun increment() {
-        TODO("Not yet implemented")
+        // NOP
     }
 
     override fun reset() {
