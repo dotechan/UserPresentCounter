@@ -3,7 +3,7 @@ package com.example.user.present.counter.usagerate.framework
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.example.user.present.counter.history.usecase.RecordHistory
+import com.example.user.present.counter.history.usecase.RecordHistoryUnlocked
 import com.example.user.present.counter.usagerate.usecase.IncrementSmartPhoneUsage
 import timber.log.Timber
 
@@ -13,7 +13,7 @@ class UserPresentReceiver : BroadcastReceiver() {
         if (intent.action != Intent.ACTION_USER_PRESENT) return
 
         IncrementSmartPhoneUsage(context.applicationContext).execute()
-        RecordHistory(context.applicationContext).execute()
+        RecordHistoryUnlocked(context.applicationContext).execute()
     }
 
     override fun toString(): String {
