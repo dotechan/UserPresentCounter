@@ -29,7 +29,10 @@ class HistoryFragment : Fragment() {
                 .create(HistoryViewModel::class.java)
         // 履歴リストの変更を監視する
         historyViewModel.historyList.observe(this, Observer { historyList ->
-            historyList?.let { adapter.setHistoryList(it) }
+            historyList?.let {
+
+                adapter.setHistoryList(it)
+            }
         })
 
         return rootView
