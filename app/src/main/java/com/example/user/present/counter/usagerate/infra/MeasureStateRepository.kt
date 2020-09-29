@@ -3,6 +3,9 @@ package com.example.user.present.counter.usagerate.infra
 import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import com.example.user.present.counter.usagerate.domain.IMeasureStateRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class MeasureStateRepository(private val sharedPref: SharedPreferences) : IMeasureStateRepository {
@@ -34,9 +37,12 @@ class MeasureStateRepository(private val sharedPref: SharedPreferences) : IMeasu
     override fun start() {
         Timber.d("start")
 
-        with(sharedPref.edit()) {
-            putBoolean(Key.MEASURE_STATE.name, true)
-            commit()
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            with(sharedPref.edit()) {
+                putBoolean(Key.MEASURE_STATE.name, true)
+                commit()
+            }
         }
 
         isMeasuring.value = true
@@ -45,9 +51,12 @@ class MeasureStateRepository(private val sharedPref: SharedPreferences) : IMeasu
     override fun stop() {
         Timber.d("stop")
 
-        with(sharedPref.edit()) {
-            putBoolean(Key.MEASURE_STATE.name, false)
-            commit()
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            with(sharedPref.edit()) {
+                putBoolean(Key.MEASURE_STATE.name, false)
+                commit()
+            }
         }
 
         isMeasuring.value = false

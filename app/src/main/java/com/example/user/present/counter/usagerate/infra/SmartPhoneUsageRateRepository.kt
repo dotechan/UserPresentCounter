@@ -4,6 +4,9 @@ import android.content.SharedPreferences
 import androidx.lifecycle.MutableLiveData
 import com.example.user.present.counter.usagerate.domain.ISmartPhoneUsageRateRepository
 import com.example.user.present.counter.usagerate.domain.SmartPhoneUsageRate
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class SmartPhoneUsageRateRepository(
@@ -44,25 +47,31 @@ class SmartPhoneUsageRateRepository(
 
         val incrementedUserPresentCount = currentUserPresentCount.inc()
         Timber.d("incremented count = $incrementedUserPresentCount")
-        with(sharedPref.edit()) {
-            putInt(SmartPhoneUsageRateRepository.Key.USAGE_RATE.name,
-                    incrementedUserPresentCount)
-            commit()
-        }
-
         smartPhoneUsageRate.value = SmartPhoneUsageRate(incrementedUserPresentCount)
+
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            with(sharedPref.edit()) {
+                putInt(SmartPhoneUsageRateRepository.Key.USAGE_RATE.name,
+                        incrementedUserPresentCount)
+                commit()
+            }
+        }
     }
 
     override fun reset() {
         Timber.d("reset")
 
-        with(sharedPref.edit()) {
-            putInt(SmartPhoneUsageRateRepository.Key.USAGE_RATE.name,
-                    SmartPhoneUsageRate.INITIAL_COUNT)
-            commit()
-        }
-
         smartPhoneUsageRate.value = SmartPhoneUsageRate(SmartPhoneUsageRate.INITIAL_COUNT)
+
+        val scope = CoroutineScope(Dispatchers.IO)
+        scope.launch {
+            with(sharedPref.edit()) {
+                putInt(SmartPhoneUsageRateRepository.Key.USAGE_RATE.name,
+                        SmartPhoneUsageRate.INITIAL_COUNT)
+                commit()
+            }
+        }
     }
 
     enum class Key {
