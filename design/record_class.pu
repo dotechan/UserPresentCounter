@@ -31,7 +31,7 @@ package domain {
         + load()
     }
 
-    enum Measurement {
+    enum MeasurementState {
         IDLE
         MEASURING
     }
@@ -79,6 +79,11 @@ package frameworks {
         + start()
         + stop()
     }
+
+    class MyApplication {
+        + startForegroundService()
+        + stopForegroundService()
+    }
 }
 
 RecordSmartPhoneUsageService --> SmartPhoneUsageRate
@@ -87,8 +92,8 @@ SmartPhoneUsageRate "1" *--> "1" UserPresentCount
 ' usecase -> domain
 RecordSmartPhoneUsage ---> RecordSmartPhoneUsageService
 ResetSmartPhoneUsage ---> ISmartPhoneUsageRateRepository
-StartMeasurement ---> SmartPhoneUsageMesurementService
-StopMeasurement ---> SmartPhoneUsageMesurementService
+StartMeasurement ---> MyApplication
+StopMeasurement ---> MyApplication
 
 ' infra -> domain
 SmartPhoneUsageRateRepository ....|> ISmartPhoneUsageRateRepository
@@ -104,7 +109,11 @@ UserPresentReceiver --> RecordSmartPhoneUsage
 SmartPhoneUsageMesurementService --> UserPresentReceiver
 SmartPhoneUsageMesurementService --> Notification
 
+' frameworks -> frameworks
+MyApplication -> SmartPhoneUsageMesurementService
+HomeFragment --> MyApplication
+
 ' frameworks -> domain
-SmartPhoneUsageMesurementService -> Measurement
+MyApplication -> MeasurementState
 
 @enduml

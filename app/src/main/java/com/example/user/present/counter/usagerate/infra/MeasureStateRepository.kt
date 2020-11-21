@@ -21,44 +21,20 @@ class MeasureStateRepository(private val sharedPref: SharedPreferences) : IMeasu
                 }
     }
 
-    var isMeasuring: MutableLiveData<Boolean> = MutableLiveData()
+    var isMeasuring: MutableLiveData<Boolean> = MutableLiveData(false)
 
     override fun load(): MutableLiveData<Boolean> {
         Timber.d("load")
-
-        val isMeasuring = sharedPref.getBoolean(
-                Key.MEASURE_STATE.name, false)
-
-        this.isMeasuring.value = isMeasuring
-
         return this.isMeasuring
     }
 
     override fun start() {
         Timber.d("start")
-
-        val scope = CoroutineScope(Dispatchers.IO)
-        scope.launch {
-            with(sharedPref.edit()) {
-                putBoolean(Key.MEASURE_STATE.name, true)
-                commit()
-            }
-        }
-
         isMeasuring.value = true
     }
 
     override fun stop() {
         Timber.d("stop")
-
-        val scope = CoroutineScope(Dispatchers.IO)
-        scope.launch {
-            with(sharedPref.edit()) {
-                putBoolean(Key.MEASURE_STATE.name, false)
-                commit()
-            }
-        }
-
         isMeasuring.value = false
     }
 
