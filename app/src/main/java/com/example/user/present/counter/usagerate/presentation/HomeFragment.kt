@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(activity!!.viewModelStore,
                 HomeViewModelFactory(activity!!.application,
                         Injection.provideSmartPhoneUsageRateRepository(context!!.applicationContext),
-                        Injection.provideMeasureStateRepository(context!!.applicationContext))
+                        Injection.provideMeasureStateRepository())
         ).get(HomeViewModel::class.java)
     }
 
