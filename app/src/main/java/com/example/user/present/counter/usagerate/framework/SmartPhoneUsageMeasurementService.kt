@@ -20,7 +20,7 @@ class SmartPhoneUsageMeasurementService : Service() {
         registerUnlockReceiver()
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Timber.d("onStartCommand")
         createNotificationChannel()
         startForeground(1, createNotification())

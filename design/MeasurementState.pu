@@ -1,0 +1,16 @@
+@startuml
+
+[*] --> 停止中
+
+停止中 -> 計測中 : STARTボタンが押された
+計測中 : do / 計測する
+計測中 : exit / Notificationを停止する
+
+計測中 -> 停止中 : STOPボタンが押された
+停止中 : entry / 停止する
+停止中 : exit / Notificationを開始する
+
+停止中 --> [*] : プロセスがkillされた
+計測中 --> [*] : プロセスがkillされた
+
+@enduml
